@@ -1,4 +1,5 @@
-#pragma once
+#ifndef celula_h
+#define celula_h
 
 #include <iostream>
 #include <stdlib.h>
@@ -7,13 +8,26 @@
 #include <utility>
 #include <set>
 #include <vector>
+#include "estado.h"
+#include "posicion.h"
+
+class Latice;
 
 class Celula {
  public:
+  Celula(const Posicion&, const Estado&);
+  Estado GetEstado() const;
+  void SetEstado(estado);
+  void UpdateState();
+
+  ostream& operator<<(ostream&, const Cell&);
 
  private:
-   //espacio celula
-   //Un conjunto de estados o alfabeto
-   //vecindad
+   //Latice latice_;
+   Estado estado_;
+   Posicion pos_;
    //Una función de transición local
 }
+
+
+#endif celula_h
