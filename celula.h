@@ -18,7 +18,9 @@ class Celula {
   Celula(const Posicion&, const Estado&);
   Estado GetEstado() const;
   void SetEstado(estado);
-  void UpdateState();
+  int nextState(const Lattice&);
+  void UpdateState(); // Preguntar si es necesario y como usarla
+  Posicion GetPosicion() const;
 
   ostream& operator<<(ostream&, const Cell&);
 
