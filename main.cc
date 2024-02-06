@@ -11,8 +11,33 @@ void Help() {
 
 int main(int argc, char* argv[]) {
   //Help();
-  int n = 8;
-  Latice latice(n);
+  int flag = 0;
+  int n = std::stoi(argv[2]);
+  if (std::string(argv[4]) == "open") {
+    if (std::string(argv[5]) == "0") {
+      //std::cout << "entra0" << std::endl;
+      flag = 0;
+    } else if (std::string(argv[5]) == "1") {
+      //std::cout << "entra1" << std::endl;
+      flag = 1;
+    }
+  } else if (std::string(argv[4]) == "periodic") {
+    //std::cout << "entra2" << std::endl;
+    flag = 2;
+  }
+  std::string fichero = " ";
+  //std::cout << argc << std::endl;
+  if (argc == 8 ) {
+    fichero = argv[7];
+  } else if (argc == 7 && std::string(argv[4]) == "periodic") {
+    fichero = argv[6];
+  }
+
+  std::cout << "flag: " << flag << std::endl;
+  std::cout << "n: " << n << std::endl;
+  std::cout << "fichero: " << fichero << std::endl;
+  Latice latice(n,flag,fichero);
   latice.PrintLatice();
+  latice.NextGeneration();
   return 0;
 }

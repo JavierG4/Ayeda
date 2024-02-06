@@ -1,4 +1,6 @@
+
 #include "celula.h"
+#include "latice.h"
 
 Celula::Celula(const Posicion& pos, const Estado& estado = Estado()) {
   pos_ = pos;
@@ -22,7 +24,68 @@ void Celula::UpdateState() {
   estado_ = estado_siguiente_;
 }
 
-int Celula::NextState(const Latice& reticula) {
+int Celula::NextState(Latice& reticula) {
+  int izquierda, derecha, central;
+  int siguiente;
+  if (GetPosicion().GetPosicion() == 0) {
+    izquierda = 0;
+    derecha = reticula[GetPosicion().GetPosicion() + 1].GetEstado().GetEstado();
+    central = GetEstado().GetEstado();
+    if (reticula.GetFrontera() == 0) { // Abierta fría
+      izquierda = 0;
+    } else if (reticula.GetFrontera() == 1) { // Abierta caliente
+      izquierda = 1;
+    } else { // Periódica
+      izquierda = reticula[reticula.GetNumCelula() - 1].GetEstado().GetEstado();
+    }
+    siguiente = (central + derecha + central * derecha + izquierda * central * derecha) % 2;
+    return siguiente;
+
+  } else if (GetPosicion().GetPosicion() == reticula.GetNumCelula() - 1) {
+    izquierda = reticula[GetPosicion().GetPosicion() - 1].GetEstado().GetEstado();
+    derecha = 0;
+    central = GetEstado().GetEstado();
+    if (reticula.GetFrontera() == 0) {
+      derecha = 0;
+    } else if (reticula.GetFrontera() == 1) {
+      derecha = 1;
+    } else {
+      derecha = reticula[0].GetEstado().GetEstado();
+    }
+    siguiente = (central + derecha + central * derecha + izquierda * central * derecha) % 2;
+    return siguiente;
+
+  } else {
+    izquierda = reticula[GetPosicion().GetPosicion() - 1].GetEstado().GetEstado();
+    derecha = reticula[GetPosicion().GetPosicion() + 1].GetEstado().GetEstado();
+    central = GetEstado().GetEstado();
+    siguiente = (central + derecha + central * derecha + izquierda * central * derecha) % 2;
+    return siguiente;
+  }
+}
+
+//ostream& operator<<(ostream& os, const Celula& cell) {
+  //os << cell.getEstado();
+  //return os;
+//}
+
+Posicion Celula::GetPosicion() const {
+  return pos_;
+}
+
+Celula::Celula() {
+  pos_ = Posicion();
+  estado_ = Estado();
+  estado_siguiente_ = Estado();
+}
+
+void Celula::SetEstadoSiguiente(Estado estado) {
+  estado_siguiente_ = estado;
+}
+
+
+/*
+int Celula::NextState(Latice& reticula) {
   if ( GetPosicion().GetPosicion() == 0 ) { 
     int izquierda = 0;
     int derecha = reticula[GetPosicion().GetPosicion() + 1].GetEstado().GetEstado();;
@@ -64,22 +127,5 @@ int Celula::NextState(const Latice& reticula) {
     return siguiente;
   }
 }
+*/
 
-//ostream& operator<<(ostream& os, const Celula& cell) {
-  //os << cell.getEstado();
-  //return os;
-//}
-
-Posicion Celula::GetPosicion() const {
-  return pos_;
-}
-
-Celula::Celula() {
-  pos_ = Posicion();
-  estado_ = Estado();
-  estado_siguiente_ = Estado();
-}
-
-void Celula::SetEstadoSiguiente(Estado estado) {
-  estado_siguiente_ = estado;
-}
