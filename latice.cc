@@ -18,15 +18,32 @@ Latice::~Latice() {
 }
 
 void Latice::NextGeneration() {
-  std::cout << "Next" << std::endl;
+  for (int i = 0; i < numero_celulas_; i++ ) {
+    latice_[i].SetEstadoSiguiente(latice_[i].NextState(*this)); 
+  }
+  for (int i = 0; i < numero_celulas_; i++ ) {
+    latice_[i].UpdateState();
+  }
 }
 
 void Latice::PrintLatice() {
   for (int i = 0; i < numero_celulas_; i++) {
-    std::cout << latice_[i].GetEstado().GetEstado() << " ";
+    if (latice_[i].GetEstado().GetEstado() == 1) { 
+      std::cout << "X";
+    } else {
+      std::cout << " ";
+    }
+
   }
   std::cout << std::endl;
 }
 
+int Latice::GetNumCelulas(int i) {
+  return numero_celulas_;
+}
+
+int Latice::GetFrontera() {
+  return frontera_;
+} 
 
 

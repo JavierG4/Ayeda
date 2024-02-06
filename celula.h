@@ -19,6 +19,7 @@ class Celula {
   Celula();
   Estado GetEstado() const;
   void SetEstado(Estado);
+  void SetEstadoSiguiente(Estado);
   int NextState(const Latice&);
   void UpdateState(); // Preguntar si es necesario y como usarla
   Posicion GetPosicion() const;
