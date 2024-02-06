@@ -8,11 +8,30 @@
 #include <set>
 #include <vector>
 
+/**
+ * @brief Clase que representa una posición.
+ * Esta clase representa una posición en un sistema de coordenadas.
+ * Permite obtener y modificar la posición.
+ */
 class Posicion {
  public:
-   Posicion(int);
+   /**
+    * @brief Constructor de la clase Posicion.
+    * @param posicion La posición inicial.
+    */
+   Posicion(int posicion);
+   /**
+    * @brief Constructor por defecto de la clase Posicion.
+    * Crea una posición con valor 0.
+    */
    Posicion(); 
+   
+   /**
+    * @brief Obtiene la posición actual.
+    * @return La posición actual.
+    */
    int GetPosicion();
+   
  private:
-   int posicion_;
+   int posicion_; /**< La posición actual. */
 };
