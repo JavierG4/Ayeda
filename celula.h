@@ -17,19 +17,21 @@ class Celula {
  public:
   Celula(const Posicion&, const Estado&);
   Estado GetEstado() const;
-  void SetEstado(estado);
-  int nextState(const Lattice&);
+  void SetEstado(Estado);
+  int NextState(const Latice&);
   void UpdateState(); // Preguntar si es necesario y como usarla
   Posicion GetPosicion() const;
+  Estado GetEstadoSiguinte() const;
 
-  ostream& operator<<(ostream&, const Cell&);
+  //ostream& operator<<(ostream&, const Cell&);
 
  private:
    //Latice latice_;
    Estado estado_;
    Posicion pos_;
+   Estado estado_siguiente_;
    //Una función de transición local
-}
+};
 
 
-#endif celula_h
+#endif 

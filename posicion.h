@@ -10,9 +10,8 @@
 
 class Posicion {
  public:
-   Posicion(int,int,int);
-   Posicion();
-   std::vector<int> GetVecindad() const;
+   Posicion(int);
+   int GetPosicion();
  private:
-   std::vector<int> vecindad;
-}
+   int posicion_;
+};

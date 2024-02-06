@@ -14,17 +14,16 @@ class Celula;
 
 class Latice {
  public:
-   Reticulo(int n);
-   ~Reticulo();
-   void Lattice::nextGeneration();
+   Latice(int n);
+   ~Latice();
+   void NextGeneration();
    /* En el primer recorrido cada célula accede a su vecindad y aplica la función
    de transición para calcular su estado siguiente.
    En el segundo recorrido cada célula actualiza su estado.*/
-   friend ostream& operator<<(ostream&, const Lattice&);
-
+   //friend ostream& operator<<(ostream&, const Lattice&);
  private:
    Celula *latice_;
    int numero_celulas_;
-}
+};
 
-#endif latice_h
+#endif 

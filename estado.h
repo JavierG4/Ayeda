@@ -16,4 +16,4 @@ class Estado {
    void SetEstado(int estado);
  private:
   int estado_;
-}
+};

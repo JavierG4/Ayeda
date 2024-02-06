@@ -1,4 +1,6 @@
 #include <iostream>
+#include "latice.h"
+#include "celula.h"
 
 void Help() {
   std::cout << "-size <n>, n es el tamaño del retículo. Número de células." << std::endl;
@@ -8,6 +10,6 @@ void Help() {
 }
 
 int main(int argc, char* argv[]) {
-  
+  Help();
 
 }
