@@ -10,6 +10,9 @@ void Help() {
 }
 
 int main(int argc, char* argv[]) {
-  Help();
-
+  //Help();
+  int n = 8;
+  Latice latice(n);
+  latice.PrintLatice();
+  return 0;
 }

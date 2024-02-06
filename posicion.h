@@ -11,6 +11,7 @@
 class Posicion {
  public:
    Posicion(int);
+   Posicion(); 
    int GetPosicion();
  private:
    int posicion_;

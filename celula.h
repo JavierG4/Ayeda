@@ -16,6 +16,7 @@ class Latice;
 class Celula {
  public:
   Celula(const Posicion&, const Estado&);
+  Celula();
   Estado GetEstado() const;
   void SetEstado(Estado);
   int NextState(const Latice&);
