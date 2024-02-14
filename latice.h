@@ -22,7 +22,7 @@ class Latice {
    de transición para calcular su estado siguiente.
    En el segundo recorrido cada célula actualiza su estado.*/
    //friend ostream& operator<<(ostream&, const Lattice&);
-   void PrintLatice();
+   void PrintLatice(int);
  private:
    Celula *latice_;
    int numero_celulas_;

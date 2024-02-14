@@ -1,5 +1,19 @@
 #include "latice.h"
 #include <iostream> // Add this line
+#include <termios.h>
+#include <unistd.h>
+
+int getch() {
+    struct termios oldattr, newattr;
+    int ch;
+    tcgetattr(STDIN_FILENO, &oldattr);
+    newattr = oldattr;
+    newattr.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
+    ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
+    return ch;
+}
 
 Latice::Latice(int n, int frontera, std::string fichero) {
   //std::cout << "Latice constructor" << n <<std::endl; // Add this line
@@ -76,29 +90,44 @@ Latice::~Latice() {
 
 void Latice::NextGeneration() {
   if ( frontera_ == 0 || frontera_ == 1) {
-    for( int  j= 0; j < numero_celulas_; j++ ) {
+    int contador = 1;  
+    char input;
+    while (true) {
+      input = getch();
+      if (input != ' ') {
+        break;
+      }
       for (int i = 1; i < numero_celulas_ - 1; i++ ) {
         latice_[i].SetEstadoSiguiente(latice_[i].NextState(*this)); 
       }
       for (int e = 1; e < numero_celulas_ - 1; e++ ) {
         latice_[e].UpdateState();
       }
-      PrintLatice();
+      PrintLatice(contador);
+      contador++;
     }
   } else { // periodica
-    for( int  j= 0; j < numero_celulas_; j++ ) {
+    char input;
+    int contador = 1;
+    while (true) {
+      input = getch(); 
+      if (input != ' ') {
+        break;
+      }
       for (int i = 0; i < numero_celulas_; i++ ) {
         latice_[i].SetEstadoSiguiente(latice_[i].NextState(*this)); 
       }
       for (int e = 0; e < numero_celulas_; e++ ) {
         latice_[e].UpdateState();
       }
-      PrintLatice();
+      PrintLatice(contador);
+      contador++;
     }
   }
 }
 
-void Latice::PrintLatice() {
+void Latice::PrintLatice(int x) {
+  std::cout << "G( " << x << " )  ";
   for (int i = 0; i < numero_celulas_; i++) {
     if (latice_[i].GetEstado().GetEstado() == 1) { 
       std::cout << "X";

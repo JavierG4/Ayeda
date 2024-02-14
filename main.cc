@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
   std::cout << "n: " << n << std::endl;
   std::cout << "fichero: " << fichero << std::endl;
   Latice latice(n,flag,fichero);
-  latice.PrintLatice();
+  latice.PrintLatice(0);
   latice.NextGeneration();
   return 0;
 }
