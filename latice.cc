@@ -4,15 +4,15 @@
 #include <unistd.h>
 
 int getch() {
-    struct termios oldattr, newattr;
-    int ch;
-    tcgetattr(STDIN_FILENO, &oldattr);
-    newattr = oldattr;
-    newattr.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
-    ch = getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-    return ch;
+  struct termios oldattr, newattr;
+  int ch;
+  tcgetattr(STDIN_FILENO, &oldattr);
+  newattr = oldattr;
+  newattr.c_lflag &= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
+  ch = getchar();
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
+  return ch;
 }
 
 Latice::Latice(int n, int frontera, std::string fichero) {
@@ -56,7 +56,7 @@ Latice::Latice(int n, int frontera, std::string fichero) {
       numero_celulas_ = n + 2;
       latice_ = new Celula[n + 2];
       latice_[0] = Celula(Posicion(0), Estado(0));
-      latice_[n + 1] = Celula(Posicion(n + 1), Estado(0));
+      latice_[n + 1] = Celula(Posicion(n + 1), Estado(0)); // CORREGIR
       for (int i = 0; i < n;i++) {
         int estado;
         file >> estado;
@@ -127,15 +127,14 @@ void Latice::NextGeneration() {
 }
 
 void Latice::PrintLatice(int x) {
-  std::cout << "G( " << x << " )  ";
   for (int i = 0; i < numero_celulas_; i++) {
     if (latice_[i].GetEstado().GetEstado() == 1) { 
       std::cout << "X";
     } else {
       std::cout << " ";
     }
-
   }
+  std::cout << "   G( " << x << " )  ";
   std::cout << std::endl;
 }
 
