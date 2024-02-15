@@ -24,7 +24,7 @@ class Latice {
    //friend ostream& operator<<(ostream&, const Lattice&);
    void PrintLatice(int);
  private:
-   Celula *latice_;
+   std::vector<Celula*> latice_;
    int numero_celulas_;
    int frontera_; // 0 = abierta fria, 1 = abierta caliente, 2 = periódica
 };

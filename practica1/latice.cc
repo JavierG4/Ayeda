@@ -21,29 +21,29 @@ Latice::Latice(int n, int frontera, std::string fichero) {
   if (fichero == " ") {
     if (frontera == 0 || frontera == 1) { 
       numero_celulas_ = n + 2;
-      latice_ = new Celula[n + 2];
+      latice_.resize(n + 2);
       for ( int i = 1; i < n + 1; i++) { 
         if (n/2 == i) {
-          latice_[i] = Celula(Posicion(i), Estado(1));
+          latice_[i] = new Celula(Posicion(i), Estado(1));
         } else {
-          latice_[i] = Celula(Posicion(i), Estado(0));
+          latice_[i] = new Celula(Posicion(i), Estado(0));
         }
       }
       if (frontera == 0) {
-        latice_[0] = Celula(Posicion(0), Estado(0));
-        latice_[n + 1] = Celula(Posicion(n + 1), Estado(0));
+        latice_[0] = new Celula(Posicion(0), Estado(0));
+        latice_[n + 1] = new Celula(Posicion(n + 1), Estado(0));
       } else {
-        latice_[0] = Celula(Posicion(0), Estado(1));
-        latice_[n + 1] = Celula(Posicion(n + 1), Estado(1));
+        latice_[0] = new Celula(Posicion(0), Estado(1));
+        latice_[n + 1] = new Celula(Posicion(n + 1), Estado(1));
       }
     } else {
       numero_celulas_ = n;
-      latice_ = new Celula[n];
+      latice_.resize(n);
       for ( int i = 0; i < n; i++) { 
         if (n/2 == i) {
-          latice_[i] = Celula(Posicion(i), Estado(1));
+          latice_[i] = new Celula(Posicion(i), Estado(1));
         } else {
-          latice_[i] = Celula(Posicion(i), Estado(0));
+          latice_[i] = new Celula(Posicion(i), Estado(0));
         }
       }
     }
@@ -54,38 +54,40 @@ Latice::Latice(int n, int frontera, std::string fichero) {
     //std::cout << numero_celulas << std::endl;
     if (frontera == 0) {
       numero_celulas_ = n + 2;
-      latice_ = new Celula[n + 2];
-      latice_[0] = Celula(Posicion(0), Estado(0));
-      latice_[n + 1] = Celula(Posicion(n + 1), Estado(0)); // CORREGIR
+      latice_.resize(n + 2);
+      latice_[0] = new Celula(Posicion(0), Estado(0));
+      latice_[n + 1] = new Celula(Posicion(n + 1), Estado(0)); // CORREGIR
       for (int i = 0; i < n;i++) {
         int estado;
         file >> estado;
-        latice_[i] = Celula(Posicion(i), Estado(estado));
+        latice_[i] = new Celula(Posicion(i), Estado(estado));
       }
     } else if ( frontera == 1) {
       numero_celulas_ = n + 2;
-      latice_ = new Celula[n + 2];
-      latice_[0] = Celula(Posicion(0), Estado(1));
-      latice_[n + 1] = Celula(Posicion(n + 1), Estado(1));
+      latice_.resize(n + 2);
+      latice_[0] = new Celula(Posicion(0), Estado(1));
+      latice_[n + 1] = new Celula(Posicion(n + 1), Estado(1));
       for (int i = 1; i < n + 1;i++) {
         int estado;
         file >> estado;
-        latice_[i] = Celula(Posicion(i), Estado(estado));
+        latice_[i] = new Celula(Posicion(i), Estado(estado));
       }
     } else {
       numero_celulas_ = n;
-      latice_ = new Celula[n];
+      latice_.resize(n);
       for (int i = 0; i < n;i++) {
         int estado;
         file >> estado;
-        latice_[i] = Celula(Posicion(i), Estado(estado));
+        latice_[i] = new Celula(Posicion(i), Estado(estado));
       }
     }
   }
 }
 
 Latice::~Latice() {
-  delete[] latice_;
+  for (int i = 0; i < numero_celulas_; i++) {
+    delete latice_[i];
+  }
 }
 
 void Latice::NextGeneration() {
@@ -98,10 +100,10 @@ void Latice::NextGeneration() {
         break;
       }
       for (int i = 1; i < numero_celulas_ - 1; i++ ) {
-        latice_[i].SetEstadoSiguiente(latice_[i].NextState(*this)); 
+        latice_[i] -> SetEstadoSiguiente(latice_[i] -> NextState(*this)); 
       }
       for (int e = 1; e < numero_celulas_ - 1; e++ ) {
-        latice_[e].UpdateState();
+        latice_[e] -> UpdateState();
       }
       PrintLatice(contador);
       contador++;
@@ -115,10 +117,10 @@ void Latice::NextGeneration() {
         break;
       }
       for (int i = 0; i < numero_celulas_; i++ ) {
-        latice_[i].SetEstadoSiguiente(latice_[i].NextState(*this)); 
+        latice_[i] -> SetEstadoSiguiente(latice_[i] -> NextState(*this)); 
       }
       for (int e = 0; e < numero_celulas_; e++ ) {
-        latice_[e].UpdateState();
+        latice_[e] -> UpdateState();
       }
       PrintLatice(contador);
       contador++;
@@ -128,7 +130,7 @@ void Latice::NextGeneration() {
 
 void Latice::PrintLatice(int x) {
   for (int i = 0; i < numero_celulas_; i++) {
-    if (latice_[i].GetEstado().GetEstado() == 1) { 
+    if (latice_[i] -> GetEstado().GetEstado() == 1) { 
       std::cout << "X";
     } else {
       std::cout << " ";
@@ -147,6 +149,6 @@ int Latice::GetFrontera() {
 } 
 
 Celula& Latice::operator[](int i) {
-  return latice_[i];
+  return *latice_[i];
 }
 
