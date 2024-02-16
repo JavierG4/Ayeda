@@ -2,8 +2,9 @@
 #define myvector_h
 
 #include <iostream>
-#include "celula.h"
 #include <vector>
+
+class Celula;
 
 class Myvector {
  public:

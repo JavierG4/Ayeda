@@ -18,29 +18,28 @@ int getch() {
 Latice::Latice(int filas, int columnas, int frontera) {
   numero_celulas_ = columnas * filas;
   frontera_ = frontera;
-  latice_ = Myvector<Myvector<Celula*>>(filas);
+  //std::cout << "j2" ;
+  latice_ = Matriz(filas, columnas, numero_celulas_);
+  //std::cout << "i" ;
   for (int i = 0; i < filas; i++) {
-    Myvector<Celula*> fila(columnas);
     for (int j = 0; j < columnas; j++) {
-      int estado = PreguntarEstado(i, j);
-      Celula* celula = new Celula(Posicion(i, j), Estado(estado));
-      fila.push_back(celula);
+      //std::cout << "j" ;
+      latice_[i][j] = new Celula(Posicion(i,j),Estado(PreguntarEstado(i, j)));
     }
-    latice_[i] = fila;
   }
 }
 
 Latice::~Latice() {
-  for (int i = 0; i < latice_.size(); i++) {
+  for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; i < latice_[i].size(); j++) {
       delete latice_[i][j];
     }
   }
 }
 
-int PreguntarEstado(int x, int y) {
+int Latice::PreguntarEstado(int x, int y) {
   int estado;
-  std::cout << "Introduzca el estado de la célula: (" << x << ", " << y << ")";
+  std::cout << "Introduzca el estado de la célula: (" << x << ", " << y << ") ";
   std::cin >> estado;
   return estado;
 }
@@ -50,7 +49,7 @@ void Latice::NextGeneration() {
 }
 
 void Latice::PrintLatice() {
-  for (int i = 0; i < latice_.size(); i++) {
+  for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
       std::cout << latice_[i][j] -> GetEstado().GetEstado() << " ";
     }
@@ -73,7 +72,7 @@ int Latice::GetFrontera() {
 
 std::size_t Latice::Population()  {
   int population = 0;
-  for ( int i = 0; i < latice_.size(); i++ ) { // Accedo a cada fila , es decir cada Myvector<celula*>
+  for ( int i = 0; i < latice_.GetFilas(); i++ ) { // Accedo a cada fila , es decir cada Myvector<celula*>
     for ( int j = 0; j < latice_[i].size(); j++ ) { // Accedo a cada columna, es decir cada celula* y accedo a lo que apunta y le hago un get
       if ( latice_[i][j] -> GetEstado().GetEstado() == 1 ) {
         population++;

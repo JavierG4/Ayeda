@@ -1,5 +1,3 @@
-#ifndef myvector_cc
-#define myvector_cc
 
 #include "myvector.h"
 Myvector::Myvector(Celula* valor, int size, int indice_inicial) {
@@ -31,6 +29,7 @@ Celula*& Myvector::operator[](int indice) {
 }
 
 Myvector::Myvector(int size) {
+  //std::cout << "j1" << std::endl;
   myvector_.resize(size);
   size_ = size;
   indice_inicial_ = 0;
@@ -56,4 +55,3 @@ Myvector::Myvector() {
   indice_inicial_ = 0;
 }
 
-#endif

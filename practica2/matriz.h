@@ -2,15 +2,18 @@
 #define matriz_h
 #include <iostream>
 #include "myvector.h"
-#include "celula.h"
-#include "latice.h"
+
+
+class Myvector;
 
 class Matriz {
  public:
     Matriz(int,int,int);
-    ~Matriz();
-    Myvector operator[](int);
-
+    Matriz();
+    Myvector& operator[](int);
+    int GetFilas();
+    int GetColumnas();
+    void resize(int);
  private:
    std::vector<Myvector> matriz_;
    int size_;
@@ -18,7 +21,7 @@ class Matriz {
    int numero_celulas_;
    int filas_;
    int columnas_;
-}
+};
 
 
 #endif

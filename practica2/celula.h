@@ -11,6 +11,7 @@
 #include "estado.h"
 #include "posicion.h"
 #include "latice.h"
+//#include "myvector.h"
 
 class Latice;
 

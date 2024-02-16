@@ -1,6 +1,8 @@
 #include <iostream>
 #include "latice.h"
 #include "celula.h"
+//#include "matriz.h"
+//#include "myvector.h"
 
 void Help() {
   std::cout << "-size <M> <N>, M es el número de filas y N es el número de columnas del tablero." << std::endl;

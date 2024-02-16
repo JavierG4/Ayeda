@@ -7,14 +7,11 @@
 #include <utility>
 #include <set>
 #include <vector>
-#include "celula.h"
 #include "myvector.h"
+#include "celula.h"
 #include "matriz.h"
 
 class Celula;
-
-template <typename T>
-class Myvector;
 
 class Latice {
  public:
