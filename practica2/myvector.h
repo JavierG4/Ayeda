@@ -1,31 +1,28 @@
 #ifndef myvector_h
 #define myvector_h
 
-
 #include <iostream>
 #include "celula.h"
 #include <vector>
 
-template <typename T>
 class Myvector {
  public:
-   Myvector(T, int, int);
+   Myvector(Celula*, int, int);
+   Myvector(int);
    Myvector();
-   void push_back(T);
-   void push_front(T);
-   void SetCelula(int, T*);
-   T* GetCelula(int);
+   void push_back(Celula*);
+   void push_front(Celula*);
+   void SetCelula(int, Celula*);
+   Celula* GetCelula(int);
    int GetIndiceInicial();
    void SetIndiceInicial(int);
-   T& operator[](int);
+   Celula*& operator[](int);
    int size();
 
  private:
-   std::vector<T> myvector_;
+   std::vector<Celula*> myvector_;
    int indice_inicial_;
    int size_;
 };
-
-#include "myvector.cc"
 
 #endif

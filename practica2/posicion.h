@@ -19,7 +19,7 @@ class Posicion {
     * @brief Constructor de la clase Posicion.
     * @param posicion La posición inicial.
     */
-   Posicion(int posicion);
+   Posicion(int, int);
    /**
     * @brief Constructor por defecto de la clase Posicion.
     * Crea una posición con valor 0.
@@ -30,8 +30,14 @@ class Posicion {
     * @brief Obtiene la posición actual.
     * @return La posición actual.
     */
-   int GetPosicion();
+   int GetPosicionX();
+   /**
+    * @brief Obtiene la posición actual.
+    * @return La posición actual.
+    */
+   int GetPosicionY();
    
  private:
-   int posicion_; /**< La posición actual. */
+   int posicion_x_; /**< La posición actual. */
+   int posicion_y_; /**< La posición actual. */
 };

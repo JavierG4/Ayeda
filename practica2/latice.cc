@@ -15,129 +15,47 @@ int getch() {
   return ch;
 }
 
-Latice::Latice(int n, int frontera, std::string fichero) {
-  //std::cout << "Latice constructor" << n <<std::endl; // Add this line
+Latice::Latice(int filas, int columnas, int frontera) {
+  numero_celulas_ = columnas * filas;
   frontera_ = frontera;
-  if (fichero == " ") {
-    if (frontera == 0 || frontera == 1) { 
-      numero_celulas_ = n + 2;
-      latice_.resize(n + 2);
-      for ( int i = 1; i < n + 1; i++) { 
-        if (n/2 == i) {
-          latice_[i] = new Celula(Posicion(i), Estado(1));
-        } else {
-          latice_[i] = new Celula(Posicion(i), Estado(0));
-        }
-      }
-      if (frontera == 0) {
-        latice_[0] = new Celula(Posicion(0), Estado(0));
-        latice_[n + 1] = new Celula(Posicion(n + 1), Estado(0));
-      } else {
-        latice_[0] = new Celula(Posicion(0), Estado(1));
-        latice_[n + 1] = new Celula(Posicion(n + 1), Estado(1));
-      }
-    } else {
-      numero_celulas_ = n;
-      latice_.resize(n);
-      for ( int i = 0; i < n; i++) { 
-        if (n/2 == i) {
-          latice_[i] = new Celula(Posicion(i), Estado(1));
-        } else {
-          latice_[i] = new Celula(Posicion(i), Estado(0));
-        }
-      }
+  latice_ = Myvector<Myvector<Celula*>>(filas);
+  for (int i = 0; i < filas; i++) {
+    Myvector<Celula*> fila(columnas);
+    for (int j = 0; j < columnas; j++) {
+      int estado = PreguntarEstado(i, j);
+      Celula* celula = new Celula(Posicion(i, j), Estado(estado));
+      fila.push_back(celula);
     }
-
-  } else {
-    //std::cout << fichero << std::endl;
-    std::ifstream file(fichero);
-    //std::cout << numero_celulas << std::endl;
-    if (frontera == 0) {
-      numero_celulas_ = n + 2;
-      latice_.resize(n + 2);
-      latice_[0] = new Celula(Posicion(0), Estado(0));
-      latice_[n + 1] = new Celula(Posicion(n + 1), Estado(0)); // CORREGIR
-      for (int i = 0; i < n;i++) {
-        int estado;
-        file >> estado;
-        latice_[i] = new Celula(Posicion(i), Estado(estado));
-      }
-    } else if ( frontera == 1) {
-      numero_celulas_ = n + 2;
-      latice_.resize(n + 2);
-      latice_[0] = new Celula(Posicion(0), Estado(1));
-      latice_[n + 1] = new Celula(Posicion(n + 1), Estado(1));
-      for (int i = 1; i < n + 1;i++) {
-        int estado;
-        file >> estado;
-        latice_[i] = new Celula(Posicion(i), Estado(estado));
-      }
-    } else {
-      numero_celulas_ = n;
-      latice_.resize(n);
-      for (int i = 0; i < n;i++) {
-        int estado;
-        file >> estado;
-        latice_[i] = new Celula(Posicion(i), Estado(estado));
-      }
-    }
+    latice_[i] = fila;
   }
 }
 
 Latice::~Latice() {
-  for (int i = 0; i < numero_celulas_; i++) {
-    delete latice_[i];
+  for (int i = 0; i < latice_.size(); i++) {
+    for (int j = 0; i < latice_[i].size(); j++) {
+      delete latice_[i][j];
+    }
   }
+}
+
+int PreguntarEstado(int x, int y) {
+  int estado;
+  std::cout << "Introduzca el estado de la célula: (" << x << ", " << y << ")";
+  std::cin >> estado;
+  return estado;
 }
 
 void Latice::NextGeneration() {
-  if ( frontera_ == 0 || frontera_ == 1) {
-    int contador = 1;  
-    char input;
-    while (true) {
-      input = getch();
-      if (input != ' ') {
-        break;
-      }
-      for (int i = 1; i < numero_celulas_ - 1; i++ ) {
-        latice_[i] -> SetEstadoSiguiente(latice_[i] -> NextState(*this)); 
-      }
-      for (int e = 1; e < numero_celulas_ - 1; e++ ) {
-        latice_[e] -> UpdateState();
-      }
-      PrintLatice(contador);
-      contador++;
-    }
-  } else { // periodica
-    char input;
-    int contador = 1;
-    while (true) {
-      input = getch(); 
-      if (input != ' ') {
-        break;
-      }
-      for (int i = 0; i < numero_celulas_; i++ ) {
-        latice_[i] -> SetEstadoSiguiente(latice_[i] -> NextState(*this)); 
-      }
-      for (int e = 0; e < numero_celulas_; e++ ) {
-        latice_[e] -> UpdateState();
-      }
-      PrintLatice(contador);
-      contador++;
-    }
-  }
+  
 }
 
-void Latice::PrintLatice(int x) {
-  for (int i = 0; i < numero_celulas_; i++) {
-    if (latice_[i] -> GetEstado().GetEstado() == 1) { 
-      std::cout << "X";
-    } else {
-      std::cout << " ";
+void Latice::PrintLatice() {
+  for (int i = 0; i < latice_.size(); i++) {
+    for (int j = 0; j < latice_[i].size(); j++) {
+      std::cout << latice_[i][j] -> GetEstado().GetEstado() << " ";
     }
+    std::cout << std::endl;
   }
-  std::cout << "   G( " << x << " )  ";
-  std::cout << std::endl;
 }
 
 int Latice::GetNumCelula() {
@@ -148,7 +66,19 @@ int Latice::GetFrontera() {
   return frontera_;
 } 
 
-Celula& Latice::operator[](int i) {
+/*Celula& Latice::operator[](int i) {
   return *latice_[i];
 }
+*/
 
+std::size_t Latice::Population()  {
+  int population = 0;
+  for ( int i = 0; i < latice_.size(); i++ ) { // Accedo a cada fila , es decir cada Myvector<celula*>
+    for ( int j = 0; j < latice_[i].size(); j++ ) { // Accedo a cada columna, es decir cada celula* y accedo a lo que apunta y le hago un get
+      if ( latice_[i][j] -> GetEstado().GetEstado() == 1 ) {
+        population++;
+      }
+    }
+  }
+  return population;
+}

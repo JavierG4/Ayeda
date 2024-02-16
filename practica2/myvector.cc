@@ -2,8 +2,7 @@
 #define myvector_cc
 
 #include "myvector.h"
-
-template <typename T> Myvector<T>::Myvector(T valor, int size, int indice_inicial) {
+Myvector::Myvector(Celula* valor, int size, int indice_inicial) {
   for (int i = 0; i < size; i++) {
     myvector_.push_back(valor);
   }
@@ -11,43 +10,50 @@ template <typename T> Myvector<T>::Myvector(T valor, int size, int indice_inicia
   indice_inicial_ = indice_inicial;
 }
 
-template <typename T> void Myvector<T>::SetCelula(int indice, T* valor) {
-  myvector_[indice] = *valor;
+void Myvector::SetCelula(int indice, Celula* valor) {
+  myvector_[indice] = valor;
 }
 
-template <typename T> T* Myvector<T>::GetCelula(int indice) {
-  return &myvector_[indice];
-}
-
-template <typename T> int Myvector<T>::GetIndiceInicial() {
-  return indice_inicial_;
-}
-
-template <typename T> void Myvector<T>::SetIndiceInicial(int indice_inicial) {
-  indice_inicial_ = indice_inicial;
-}
-
-template <typename T> T& Myvector<T>::operator[](int indice) {
+Celula* Myvector::GetCelula(int indice) {
   return myvector_[indice];
 }
 
-template <typename T> Myvector<T>::Myvector() {
-  size_ = 0;
+int Myvector::GetIndiceInicial() {
+  return indice_inicial_;
+}
+
+void Myvector::SetIndiceInicial(int indice_inicial) {
+  indice_inicial_ = indice_inicial;
+}
+
+Celula*& Myvector::operator[](int indice) {
+  return myvector_[indice];
+}
+
+Myvector::Myvector(int size) {
+  myvector_.resize(size);
+  size_ = size;
   indice_inicial_ = 0;
 }
 
-template <typename T> void Myvector<T>::push_back(T valor) {
+void Myvector::push_back(Celula* valor) {
   myvector_.push_back(valor);
   size_++;
 }
 
-template <typename T> void Myvector<T>::push_front(T valor) {
+void Myvector::push_front(Celula* valor) {
   myvector_.insert(myvector_.begin(), valor);
   size_++;
+  --indice_inicial_;
 }
 
-template <typename T> int Myvector<T>::size() {
+int Myvector::size() {
   return size_;
+}
+
+Myvector::Myvector() {
+  size_ = 0;
+  indice_inicial_ = 0;
 }
 
 #endif
