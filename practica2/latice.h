@@ -27,7 +27,10 @@ class Latice {
    de transición para calcular su estado siguiente.
    En el segundo recorrido cada célula actualiza su estado.*/
    //friend ostream& operator<<(ostream&, const Lattice&);
+   Matriz GetMatriz();
+   void PrintInstrucciones();
    void PrintLatice();
+   bool Alrededor(int);
  private:
    Matriz latice_;
    int numero_celulas_;

@@ -16,26 +16,34 @@ int main(int argc, char* argv[]) {
   int flag = 0;
   int filas = std::stoi(argv[2]);
   int columnas = std::stoi(argv[3]);
-  if ( argv[4] == "-border" ) {
-    if ( argv[5] == "open" ) {
-      if ( argv[6] == "0" ) {
-        flag = 0;
-      } else if ( argv[6] == "1" ) {
-        flag = 1;
-      }
-    } else if ( argv[5] == "periodic" ) {
-      flag = 2;
-    } else if (argv[5] == "reflective") {
-      flag = 3;
-    } else if (argv[5] == "noborder") {
-      flag = 4;
+  if ( std::string(argv[5]) == "open" ) {
+    if ( std::string(argv[6]) == "0" ) {
+      flag = 0;
+    } else if ( std::string(argv[6]) == "1" ) {
+      flag = 1;
     }
+  } else if ( std::string(argv[5]) == "periodic" ) {
+    flag = 2;
+  } else if (std::string(argv[5]) == "reflective") {
+    flag = 3;
+  } else if (std::string(argv[5]) == "noborder") {
+    flag = 4;
   }
-  std::cout << "flag: " << flag << std::endl;
-  std::cout << "filas: " << filas << std::endl;
-  std::cout << "columnas: " << columnas << std::endl;
+  //std::cout << "flag: " << flag << std::endl;
+  //std::cout << "filas: " << filas << std::endl;
+  //std::cout << "columnas: " << columnas << std::endl;
   //std::cout << "fichero: " << fichero << std::endl;
   Latice latice(filas, columnas, flag);
+  latice.PrintInstrucciones();
+  std::cout << "G ( " << 0 << " )" << std::endl;
   latice.PrintLatice();
+  latice.NextGeneration();
+  /* 
+  std::cout << "Population: " << latice.Population() << std::endl;
+  std::cout << "Alrededor 1 " << latice.Alrededor(1) << std::endl;
+  std::cout << "Alrededor 2 " << latice.Alrededor(2) << std::endl;
+  std::cout << "Alrededor 3 " << latice.Alrededor(3) << std::endl;
+  std::cout << "Alrededor 4 " << latice.Alrededor(4) << std::endl;
+  */
   return 0;
 }

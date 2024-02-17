@@ -16,26 +16,64 @@ int getch() {
 }
 
 Latice::Latice(int filas, int columnas, int frontera) {
-  numero_celulas_ = columnas * filas;
   frontera_ = frontera;
-  //std::cout << "j2" ;
-  latice_ = Matriz(filas, columnas, numero_celulas_);
-  //std::cout << "i" ;
-  for (int i = 0; i < filas; i++) {
-    for (int j = 0; j < columnas; j++) {
-      //std::cout << "j" ;
-      latice_[i][j] = new Celula(Posicion(i,j),Estado(PreguntarEstado(i, j)));
+  if (frontera_ == 2 || frontera_ == 3 ||frontera_ == 4) { 
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for (int i = 0; i < filas; i++) {
+      for (int j = 0; j < columnas; j++) {
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(PreguntarEstado(i, j)));
+      }
+    }
+  } else if (frontera_ == 0 || frontera_ == 1) {
+    filas = filas + 2;
+    columnas = columnas + 2;
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for (int i = 1; i < filas - 1; i++) {
+      for (int j = 1; j < columnas - 1; j++) {
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(PreguntarEstado(i -1 , j - 1)));
+      }
+    }
+    if ( frontera == 0 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+    }
+    if ( frontera == 1 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(1));
+      }
     }
   }
 }
 
 Latice::~Latice() {
   for (int i = 0; i < latice_.GetFilas(); i++) {
-    for (int j = 0; i < latice_[i].size(); j++) {
+    for (int j = 0; j < latice_[i].size(); j++) {
       delete latice_[i][j];
     }
   }
 }
+
 
 int Latice::PreguntarEstado(int x, int y) {
   int estado;
@@ -44,8 +82,68 @@ int Latice::PreguntarEstado(int x, int y) {
   return estado;
 }
 
+
+/*
+‘x' : Finaliza la ejecución del programa
+‘n’ : Calcula y muestra la siguiente generación
+‘L’ : Calcula y muestra las siguientes cinco generaciones
+‘c’ : Los comandos ‘n’ y ‘L’ dejan de mostrar el estado del tablero y sólo se muestra
+la población, esto es, el número de células en estado «viva»
+‘s’ : Salva el tablero a un fichero
+*/
 void Latice::NextGeneration() {
+  if ( frontera_ == 0 || frontera_ == 1) {
+    bool flagc = 0;
+    int contador = 1;  
+    char input;
+    while (true) {
+      int veces = 0;
+      input = getch();
+      if (input == 'x') {
+        break;
+      } else if ( input == 'n') {
+        veces = 1;
+      } else if (input == 'L') {
+        veces = 5;
+      } else if ( input == 'c' ) {
+        flagc = 1;
+      } else if (input == 's') { // guardar en fichero
+        // Escribir
+      }
+      for (int o = 0; o < veces ; o++) { 
+        for (int i = 1; i < latice_.GetFilas() - 1; i++ ) {
+          for (int j = 1; i < latice_.GetColumnas() -1; i++) { 
+            //std::cout << "j" << std::endl;
+            latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
+          }
+        }
+        for (int e = 1; e < latice_.GetFilas() - 1; e++ ) {
+          for (int r = 1; r < latice_.GetColumnas(); r++) { 
+            latice_[e][r] -> UpdateState();
+          }
+        }
+        if (flagc == 0) { 
+          std::cout << "G ( " << contador << " ) " << Population() <<std::endl;
+          PrintLatice();
+          contador++;
+        } else if (flagc == 1) {
+          std::cout << "Population: " << Population() << " G( " << contador << " )" << std::endl;
+          //PrintLatice();
+          contador++;
+        }
+      }
+    }    
+  }
   
+}
+
+void Latice::PrintInstrucciones() {
+  std::cout << "‘x' : Finaliza la ejecución del programa" << std::endl;
+  std::cout << "‘n’ : Calcula y muestra la siguiente generación" << std::endl;
+  std::cout << "‘L’ : Calcula y muestra las siguientes cinco generaciones" << std::endl;
+  std::cout << "‘c’ : Los comandos ‘n’ y ‘L’ dejan de mostrar el estado del tablero y sólo se muestra" << std::endl;
+  std::cout << "la población, esto es, el número de células en estado «viva»" << std::endl;
+  std::cout << "‘s’ : Salva el tablero a un fichero" << std::endl;
 }
 
 void Latice::PrintLatice() {
@@ -80,4 +178,52 @@ std::size_t Latice::Population()  {
     }
   }
   return population;
+}
+
+/*
+Latice::Latice(int filas, int columnas, int frontera) {
+  numero_celulas_ = columnas * filas;
+  frontera_ = frontera;
+  //std::cout << "j2" ;
+  latice_ = Matriz(filas, columnas, numero_celulas_);
+  //std::cout << "i" ;
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      //std::cout << "j" ;
+      latice_[i][j] = new Celula(Posicion(i,j),Estado(PreguntarEstado(i, j)));
+    }
+  }
+}
+*/
+
+bool Latice::Alrededor(int numero) {
+  if (numero == 1) {
+    for ( int i = 0; i < latice_[0].size(); i++) {
+      if ( latice_[0][i] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  } else if (numero == 2) {
+    for (int i = 0; i <latice_.GetColumnas();i++) {
+      if ( latice_[i][0] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  } else if (numero == 3) {
+    for (int i = 0; i < latice_[latice_.GetFilas() - 1].size(); i++) {
+      if ( latice_[latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  } else if (numero == 4) {
+    for (int i = 0; i < latice_.GetColumnas(); i++) {
+      if ( latice_[i][latice_.GetColumnas() - 1] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  }
+}
+
+Matriz Latice::GetMatriz() {
+  return latice_;
 }

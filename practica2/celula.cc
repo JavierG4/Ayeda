@@ -24,10 +24,6 @@ void Celula::UpdateState() {
   estado_ = estado_siguiente_;
 }
 
-int Celula::NextState(Latice& reticula) {
-  return 0;
-}
-
 //ostream& operator<<(ostream& os, const Celula& cell) {
   //os << cell.getEstado();
   //return os;
@@ -48,48 +44,28 @@ void Celula::SetEstadoSiguiente(Estado estado) {
 }
 
 
-/*
-int Celula::NextState(Latice& reticula) {
-  if ( GetPosicion().GetPosicion() == 0 ) { 
-    int izquierda = 0;
-    int derecha = reticula[GetPosicion().GetPosicion() + 1].GetEstado().GetEstado();;
-    int central = GetEstado().GetEstado();
-    if ( reticula.GetFrontera() == 0 ){ // Abierta fria
-      izquierda = 0;
-    } 
-    else if (reticula.GetFrontera() == 1) { // Abierta caliente
-      izquierda = 1;
-    } 
-    else { // periodica
-      izquierda = reticula[reticula.GetNumCelulas() - 1].GetEstado().GetEstado();
-    }
-    int siguiente = (central + derecha + central * derecha + izquierda * central * derecha) % 2;
-    return siguiente;   
-  } 
-  else if ( GetPosicion().GetPosicion() == reticula.GetNumCelulas() - 1) {
-    int izquierda = reticula[GetPosicion().GetPosicion() - 1].GetEstado().GetEstado();
-    int derecha = 0;
-    int central = GetEstado().GetEstado();
-    if ( reticula.GetFrontera() == 0 ){
-      derecha = 0;
-    } 
-    else if (reticula.GetFrontera() == 1) {
-      derecha = 1;
-    } 
-    else {
-      derecha = reticula[0].GetEstado().GetEstado();
-    }
-    int siguiente = (central + derecha + central * derecha + izquierda * central * derecha) % 2;
-    return siguiente;
-  } 
-  else {
-    int izquierda = reticula[GetPosicion().GetPosicion() - 1].GetEstado().GetEstado();
-    int derecha = reticula[GetPosicion().GetPosicion() + 1].GetEstado().GetEstado();
-    int central = GetEstado().GetEstado();
-    // 
-    int siguiente = (central + derecha + central * derecha + izquierda * central * derecha) % 2;
-    return siguiente;
-  }
-}
-*/
 
+int Celula::NextState(Latice& reticula) {
+  if (reticula.GetFrontera() == 0 ||reticula.GetFrontera() == 1) {
+    int arriba = reticula.GetMatriz()[GetPosicion().GetPosicionX() - 1][GetPosicion().GetPosicionY()]->GetEstado().GetEstado();
+    int abajo = reticula.GetMatriz()[GetPosicion().GetPosicionX() + 1][GetPosicion().GetPosicionY()]->GetEstado().GetEstado();
+    int derecha = reticula.GetMatriz()[GetPosicion().GetPosicionX() ][GetPosicion().GetPosicionY() + 1]->GetEstado().GetEstado();
+    int izquierda = reticula.GetMatriz()[GetPosicion().GetPosicionX()][GetPosicion().GetPosicionY() - 1]->GetEstado().GetEstado();
+    int arriba_derecha = reticula.GetMatriz()[GetPosicion().GetPosicionX() - 1][GetPosicion().GetPosicionY()]->GetEstado().GetEstado();
+    int arriba_izquierda = reticula.GetMatriz()[GetPosicion().GetPosicionX() - 1][GetPosicion().GetPosicionY() + 1]->GetEstado().GetEstado();
+    int abajo_derecha = reticula.GetMatriz()[GetPosicion().GetPosicionX() + 1][GetPosicion().GetPosicionY() + 1]->GetEstado().GetEstado();
+    int abajo_izquierda = reticula.GetMatriz()[GetPosicion().GetPosicionX() + 1][GetPosicion().GetPosicionY() - 1]->GetEstado().GetEstado();
+    int total = arriba + abajo + derecha + izquierda;
+    total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+    if ( total == 2 || total == 3) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } 
+}
+/* 
+x x(0,1) x (0 ,2)
+x x(1,1) x (1,2)
+x x(2,1) x(2,2)
+*/
