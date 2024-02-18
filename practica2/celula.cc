@@ -74,12 +74,12 @@ int Celula::NextState(Latice& reticula) {
       int derecha = reticula.GetMatriz()[posx ][posy + 1]->GetEstado().GetEstado();
       int izquierda = reticula.GetMatriz()[0][columnas]->GetEstado().GetEstado();
       int arriba_derecha = reticula.GetMatriz()[filas][posy + 1]->GetEstado().GetEstado();
-      int arriba_izquierda = reticula.GetMatriz().GetMatriz()[filas][columnas]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[filas][columnas]->GetEstado().GetEstado();
       int abajo_derecha = reticula.GetMatriz()[posx + 1][posy + 1]->GetEstado().GetEstado();
       int abajo_izquierda = reticula.GetMatriz()[posx + 1][columnas]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-      //std::cout << total << " " << posx << posy << std::endl;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
@@ -96,7 +96,7 @@ int Celula::NextState(Latice& reticula) {
     int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
     int total = arriba + abajo + derecha + izquierda;
     total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-    //std::cout << total << " " << posx << posy << std::endl;
+    std::cout << total << " " << posx << posy << std::endl;
     if ( total == 2 || total == 3) {
       return 1;
     } else {
@@ -113,7 +113,7 @@ int Celula::NextState(Latice& reticula) {
     int abajo_izquierda = reticula.GetMatriz()[0][columnas]->GetEstado().GetEstado();
     int total = arriba + abajo + derecha + izquierda;
     total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-    //std::cout << total << " " << posx << posy << std::endl;
+    std::cout << total << " " << posx << posy << std::endl;
     if ( total == 2 || total == 3) {
       return 1;
     } else {
@@ -130,6 +130,7 @@ int Celula::NextState(Latice& reticula) {
       int abajo_izquierda = reticula.GetMatriz()[0][posy - 1]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
@@ -146,6 +147,7 @@ int Celula::NextState(Latice& reticula) {
       int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
@@ -162,7 +164,7 @@ int Celula::NextState(Latice& reticula) {
       int abajo_izquierda = reticula.GetMatriz()[0][posy - 1]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-      //std::cout << total << " " << posx << posy << std::endl;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
@@ -179,7 +181,7 @@ int Celula::NextState(Latice& reticula) {
       int abajo_izquierda = reticula.GetMatriz()[posx + 1][columnas]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-      //std::cout << total << " " << posx << posy << std::endl;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
@@ -196,7 +198,7 @@ int Celula::NextState(Latice& reticula) {
       int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-      //std::cout << total << " " << posx << posy << std::endl;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
@@ -213,7 +215,7 @@ int Celula::NextState(Latice& reticula) {
       int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
       int total = arriba + abajo + derecha + izquierda;
       total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
-      //std::cout << total << " " << posx << posy << std::endl;
+      std::cout << total << " " << posx << posy << std::endl;
       if ( total == 2 || total == 3) {
         return 1;
       } else {
