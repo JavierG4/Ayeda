@@ -58,17 +58,169 @@ int Celula::NextState(Latice& reticula) {
     int abajo_derecha = reticula.GetMatriz()[posx + 1][posy + 1]->GetEstado().GetEstado();
     int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
     int total = arriba + abajo + derecha + izquierda;
-    //total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+    total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
     //std::cout << total << " " << posx << posy << std::endl;
     if ( total == 2 || total == 3) {
       return 1;
     } else {
       return 0;
     }
-  } else if (reticula.GetFrontera() == 2) {
-    if ( posx == 0 ) { // posicion (0,0) que iria a la (n,m)
+  } else if (reticula.GetFrontera() == 2) { // frontera periodica
+    int filas = reticula.GetMatriz().GetFilas() - 1;
+    int columnas = reticula.GetMatriz().GetColumnas() - 1;
+    if (posx == 0 && posy == 0) { // (0,0)
+      int arriba = reticula.GetMatriz()[filas][0]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx ][posy + 1]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[0][columnas]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[filas][posy + 1]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz().GetMatriz()[filas][columnas]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[posx + 1][posy + 1]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[posx + 1][columnas]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      //std::cout << total << " " << posx << posy << std::endl;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else if (posx == 0 && posy == columnas) {
+    int arriba = reticula.GetMatriz()[filas][posy]->GetEstado().GetEstado();
+    int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
+    int derecha = reticula.GetMatriz()[0][0]->GetEstado().GetEstado();
+    int izquierda = reticula.GetMatriz()[posx][posy - 1]->GetEstado().GetEstado();
+    int arriba_derecha = reticula.GetMatriz()[filas][0]->GetEstado().GetEstado();
+    int arriba_izquierda = reticula.GetMatriz()[filas][posy - 1]->GetEstado().GetEstado();
+    int abajo_derecha = reticula.GetMatriz()[posx + 1][0]->GetEstado().GetEstado();
+    int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
+    int total = arriba + abajo + derecha + izquierda;
+    total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+    //std::cout << total << " " << posx << posy << std::endl;
+    if ( total == 2 || total == 3) {
+      return 1;
+    } else {
+      return 0;
     }
-  } else if ( reticula.GetFrontera() == 3 ) {
+    } else if (posx == filas && posy == 0) {
+    int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
+    int abajo = reticula.GetMatriz()[0][0]->GetEstado().GetEstado();
+    int derecha = reticula.GetMatriz()[posx][posy + 1]->GetEstado().GetEstado();
+    int izquierda = reticula.GetMatriz()[filas][columnas]->GetEstado().GetEstado();
+    int arriba_derecha = reticula.GetMatriz()[posx - 1][posy + 1]->GetEstado().GetEstado();
+    int arriba_izquierda = reticula.GetMatriz()[posx - 1][columnas]->GetEstado().GetEstado();
+    int abajo_derecha = reticula.GetMatriz()[0][posy + 1]->GetEstado().GetEstado();
+    int abajo_izquierda = reticula.GetMatriz()[0][columnas]->GetEstado().GetEstado();
+    int total = arriba + abajo + derecha + izquierda;
+    total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+    //std::cout << total << " " << posx << posy << std::endl;
+    if ( total == 2 || total == 3) {
+      return 1;
+    } else {
+      return 0;
+    }
+    } else if (posx == filas && posy == columnas) {
+      int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[0][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx][0]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[posx][posy - 1]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[posx - 1][0]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[posx - 1][posy - 1]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[0][0]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[0][posy - 1]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else if (posx == 0) {
+      int arriba = reticula.GetMatriz()[filas][posy]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx][posy + 1]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[posx][posy - 1]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[filas][posy + 1]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[filas][posy - 1]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[posx + 1][posy + 1]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else if (posx == filas) {
+      int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[0][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx][posy + 1]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[posx][posy - 1]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[posx - 1][posy + 1]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[posx - 1][posy - 1]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[0][posy + 1]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[0][posy - 1]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      //std::cout << total << " " << posx << posy << std::endl;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else if (posy == 0) {
+      int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx][posy + 1]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[posx][columnas]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[posx - 1][posy + 1]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[posx - 1][columnas]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[posx + 1][posy + 1]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[posx + 1][columnas]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      //std::cout << total << " " << posx << posy << std::endl;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else if (posy == columnas) {
+      int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx][0]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[posx][posy - 1]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[posx - 1][0]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[posx - 1][posy - 1]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[posx + 1][0]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      //std::cout << total << " " << posx << posy << std::endl;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    } else {
+      int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
+      int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
+      int derecha = reticula.GetMatriz()[posx ][posy + 1]->GetEstado().GetEstado();
+      int izquierda = reticula.GetMatriz()[posx][posy - 1]->GetEstado().GetEstado();
+      int arriba_derecha = reticula.GetMatriz()[posx - 1][posy + 1]->GetEstado().GetEstado();
+      int arriba_izquierda = reticula.GetMatriz()[posx - 1][posy - 1]->GetEstado().GetEstado();
+      int abajo_derecha = reticula.GetMatriz()[posx + 1][posy + 1]->GetEstado().GetEstado();
+      int abajo_izquierda = reticula.GetMatriz()[posx + 1][posy - 1]->GetEstado().GetEstado();
+      int total = arriba + abajo + derecha + izquierda;
+      total += arriba_derecha + arriba_izquierda + abajo_derecha + abajo_izquierda;
+      //std::cout << total << " " << posx << posy << std::endl;
+      if ( total == 2 || total == 3) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  } else if ( reticula.GetFrontera() == 3 ) { // Frontera reflecora
     if (posx == 0 && posy == 0) { // (0,0)
       int arriba = GetEstado().GetEstado();
       int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
