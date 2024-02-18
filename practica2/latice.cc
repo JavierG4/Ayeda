@@ -110,20 +110,66 @@ void Latice::NextGeneration() {
       } else if (input == 's') { // guardar en fichero
         // Escribir
       }
-      for (int o = 0; o < veces ; o++) { 
-        for (int i = 1; i < latice_.GetFilas() - 1; i++ ) {
-          for (int j = 1; i < latice_.GetColumnas() -1; i++) { 
-            //std::cout << "j" << std::endl;
+      //std::cout << latice_.GetFilas() << "-" << latice_.GetColumnas() << std::endl;
+      for (int o = 0; o < veces ; o++) {
+        int numero = 0;
+        int col = latice_.GetColumnas() - 1;
+        int fil = latice_.GetFilas() - 1;
+        std::cout << "col: " << col << " fil: " << fil << std::endl;
+        for (int i = 1; i < fil; i++ ) {
+          for (int j = 1; j < col; j++) {
+            //std::cout << i << " _ " << j << std::endl;
             latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
           }
         }
         for (int e = 1; e < latice_.GetFilas() - 1; e++ ) {
-          for (int r = 1; r < latice_.GetColumnas(); r++) { 
+          for (int r = 1; r < latice_.GetColumnas() - 1; r++) { 
             latice_[e][r] -> UpdateState();
           }
         }
         if (flagc == 0) { 
-          std::cout << "G ( " << contador << " ) " << Population() <<std::endl;
+          std::cout << "G ( " << contador << " ) " << std::endl;
+          PrintLatice();
+          contador++;
+        } else if (flagc == 1) {
+          std::cout << "Population: " << Population() << " G( " << contador << " )" << std::endl;
+          //PrintLatice();
+          contador++;
+        }
+      }
+    }     
+  } else if ( frontera_ == 2 || frontera_ == 3 ) {
+    bool flagc = 0;
+    int contador = 1;  
+    char input;
+    while (true) {
+      int veces = 0;
+      input = getch();
+      if (input == 'x') {
+        break;
+      } else if ( input == 'n') {
+        veces = 1;
+      } else if (input == 'L') {
+        veces = 5;
+      } else if ( input == 'c' ) {
+        flagc = 1;
+      } else if (input == 's') { // guardar en fichero
+        // Escribir
+      }
+      for (int o = 0; o < veces ; o++) { 
+        for (int i = 0; i < latice_.GetFilas(); i++ ) {
+          for (int j = 0; j < latice_.GetColumnas(); j++) { 
+            //std::cout << "j" << std::endl;
+            latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
+          }
+        }
+        for (int e = 0; e < latice_.GetFilas(); e++ ) {
+          for (int r = 0; r < latice_.GetColumnas(); r++) { 
+            latice_[e][r] -> UpdateState();
+          }
+        }
+        if (flagc == 0) { 
+          std::cout << "G ( " << contador << " ) "  <<std::endl;
           PrintLatice();
           contador++;
         } else if (flagc == 1) {
@@ -133,8 +179,9 @@ void Latice::NextGeneration() {
         }
       }
     }    
+  } else if ( frontera_ == 4 ) {
+
   }
-  
 }
 
 void Latice::PrintInstrucciones() {
