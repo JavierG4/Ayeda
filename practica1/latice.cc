@@ -127,6 +127,7 @@ void Latice::NextGeneration() {
   }
 }
 
+/*
 void Latice::PrintLatice(int x) {
   for (int i = 0; i < numero_celulas_; i++) {
     if (latice_[i] -> GetEstado().GetEstado() == 1) { 
@@ -138,6 +139,7 @@ void Latice::PrintLatice(int x) {
   std::cout << "   G( " << x << " )  ";
   std::cout << std::endl;
 }
+*/
 
 int Latice::GetNumCelula() {
   return numero_celulas_;
@@ -151,3 +153,11 @@ Celula& Latice::operator[](int i) {
   return *latice_[i];
 }
 
+
+void Latice::PrintLatice(int x) {
+  for (int i = 0; i < numero_celulas_; i++) {
+    Celula cell = *latice_[i];
+    std::cout << cell;
+  }
+  std::cout << std::endl;
+}

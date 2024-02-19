@@ -8,6 +8,8 @@
 #include <set>
 #include <vector>
 #include "celula.h"
+#include <ostream>
+
 class Celula;
 
 class Latice {

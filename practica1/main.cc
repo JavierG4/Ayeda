@@ -2,6 +2,15 @@
 #include "latice.h"
 #include "celula.h"
 
+/*
+Ejemplos de ejecución:
+./Celula -size 64 -border open 0
+./Celula -size 10 -border open 1
+./Celula -size 10 -border periodic
+./Celula -size 10 -border open 0 -init fichero.txt
+./Celula -size 10 -border open 1 -init fichero.txt
+./Celula -size 10 -border periodic -init fichero.txt
+*/
 void Help() {
   std::cout << "-size <n>, n es el tamaño del retículo. Número de células." << std::endl;
   std::cout << "-border <b [v]>, b=open, v=[0|1]. Frontera abierta, fría o caliente. b=periodic" << std::endl;
@@ -33,9 +42,9 @@ int main(int argc, char* argv[]) {
     fichero = argv[6];
   }
 
-  std::cout << "flag: " << flag << std::endl;
-  std::cout << "n: " << n << std::endl;
-  std::cout << "fichero: " << fichero << std::endl;
+  //std::cout << "flag: " << flag << std::endl;
+  //std::cout << "n: " << n << std::endl;
+  //std::cout << "fichero: " << fichero << std::endl;
   Latice latice(n,flag,fichero);
   latice.PrintLatice(0);
   latice.NextGeneration();

@@ -11,6 +11,7 @@
 #include "estado.h"
 #include "posicion.h"
 #include "latice.h"
+#include <ostream>
 
 class Latice;
 
@@ -79,12 +80,21 @@ class Celula {
    */
   Estado GetEstadoSiguinte() const;
 
+  /**
+   * @brief Sobrecarga del operador de inserción para imprimir una celda en un flujo de salida.
+   * 
+   * @param os El flujo de salida en el que se imprimirá la celda.
+   * @param cell La celda que se imprimirá en el flujo de salida.
+   * @return El flujo de salida actualizado después de imprimir la celda.
+   */
+  friend std::ostream& operator<<(std::ostream&, const Celula&);
  private:
    Estado estado_; /**< El estado actual de la célula. */
    Posicion pos_; /**< La posición de la célula en el sistema. */
    Estado estado_siguiente_; /**< El estado siguiente de la célula. */
 };
 
+//std::ostream& operator<<(std::ostream&, const Celula&);
 
 
 #endif 
