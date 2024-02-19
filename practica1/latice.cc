@@ -47,7 +47,6 @@ Latice::Latice(int n, int frontera, std::string fichero) {
         }
       }
     }
-
   } else {
     //std::cout << fichero << std::endl;
     std::ifstream file(fichero);
@@ -57,7 +56,7 @@ Latice::Latice(int n, int frontera, std::string fichero) {
       latice_.resize(n + 2);
       latice_[0] = new Celula(Posicion(0), Estado(0));
       latice_[n + 1] = new Celula(Posicion(n + 1), Estado(0)); // CORREGIR
-      for (int i = 0; i < n;i++) {
+      for (int i = 1; i < n + 1;i++) {
         int estado;
         file >> estado;
         latice_[i] = new Celula(Posicion(i), Estado(estado));

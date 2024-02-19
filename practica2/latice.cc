@@ -274,3 +274,79 @@ bool Latice::Alrededor(int numero) {
 Matriz Latice::GetMatriz() {
   return latice_;
 }
+
+Latice::Latice(std::string nombre,int frontera) {
+  frontera_ = frontera;
+  std::ifstream file(nombre);
+  int filas = 0;
+  int columnas = 0;
+  std::string cadena1;
+  getline(file,cadena1);
+  char aux = cadena1[0];
+  char aux2 = cadena1[2];
+  filas = aux - '0';
+  columnas = aux2 - '0';
+  if (frontera_ == 2 || frontera_ == 3) {
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for ( int i = 0; i < filas; i++) {
+      std::string cadena;
+      //std::cout << i << "-" <<cadena.size() << std::endl;
+      //std::cout << i << "_" << cadena << std::endl;
+      getline(file,cadena);
+      std::cout << i << "-" <<cadena.size() << std::endl;
+      for (int j = 0; j < columnas; j++) {
+        int estado = 0;
+        if (cadena[j] == 'X') {
+          //std::cout << "si" << i << " " << j << std::endl;
+          estado = 1;
+        }
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(estado));
+      }
+    }
+  } else if (frontera_ == 0 || frontera_ == 1) {
+    filas = filas + 2;
+    columnas = columnas + 2;
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for (int i = 1; i < filas - 1; i++) {
+      std::string cadena;
+      file >> cadena;
+      for (int j = 1; j < columnas - 1; j++) {
+        int estado = 0;
+        if (cadena[j] == 'X') {
+          estado = 1;
+        }
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(estado));
+      }
+    }
+    if ( frontera_ == 0 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+    }
+    if ( frontera_ == 1 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+    }
+  }
+}

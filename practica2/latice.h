@@ -16,6 +16,7 @@ class Celula;
 class Latice {
  public:
    Latice(int,int,int);
+   Latice(std::string,int);
    ~Latice();
    int GetNumCelula();
    int GetFrontera();

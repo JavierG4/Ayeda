@@ -33,7 +33,8 @@ int main(int argc, char* argv[]) {
   //std::cout << "filas: " << filas << std::endl;
   //std::cout << "columnas: " << columnas << std::endl;
   //std::cout << "fichero: " << fichero << std::endl;
-  Latice latice(filas, columnas, flag);
+  Latice latice("matriz.txt", flag);
+  //Latice latice(filas, columnas, flag);
   latice.PrintInstrucciones();
   std::cout << "G ( " << 0 << " )" << std::endl;
   latice.PrintLatice();
