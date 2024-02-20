@@ -27,7 +27,7 @@ int Matriz::GetFilas() {
 }
 
 int Matriz::GetColumnas() {
-  return columnas_;
+  return matriz_[0].size();
 }
 
 Matriz::Matriz() {
