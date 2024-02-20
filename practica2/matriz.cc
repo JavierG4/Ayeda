@@ -35,3 +35,20 @@ Matriz::Matriz() {
   columnas_ = 0;
   size_ = 0;
 }
+
+void Matriz::Push_back(Myvector myvector) {
+  matriz_.push_back(myvector);
+  filas_++;
+  size_++;
+}
+
+void Matriz::Push_front(Myvector myvector) {
+  matriz_.insert(matriz_.begin(), myvector);
+  filas_++;
+  size_++;
+  --indice_inicial_;
+}
+
+int Matriz::GetIndiceInicial() {
+  return indice_inicial_;
+}

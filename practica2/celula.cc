@@ -48,7 +48,7 @@ void Celula::SetEstadoSiguiente(Estado estado) {
 int Celula::NextState(Latice& reticula) {
   int posx = GetPosicion().GetPosicionX();
   int posy = GetPosicion().GetPosicionY();
-  if (reticula.GetFrontera() == 0 ||reticula.GetFrontera() == 1) {
+  if (reticula.GetFrontera() == 0 ||reticula.GetFrontera() == 1 || reticula.GetFrontera() == 4) {
     int arriba = reticula.GetMatriz()[posx - 1][posy]->GetEstado().GetEstado();
     int abajo = reticula.GetMatriz()[posx + 1][posy]->GetEstado().GetEstado();
     int derecha = reticula.GetMatriz()[posx ][posy + 1]->GetEstado().GetEstado();
