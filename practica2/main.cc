@@ -4,6 +4,11 @@
 //#include "matriz.h"
 //#include "myvector.h"
 
+/*
+Formas de ejecutar el programa:
+./Celula -size 5 5 -border open 0
+*/
+
 void Help() {
   std::cout << "-size <M> <N>, M es el número de filas y N es el número de columnas del tablero." << std::endl;
   std::cout << "-border <b [v]>, b=open, v=[0|1]. Frontera abierta, fría o caliente. b=periodic" << std::endl;
@@ -39,12 +44,12 @@ int main(int argc, char* argv[]) {
   std::cout << "G ( " << 0 << " )" << std::endl;
   latice.PrintLatice();
   latice.NextGeneration();
-  /* 
+  
   std::cout << "Population: " << latice.Population() << std::endl;
   std::cout << "Alrededor 1 " << latice.Alrededor(1) << std::endl;
   std::cout << "Alrededor 2 " << latice.Alrededor(2) << std::endl;
   std::cout << "Alrededor 3 " << latice.Alrededor(3) << std::endl;
   std::cout << "Alrededor 4 " << latice.Alrededor(4) << std::endl;
-  */
+
   return 0;
 }

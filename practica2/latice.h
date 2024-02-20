@@ -21,10 +21,11 @@ class Latice {
    int GetNumCelula();
    int GetFrontera();
    void NextGeneration();
-   //Celula& operator[](int);
+   Celula& operator[](Posicion);
    std::size_t Population();
    int PreguntarEstado(int,int);
    void Comprobar();
+   Celula& GetCell(int,int);
    /* En el primer recorrido cada célula accede a su vecindad y aplica la función
    de transición para calcular su estado siguiente.
    En el segundo recorrido cada célula actualiza su estado.*/
