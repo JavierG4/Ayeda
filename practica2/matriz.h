@@ -11,9 +11,13 @@ class Matriz {
     Matriz(int,int,int);
     Matriz();
     Myvector& operator[](int);
+    void Push_back(Myvector);
+    void Push_front(Myvector);
     int GetFilas();
     int GetColumnas();
     void resize(int);
+    int GetIndiceInicial();
+    int GetSize();
  private:
    std::vector<Myvector> matriz_;
    int size_;

@@ -24,6 +24,7 @@ class Latice {
    //Celula& operator[](int);
    std::size_t Population();
    int PreguntarEstado(int,int);
+   void Comprobar();
    /* En el primer recorrido cada célula accede a su vecindad y aplica la función
    de transición para calcular su estado siguiente.
    En el segundo recorrido cada célula actualiza su estado.*/
