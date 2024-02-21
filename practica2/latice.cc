@@ -42,8 +42,8 @@ Latice::Latice(int filas, int columnas, int frontera) {
 }
 
 Latice::~Latice() {
-  for (int i = 0; i < latice_.GetFilas(); i++) {
-    for (int j = 0; j < latice_[i].size(); j++) {
+  for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++) {
+    for (int j = latice_[0].GetIndiceInicial(); j < latice_[i].GetIndiceInicial() + latice_[i].size(); j++) {
       delete latice_[i][j];
     }
   }
@@ -173,17 +173,20 @@ void Latice::NextGeneration() {
         // Escribir
       }
       for (int o = 0; o < veces ; o++) { 
-        for (int i = 0; i < latice_.GetFilas(); i++ ) {
-          for (int j = 0; j < latice_.GetColumnas() ; j++) { 
+        for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) {
+          for (int j = latice_[i].GetIndiceInicial(); j < latice_[i].GetIndiceInicial() + latice_[i].size() ; j++) { 
             //std::cout << "j" << std::endl;
             latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
           }
         }
-        for (int e = 0; e < latice_.GetFilas() ; e++ ) {
-          for (int r = 0; r < latice_.GetColumnas() ; r++) { 
-            latice_[e][r] -> UpdateState();
+        for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) {
+          for (int j = latice_[i].GetIndiceInicial(); j < latice_[i].GetIndiceInicial() + latice_[i].size() ; j++) { 
+            latice_[i][j] -> UpdateState();
           }
         }
+        std::cout << "Antes de comprobar" << std::endl;
+        PrintLatice();
+        std::cout << "-" << std::endl;
         Comprobar();
         if (flagc == 0) { 
           std::cout << "G ( " << contador << " ) "  <<std::endl;
@@ -205,43 +208,46 @@ void Latice::Comprobar() {
   int flag3 = Alrededor(3);
   int flag4 = Alrededor(4);
   std::cout << "Comprobando bordes" << std::endl;
-  if (flag1) { //BORDE ARRIBA FILA
-    std::cout << "Alrededor 1" << std::endl;
-    Myvector vector_aux(latice_[0].size());
-    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].size(); i++) {
-      vector_aux[i] = new Celula(Posicion(latice_.GetIndiceInicial() - 1,i),Estado(0));
-      latice_.Push_front(vector_aux);
-    }
-    PrintLatice();
-    std::cout << "Indice 1" <<latice_.GetIndiceInicial() << std::endl;
-    std::cout << "Indice 2" << latice_[0].GetIndiceInicial() << std::endl;
-  }
-
-  if (flag2) { //FILA DE ABAJO
-    std::cout << "Alrededor 2" << std::endl;
-    Myvector vector_aux(latice_[0].size());
-    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].size(); i++) {
-      vector_aux[i] = new Celula(Posicion(latice_[0].size(),i),Estado(0));
-      latice_.Push_back(vector_aux);
-    }
-    PrintLatice();
-  }
-  if (flag3) { //Columna izquierda
-    std::cout << "Alrededor 3" << std::endl;
-    for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas(); i++) {
-      Celula* cell = new Celula(Posicion(i,latice_[0].GetIndiceInicial() - 1),Estado(0));
+  if (flag2) { //Columna izquierda
+    //std::cout << "Alrededor 3" << std::endl;
+    int inicial = latice_[0].GetIndiceInicial() - 1;
+    for (int i = 0; i < latice_.GetFilas(); i++) {
+      Celula* cell = new Celula(Posicion(i,inicial),Estado(0));
       latice_[i].push_front(cell);
     }
-    PrintLatice();
+    //PrintLatice();
   }
-  if (flag4) {
-    std::cout << "Alrededor 4" << std::endl;
-    for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas(); i++) {
-      Celula* cell = new Celula(Posicion(i,latice_[i].size()),Estado(0));
+  if (flag4) { //Columna derecha
+    //std::cout << "Alrededor 4" << std::endl;
+    int size = latice_[0].size();
+    for (int i = 0; i < latice_.GetFilas(); i++) {
+      Celula* cell = new Celula(Posicion(i,size),Estado(0)); // cambio size/ i por i/size
       latice_[i].push_back(cell);
     }
-    PrintLatice();
+    //PrintLatice();
   } 
+  if (flag1) { //BORDE ARRIBA FILA
+    //std::cout << "Alrededor 1" << std::endl;
+    Myvector vector_aux(latice_[0].size());
+    for (int i = 0; i < latice_[0].size(); i++) {
+      vector_aux[i] = new Celula(Posicion(latice_.GetIndiceInicial() - 1,i),Estado(0));
+    }
+    vector_aux.SetIndiceInicial(latice_[0].GetIndiceInicial());
+    latice_.Push_front(vector_aux);
+    //PrintLatice();
+  }
+  if (flag3) { //FILA DE ABAJO
+    //std::cout << "Alrededor 2" << std::endl;
+    Myvector vector_aux(latice_[0].size());
+    for (int i = 0; i < latice_[0].size(); i++) {
+      vector_aux[i] = new Celula(Posicion(latice_.GetFilas(),i),Estado(0)); //latice_[0].size()
+    }
+    vector_aux.SetIndiceInicial(latice_[0].GetIndiceInicial());
+    latice_.Push_back(vector_aux);
+    //PrintLatice();
+  }
+  //std::cout << "Comprobando bordes" << std::endl;
+  //PrintLatice();
 }
 
 void Latice::PrintInstrucciones() {
@@ -256,8 +262,8 @@ void Latice::PrintInstrucciones() {
 void Latice::PrintLatice() {
   //std::cout << latice_.GetIndiceInicial() << std::endl;
   //std::cout << latice_[0].GetIndiceInicial() << std::endl;
-  for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas(); i++) {
-    for (int j = latice_[0].GetIndiceInicial(); j < latice_[i].size(); j++) {
+  for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas() + latice_.GetIndiceInicial(); i++) {
+    for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].size() + latice_[0].GetIndiceInicial(); j++) {
       std::cout << latice_[i][j] -> GetEstado().GetEstado() << " ";
     }
     std::cout << std::endl;
@@ -279,8 +285,8 @@ Celula& Latice::operator[](Posicion pos) {
 
 std::size_t Latice::Population()  {
   int population = 0;
-  for ( int i = 0; i < latice_.GetFilas(); i++ ) { // Accedo a cada fila , es decir cada Myvector<celula*>
-    for ( int j = 0; j < latice_[i].size(); j++ ) { // Accedo a cada columna, es decir cada celula* y accedo a lo que apunta y le hago un get
+  for ( int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) { // Accedo a cada fila , es decir cada Myvector<celula*>
+    for ( int j = latice_[i].GetIndiceInicial(); j < latice_[i].GetIndiceInicial() + latice_[i].size(); j++ ) { // Accedo a cada columna, es decir cada celula* y accedo a lo que apunta y le hago un get
       if ( latice_[i][j] -> GetEstado().GetEstado() == 1 ) {
         population++;
       }
@@ -288,7 +294,6 @@ std::size_t Latice::Population()  {
   }
   return population;
 }
-
 Celula& Latice::GetCell(int i, int j) {
   int pos_x = i;
   int pos_y = j;
@@ -362,41 +367,79 @@ Celula& Latice::GetCell(int i, int j) {
     }
   } else { //Frontera no border 0
     Celula* celulaEstadoCero = new Celula(Posicion(0,0),Estado(0));
-    if (i < 0 || i >= latice_.GetFilas() || j < 0 || j >= latice_.GetColumnas()) {
+    if (i < latice_.GetIndiceInicial() || i >= latice_.GetIndiceInicial() + latice_.GetFilas() || j < latice_[i].GetIndiceInicial() || j >= latice_[i].GetIndiceInicial() + latice_[i].size()) {
         return *celulaEstadoCero;
     } else {
-        return *latice_[i][j];
+      return *latice_[i][j];
     }
   }    
 }
 
-
+/*
 bool Latice::Alrededor(int numero) {
   if (numero == 1) {
-    for ( int i = 0; i < latice_[0].size(); i++) { // Borde de arriba osea la fila 0
+    for ( int i = latice_[0].GetIndiceInicial(); i < latice_[0].GetIndiceInicial() + latice_[0].size(); i++) { // Borde de arriba osea la fila 0
       if ( latice_[0][i] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 2) {
-    for (int i = 0; i < latice_.GetFilas();i++) { // columna 0
+    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas();i++) { // columna 0
       if ( latice_[i][0] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 3) {
-    for (int i = 0; i < latice_[0].size() ; i++) { // Fila n
-      if ( latice_[latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
+    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].GetIndiceInicial() + latice_[0].size() ; i++) { // Fila n
+      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 4) {
-    for (int i = 0; i < latice_.GetFilas(); i++) { // columna n
-      if ( latice_[i][latice_.GetColumnas() - 1] -> GetEstado().GetEstado() == 1 ) {
+    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++) { // columna n
+      if ( latice_[i][latice_[i].GetIndiceInicial() + latice_[i].size() - 1] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   }
+  return false;
+}
+
+else if (numero == 3) {
+    for (int i = latice_[0].GetIndiceInicial(); i < latice_[latice_.GetIndiceInicial()].GetIndiceInicial() + latice_[latice_.GetIndiceInicial()].size() ; i++) { // Fila n
+      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+*/
+
+bool Latice::Alrededor(int numero) {
+  if (numero == 1) {
+    for ( int i = latice_[0].GetIndiceInicial(); i < latice_[latice_.GetIndiceInicial()].GetIndiceInicial() + latice_[latice_.GetIndiceInicial()].size(); i++) { // Borde de arriba osea la fila 0
+      if ( latice_[latice_.GetIndiceInicial()][i] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  } else if (numero == 2) {
+    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas();i++) { // columna 0
+      if ( latice_[latice_[0].GetIndiceInicial()][i] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  } else if (numero == 3) {
+    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].GetIndiceInicial() + latice_[0].size() ; i++) { // Fila n
+      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  } else if (numero == 4) {
+    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++) { // columna n
+      if ( latice_[i][latice_[i].GetIndiceInicial() + latice_[i].size() - 1] -> GetEstado().GetEstado() == 1 ) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 Matriz Latice::GetMatriz() {

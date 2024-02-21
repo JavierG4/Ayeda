@@ -43,15 +43,15 @@ int main(int argc, char* argv[]) {
   latice.PrintInstrucciones();
   std::cout << "G ( " << 0 << " )" << std::endl;
   latice.PrintLatice();
-  latice.Comprobar();
-  latice.PrintLatice();
-  //latice.NextGeneration();
+  //latice.Comprobar();
+  //latice.PrintLatice();
+  latice.NextGeneration();
   
   std::cout << "Population: " << latice.Population() << std::endl;
-  std::cout << "Alrededor 1 " << latice.Alrededor(1) << std::endl;
-  std::cout << "Alrededor 2 " << latice.Alrededor(2) << std::endl;
-  std::cout << "Alrededor 3 " << latice.Alrededor(3) << std::endl;
-  std::cout << "Alrededor 4 " << latice.Alrededor(4) << std::endl;
+  //std::cout << "Alrededor 1 " << latice.Alrededor(1) << std::endl;
+  //std::cout << "Alrededor 2 " << latice.Alrededor(2) << std::endl;
+  //std::cout << "Alrededor 3 " << latice.Alrededor(3) << std::endl;
+  //std::cout << "Alrededor 4 " << latice.Alrededor(4) << std::endl;
 
   return 0;
 }

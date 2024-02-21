@@ -25,7 +25,7 @@ void Myvector::SetIndiceInicial(int indice_inicial) {
 }
 
 Celula*& Myvector::operator[](int indice) {
-  return myvector_[indice];
+  return myvector_[indice - indice_inicial_];
 }
 
 Myvector::Myvector(int size) {
@@ -37,13 +37,13 @@ Myvector::Myvector(int size) {
 
 void Myvector::push_back(Celula* valor) {
   size_++;
-  myvector_.resize(size_);
+  //myvector_.resize(size_);
   myvector_.push_back(valor);
 }
 
 void Myvector::push_front(Celula* valor) {
   size_++;
-  myvector_.resize(size_);
+  //yvector_.resize(size_);
   myvector_.insert(myvector_.begin(), valor);
   --indice_inicial_;
 
