@@ -208,32 +208,39 @@ void Latice::Comprobar() {
   if (flag1) { //BORDE ARRIBA FILA
     std::cout << "Alrededor 1" << std::endl;
     Myvector vector_aux(latice_[0].size());
-    for (int i = 0; i < latice_[0].size(); i++) {
+    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].size(); i++) {
       vector_aux[i] = new Celula(Posicion(latice_.GetIndiceInicial() - 1,i),Estado(0));
       latice_.Push_front(vector_aux);
     }
+    PrintLatice();
+    std::cout << "Indice 1" <<latice_.GetIndiceInicial() << std::endl;
+    std::cout << "Indice 2" << latice_[0].GetIndiceInicial() << std::endl;
   }
+
   if (flag2) { //FILA DE ABAJO
     std::cout << "Alrededor 2" << std::endl;
     Myvector vector_aux(latice_[0].size());
-    for (int i = 0; i < latice_[0].size(); i++) {
+    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].size(); i++) {
       vector_aux[i] = new Celula(Posicion(latice_[0].size(),i),Estado(0));
       latice_.Push_back(vector_aux);
     }
+    PrintLatice();
   }
   if (flag3) { //Columna izquierda
     std::cout << "Alrededor 3" << std::endl;
-    for (int i = 0; i < latice_.GetFilas(); i++) {
+    for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas(); i++) {
       Celula* cell = new Celula(Posicion(i,latice_[0].GetIndiceInicial() - 1),Estado(0));
       latice_[i].push_front(cell);
     }
+    PrintLatice();
   }
   if (flag4) {
     std::cout << "Alrededor 4" << std::endl;
-    for (int i = 0; i < latice_.GetFilas(); i++) {
+    for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas(); i++) {
       Celula* cell = new Celula(Posicion(i,latice_[i].size()),Estado(0));
       latice_[i].push_back(cell);
     }
+    PrintLatice();
   } 
 }
 
@@ -247,8 +254,8 @@ void Latice::PrintInstrucciones() {
 }
 
 void Latice::PrintLatice() {
-  std::cout << latice_.GetIndiceInicial() << std::endl;
-  std::cout << latice_[0].GetIndiceInicial() << std::endl;
+  //std::cout << latice_.GetIndiceInicial() << std::endl;
+  //std::cout << latice_[0].GetIndiceInicial() << std::endl;
   for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas(); i++) {
     for (int j = latice_[0].GetIndiceInicial(); j < latice_[i].size(); j++) {
       std::cout << latice_[i][j] -> GetEstado().GetEstado() << " ";

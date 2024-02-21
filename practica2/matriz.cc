@@ -37,16 +37,18 @@ Matriz::Matriz() {
 }
 
 void Matriz::Push_back(Myvector myvector) {
-  matriz_.push_back(myvector);
   filas_++;
   size_++;
+  matriz_.resize(filas_);
+  matriz_.push_back(myvector);
 }
 
 void Matriz::Push_front(Myvector myvector) {
-  matriz_.insert(matriz_.begin(), myvector);
   filas_++;
   size_++;
   --indice_inicial_;
+  matriz_.resize(filas_);
+  matriz_.insert(matriz_.begin(), myvector);
 }
 
 int Matriz::GetIndiceInicial() {
