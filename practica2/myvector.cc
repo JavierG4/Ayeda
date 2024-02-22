@@ -43,9 +43,9 @@ void Myvector::push_back(Celula* valor) {
 
 void Myvector::push_front(Celula* valor) {
   size_++;
+  --indice_inicial_;
   //yvector_.resize(size_);
   myvector_.insert(myvector_.begin(), valor);
-  --indice_inicial_;
 
 }
 

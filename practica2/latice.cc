@@ -2,6 +2,7 @@
 #include <iostream> // Add this line
 #include <termios.h>
 #include <unistd.h>
+#include <limits>
 
 int getch() {
   struct termios oldattr, newattr;
@@ -172,10 +173,11 @@ void Latice::NextGeneration() {
       } else if (input == 's') { // guardar en fichero
         // Escribir
       }
+      std::cout << "veces: " << contador << " " << std::endl;
       for (int o = 0; o < veces ; o++) { 
         for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) {
-          for (int j = latice_[i].GetIndiceInicial(); j < latice_[i].GetIndiceInicial() + latice_[i].size() ; j++) { 
-            //std::cout << "j" << std::endl;
+          for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].GetIndiceInicial() + latice_[0].size() ; j++) { 
+            //std::cout << "i" << i <<"j" << j << std::endl;
             latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
           }
         }
@@ -184,9 +186,9 @@ void Latice::NextGeneration() {
             latice_[i][j] -> UpdateState();
           }
         }
-        std::cout << "Antes de comprobar" << std::endl;
-        PrintLatice();
-        std::cout << "-" << std::endl;
+        //std::cout << "Antes de comprobar" << std::endl;
+        //PrintLatice();
+        //std::cout << "-" << std::endl;
         Comprobar();
         if (flagc == 0) { 
           std::cout << "G ( " << contador << " ) "  <<std::endl;
@@ -204,32 +206,44 @@ void Latice::NextGeneration() {
 
 void Latice::Comprobar() {
   int flag1 = Alrededor(1);
+  std::cout << "alrededor 1" << flag1 << std::endl;
   int flag2 = Alrededor(2);
+  std::cout << "alrededor 2" << flag2 << std::endl;
   int flag3 = Alrededor(3);
+  std::cout << "alrededor 3" << flag3 << std::endl;
   int flag4 = Alrededor(4);
+  std::cout << "alrededor 4" << flag4 << std::endl;
   std::cout << "Comprobando bordes" << std::endl;
   if (flag2) { //Columna izquierda
+   // std::cout << "itam" << latice_[latice_.GetIndiceInicial()].size() << std::endl;
     //std::cout << "Alrededor 3" << std::endl;
-    int inicial = latice_[0].GetIndiceInicial() - 1;
+    int inicial = latice_[latice_.GetIndiceInicial()].GetIndiceInicial() - 1;
     for (int i = 0; i < latice_.GetFilas(); i++) {
-      Celula* cell = new Celula(Posicion(i,inicial),Estado(0));
-      latice_[i].push_front(cell);
+      //std::cout << "i: " << i << " ";
+      Celula* cell = new Celula(Posicion(i + latice_.GetIndiceInicial(),inicial),Estado(0));
+      latice_[i + latice_.GetIndiceInicial()].push_front(cell);
     }
     //PrintLatice();
+    //std::cout << "itam" << latice_[latice_.GetIndiceInicial()].size() << std::endl;
   }
   if (flag4) { //Columna derecha
     //std::cout << "Alrededor 4" << std::endl;
+    //std::cout << "itam1" << latice_[latice_.GetIndiceInicial()].size() << std::endl;
     int size = latice_[0].size();
     for (int i = 0; i < latice_.GetFilas(); i++) {
-      Celula* cell = new Celula(Posicion(i,size),Estado(0)); // cambio size/ i por i/size
-      latice_[i].push_back(cell);
+      //std::cout << "i1: " << i << " ";
+      Celula* cell = new Celula(Posicion(i + latice_.GetIndiceInicial(),size),Estado(0)); // cambio size/ i por i/size
+      latice_[i + latice_.GetIndiceInicial()].push_back(cell);
     }
     //PrintLatice();
+    //std::cout << "itam1" << latice_[latice_.GetIndiceInicial()].size() << std::endl;
   } 
+
   if (flag1) { //BORDE ARRIBA FILA
     //std::cout << "Alrededor 1" << std::endl;
     Myvector vector_aux(latice_[0].size());
     for (int i = 0; i < latice_[0].size(); i++) {
+      //std::cout << "i2: " << i << " ";
       vector_aux[i] = new Celula(Posicion(latice_.GetIndiceInicial() - 1,i),Estado(0));
     }
     vector_aux.SetIndiceInicial(latice_[0].GetIndiceInicial());
@@ -240,7 +254,8 @@ void Latice::Comprobar() {
     //std::cout << "Alrededor 2" << std::endl;
     Myvector vector_aux(latice_[0].size());
     for (int i = 0; i < latice_[0].size(); i++) {
-      vector_aux[i] = new Celula(Posicion(latice_.GetFilas(),i),Estado(0)); //latice_[0].size()
+      //std::cout << "i3: " << i << " ";
+      vector_aux[i] = new Celula(Posicion(latice_.GetFilas(),i + latice_[i].GetIndiceInicial()),Estado(0)); //latice_[0].size()
     }
     vector_aux.SetIndiceInicial(latice_[0].GetIndiceInicial());
     latice_.Push_back(vector_aux);
@@ -265,6 +280,9 @@ void Latice::PrintLatice() {
   for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas() + latice_.GetIndiceInicial(); i++) {
     for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].size() + latice_[0].GetIndiceInicial(); j++) {
       std::cout << latice_[i][j] -> GetEstado().GetEstado() << " ";
+      if( i == 0 && j == 0) {
+        std::cout << "X";
+      }
     }
     std::cout << std::endl;
   }
@@ -367,7 +385,7 @@ Celula& Latice::GetCell(int i, int j) {
     }
   } else { //Frontera no border 0
     Celula* celulaEstadoCero = new Celula(Posicion(0,0),Estado(0));
-    if (i < latice_.GetIndiceInicial() || i >= latice_.GetIndiceInicial() + latice_.GetFilas() || j < latice_[i].GetIndiceInicial() || j >= latice_[i].GetIndiceInicial() + latice_[i].size()) {
+    if (i < latice_.GetIndiceInicial() || i >= latice_.GetIndiceInicial() + latice_.GetFilas() || j < latice_[0].GetIndiceInicial() || j >= latice_[0].GetIndiceInicial() + latice_[0].size()) {
         return *celulaEstadoCero;
     } else {
       return *latice_[i][j];
@@ -405,6 +423,7 @@ bool Latice::Alrededor(int numero) {
   return false;
 }
 
+
 else if (numero == 3) {
     for (int i = latice_[0].GetIndiceInicial(); i < latice_[latice_.GetIndiceInicial()].GetIndiceInicial() + latice_[latice_.GetIndiceInicial()].size() ; i++) { // Fila n
       if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
@@ -422,7 +441,9 @@ bool Latice::Alrededor(int numero) {
     }
   } else if (numero == 2) {
     for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas();i++) { // columna 0
-      if ( latice_[latice_[0].GetIndiceInicial()][i] -> GetEstado().GetEstado() == 1 ) {
+      //std::cout <<"i" << i <<"j: " << latice_[i][latice_[i].GetIndiceInicial()] ->GetPosicion().GetPosicionY()<< std::endl;
+      //std::cout <<  latice_[i][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() << std::endl;
+      if ( latice_[i][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
@@ -445,6 +466,84 @@ bool Latice::Alrededor(int numero) {
 Matriz Latice::GetMatriz() {
   return latice_;
 }
+Latice::Latice(std::string nombre,int frontera) {
+  frontera_ = frontera;
+  std::ifstream file(nombre);
+  if (!file) {
+    std::cerr << "No se pudo abrir el archivo " << nombre << std::endl;
+    return;
+  }
+  int filas = 0;
+  int columnas = 0;
+  std::string cadena1;
+  file >> filas;
+  file >> columnas;
+  getline(file,cadena1);
+  if (frontera_ == 2 || frontera_ == 3 || frontera_ == 4) {
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for ( int i = 0; i < filas; i++) {
+      std::string cadena;
+      //std::cout << i << "-" <<cadena.size() << std::endl;
+      //std::cout << i << "_" << cadena << std::endl;
+      getline(file,cadena);
+      std::cout << i << "-" <<cadena.size() << std::endl;
+      for (int j = 0; j < columnas; j++) {
+        int estado = 0;
+        if (cadena[j] == 'X') {
+          //std::cout << "si" << i << " " << j << std::endl;
+          estado = 1;
+        }
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(estado));
+      }
+    }
+  } else if (frontera_ == 0 || frontera_ == 1) {
+    filas = filas + 2;
+    columnas = columnas + 2;
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for (int i = 1; i < filas - 1; i++) {
+      std::string cadena;
+      file >> cadena;
+      for (int j = 1; j < columnas - 1; j++) {
+        int estado = 0;
+        if (cadena[j] == 'X') {
+          estado = 1;
+        }
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(estado));
+      }
+    }
+    if ( frontera_ == 0 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+    }
+    if ( frontera_ == 1 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+    }
+  }
+}
+/*
 Latice::Latice(std::string nombre, int frontera) {
   frontera_ = frontera;
   std::ifstream file(nombre);
@@ -463,7 +562,7 @@ Latice::Latice(std::string nombre, int frontera) {
     getline(file, cadena);
     for (int j = 0; j < columnas; j++) {
       int estado = 0;
-      if (frontera_ == 2 || frontera_ == 3) {
+      if (frontera_ == 2 || frontera_ == 3 || frontera_ == 4) {
         if (cadena[j] == 'X') {
           estado = 1;
         }
@@ -478,3 +577,81 @@ Latice::Latice(std::string nombre, int frontera) {
     }
   }
 }
+*/
+/* 
+Latice::Latice(std::string nombre,int frontera) {
+  frontera_ = frontera;
+  std::ifstream file(nombre);
+  int filas = 0;
+  int columnas = 0;
+  std::string cadena1;
+  getline(file,cadena1);
+  char aux = cadena1[0];
+  char aux2 = cadena1[2];
+  filas = aux - '0';
+  columnas = aux2 - '0';
+  if (frontera_ == 2 || frontera_ == 3 || frontera_ == 4) {
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for ( int i = 0; i < filas; i++) {
+      std::string cadena;
+      //std::cout << i << "-" <<cadena.size() << std::endl;
+      //std::cout << i << "_" << cadena << std::endl;
+      getline(file,cadena);
+      std::cout << i << "-" <<cadena.size() << std::endl;
+      for (int j = 0; j < columnas; j++) {
+        int estado = 0;
+        if (cadena[j] == 'X') {
+          //std::cout << "si" << i << " " << j << std::endl;
+          estado = 1;
+        }
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(estado));
+      }
+    }
+  } else if (frontera_ == 0 || frontera_ == 1) {
+    filas = filas + 2;
+    columnas = columnas + 2;
+    numero_celulas_ = columnas * filas;
+    latice_ = Matriz(filas, columnas, numero_celulas_);
+    for (int i = 1; i < filas - 1; i++) {
+      std::string cadena;
+      file >> cadena;
+      for (int j = 1; j < columnas - 1; j++) {
+        int estado = 0;
+        if (cadena[j] == 'X') {
+          estado = 1;
+        }
+        latice_[i][j] = new Celula(Posicion(i,j),Estado(estado));
+      }
+    }
+    if ( frontera_ == 0 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(0));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(0));
+      }
+    }
+    if ( frontera_ == 1 ) { 
+      for ( int i = 0; i < columnas; i++) { // borde de arriba
+        latice_[0][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la izquierda
+        latice_[i][0] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < filas; i++){ // borde de la derecha
+        latice_[i][columnas - 1] = new Celula(Posicion(0,i),Estado(1));
+      }
+      for ( int i = 0; i < columnas; i++) { // borde de abajo
+        latice_[filas - 1][i] = new Celula(Posicion(0,i),Estado(1));
+      }
+    }
+  }
+}
+*/
