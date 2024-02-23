@@ -42,7 +42,9 @@ int main(int argc, char* argv[]) {
   //Latice latice(filas, columnas, flag);
   latice.PrintInstrucciones();
   std::cout << "G ( " << 0 << " )" << std::endl;
-  latice.PrintLatice();
+  //latice.PrintLatice();
+  std::cout << std::endl;
+  std::cout << latice << std::endl;
   //latice.Comprobar();
   //latice.PrintLatice();
   latice.NextGeneration();

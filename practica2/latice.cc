@@ -3,6 +3,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <limits>
+#include <fstream>
 
 int getch() {
   struct termios oldattr, newattr;
@@ -84,7 +85,7 @@ void Latice::NextGeneration() {
       } else if ( input == 'c' ) {
         flagc = 1;
       } else if (input == 's') { // guardar en fichero
-        // Escribir
+        std::ofstream file("fichero.txt");
       }
       //std::cout << latice_.GetFilas() << "-" << latice_.GetColumnas() << std::endl;
       for (int o = 0; o < veces ; o++) {
@@ -171,7 +172,7 @@ void Latice::NextGeneration() {
       } else if ( input == 'c' ) {
         flagc = 1;
       } else if (input == 's') { // guardar en fichero
-        // Escribir
+        
       }
       std::cout << "veces: " << contador << " " << std::endl;
       for (int o = 0; o < veces ; o++) { 
@@ -206,14 +207,14 @@ void Latice::NextGeneration() {
 
 void Latice::Comprobar() {
   int flag1 = Alrededor(1);
-  std::cout << "alrededor 1" << flag1 << std::endl;
+  //std::cout << "alrededor 1" << flag1 << std::endl;
   int flag2 = Alrededor(2);
-  std::cout << "alrededor 2" << flag2 << std::endl;
+  //std::cout << "alrededor 2" << flag2 << std::endl;
   int flag3 = Alrededor(3);
-  std::cout << "alrededor 3" << flag3 << std::endl;
+  //std::cout << "alrededor 3" << flag3 << std::endl;
   int flag4 = Alrededor(4);
-  std::cout << "alrededor 4" << flag4 << std::endl;
-  std::cout << "Comprobando bordes" << std::endl;
+  //std::cout << "alrededor 4" << flag4 << std::endl;
+  //std::cout << "Comprobando bordes" << std::endl;
   if (flag2) { //Columna izquierda
    // std::cout << "itam" << latice_[latice_.GetIndiceInicial()].size() << std::endl;
     //std::cout << "Alrededor 3" << std::endl;
@@ -433,29 +434,30 @@ else if (numero == 3) {
 */
 
 bool Latice::Alrededor(int numero) {
+  int diferencia = latice_[0].size();
   if (numero == 1) {
-    for ( int i = latice_[0].GetIndiceInicial(); i < latice_[latice_.GetIndiceInicial()].GetIndiceInicial() + latice_[latice_.GetIndiceInicial()].size(); i++) { // Borde de arriba osea la fila 0
-      if ( latice_[latice_.GetIndiceInicial()][i] -> GetEstado().GetEstado() == 1 ) {
+    for ( int i = 0; i < diferencia; i++) { // Borde de arriba osea la fila 0
+      if ( latice_[latice_.GetIndiceInicial()][i + latice_[latice_.GetIndiceInicial()].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 2) {
-    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas();i++) { // columna 0
+    for (int i = 0; i < latice_.GetFilas();i++) { // columna 0
       //std::cout <<"i" << i <<"j: " << latice_[i][latice_[i].GetIndiceInicial()] ->GetPosicion().GetPosicionY()<< std::endl;
       //std::cout <<  latice_[i][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() << std::endl;
-      if ( latice_[i][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
+      if ( latice_[i + latice_.GetIndiceInicial()][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 3) {
-    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].GetIndiceInicial() + latice_[0].size() ; i++) { // Fila n
-      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
+    for (int i = 0; i < diferencia ; i++) { // Fila n
+      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i + latice_[0].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 4) {
-    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++) { // columna n
-      if ( latice_[i][latice_[i].GetIndiceInicial() + latice_[i].size() - 1] -> GetEstado().GetEstado() == 1 ) {
+    for (int i = 0; i < latice_.GetFilas(); i++) { // columna n
+      if ( latice_[i + latice_.GetIndiceInicial()][latice_[i].GetIndiceInicial() + latice_[i].size() - 1] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
@@ -543,6 +545,18 @@ Latice::Latice(std::string nombre,int frontera) {
     }
   }
 }
+
+std::ostream& operator<<(std::ostream& os, Latice& latice) {
+  for (int i = 0; i < latice.latice_.GetFilas(); i++) {
+    for (int j = 0; j < latice.latice_[0].size(); j++) {
+      os << latice.latice_[i + latice.latice_.GetIndiceInicial()][j + latice.latice_[j].GetIndiceInicial()] -> GetEstado().GetEstado() << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
+
 /*
 Latice::Latice(std::string nombre, int frontera) {
   frontera_ = frontera;

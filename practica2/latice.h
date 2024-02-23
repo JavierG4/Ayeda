@@ -29,7 +29,7 @@ class Latice {
    /* En el primer recorrido cada célula accede a su vecindad y aplica la función
    de transición para calcular su estado siguiente.
    En el segundo recorrido cada célula actualiza su estado.*/
-   //friend ostream& operator<<(ostream&, const Lattice&);
+   friend std::ostream& operator<<(std::ostream&, Latice&);
    Matriz GetMatriz();
    void PrintInstrucciones();
    void PrintLatice();
