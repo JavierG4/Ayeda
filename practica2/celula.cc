@@ -44,14 +44,15 @@ int Celula::NextState(Latice& reticula) {
   int posx = GetPosicion().GetPosicionX();
   int posy = GetPosicion().GetPosicionY();
   int contador = 0;
-  contador += reticula[Posicion(posx - 1, posy - 1)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx - 1, posy)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx - 1, posy + 1)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx, posy - 1)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx, posy + 1)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx + 1, posy - 1)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx + 1, posy)].GetEstado().GetEstado();
-  contador += reticula[Posicion(posx + 1, posy + 1)].GetEstado().GetEstado();
+  contador += reticula[Posicion(posx - 1, posy - 1)].GetEstado().GetEstado(); //Arriba izquierda
+  contador += reticula[Posicion(posx - 1, posy)].GetEstado().GetEstado(); //Arriba
+  contador += reticula[Posicion(posx - 1, posy + 1)].GetEstado().GetEstado(); //Arriba derecha
+  contador += reticula[Posicion(posx, posy - 1)].GetEstado().GetEstado(); //Izquierda
+  contador += reticula[Posicion(posx, posy + 1)].GetEstado().GetEstado(); //Derecha
+  contador += reticula[Posicion(posx + 1, posy - 1)].GetEstado().GetEstado(); // Abajo izquierda
+  contador += reticula[Posicion(posx + 1, posy)].GetEstado().GetEstado(); // Abajo
+  contador += reticula[Posicion(posx + 1, posy + 1)].GetEstado().GetEstado(); // Abajo derecha
+  //std::cout << posx << " " << posy << " " << contador << std::endl;
   if (GetEstado().GetEstado() == 0) {
     if (contador == 3) {
       return 1;

@@ -86,6 +86,12 @@ void Latice::NextGeneration() {
         flagc = 1;
       } else if (input == 's') { // guardar en fichero
         std::ofstream file("fichero.txt");
+        for (int i = 0; i < latice_.GetFilas(); i++) {
+          for (int j = 0; j < latice_[0].size(); j++) {
+            file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+          }
+          file << std::endl;
+        }
       }
       //std::cout << latice_.GetFilas() << "-" << latice_.GetColumnas() << std::endl;
       for (int o = 0; o < veces ; o++) {
@@ -131,7 +137,13 @@ void Latice::NextGeneration() {
       } else if ( input == 'c' ) {
         flagc = 1;
       } else if (input == 's') { // guardar en fichero
-        // Escribir
+        std::ofstream file("fichero.txt");
+        for (int i = 0; i < latice_.GetFilas(); i++) {
+          for (int j = 0; j < latice_[0].size(); j++) {
+            file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+          }
+          file << std::endl;
+        }
       }
       for (int o = 0; o < veces ; o++) { 
         for (int i = 0; i < latice_.GetFilas(); i++ ) {
@@ -172,7 +184,13 @@ void Latice::NextGeneration() {
       } else if ( input == 'c' ) {
         flagc = 1;
       } else if (input == 's') { // guardar en fichero
-        
+        std::ofstream file("fichero.txt");
+        for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas() + latice_.GetIndiceInicial(); i++) {
+          for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].size() + latice_[0].GetIndiceInicial(); j++) {
+            file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+          }
+          file << std::endl;
+        }
       }
       std::cout << "veces: " << contador << " " << std::endl;
       for (int o = 0; o < veces ; o++) { 
@@ -245,7 +263,7 @@ void Latice::Comprobar() {
     Myvector vector_aux(latice_[0].size());
     for (int i = 0; i < latice_[0].size(); i++) {
       //std::cout << "i2: " << i << " ";
-      vector_aux[i] = new Celula(Posicion(latice_.GetIndiceInicial() - 1,i),Estado(0));
+      vector_aux[i] = new Celula(Posicion(latice_.GetIndiceInicial() - 1,i + latice_[0].GetIndiceInicial()),Estado(0));
     }
     vector_aux.SetIndiceInicial(latice_[0].GetIndiceInicial());
     latice_.Push_front(vector_aux);
@@ -262,8 +280,6 @@ void Latice::Comprobar() {
     latice_.Push_back(vector_aux);
     //PrintLatice();
   }
-  //std::cout << "Comprobando bordes" << std::endl;
-  //PrintLatice();
 }
 
 void Latice::PrintInstrucciones() {
@@ -445,21 +461,20 @@ bool Latice::Alrededor(int numero) {
     for (int i = 0; i < latice_.GetFilas();i++) { // columna 0
       //std::cout <<"i" << i <<"j: " << latice_[i][latice_[i].GetIndiceInicial()] ->GetPosicion().GetPosicionY()<< std::endl;
       //std::cout <<  latice_[i][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() << std::endl;
-      if ( latice_[i + latice_.GetIndiceInicial()][latice_[i].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
+      if ( latice_[i + latice_.GetIndiceInicial()][latice_[0].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 3) {
     for (int i = 0; i < diferencia ; i++) { // Fila n
-      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i + latice_[0].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
+      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() -1][i + latice_[0].GetIndiceInicial()] -> GetEstado().GetEstado() == 1 ) {
         return true;
       }
     }
   } else if (numero == 4) {
     for (int i = 0; i < latice_.GetFilas(); i++) { // columna n
-      if ( latice_[i + latice_.GetIndiceInicial()][latice_[i].GetIndiceInicial() + latice_[i].size() - 1] -> GetEstado().GetEstado() == 1 ) {
-        return true;
-      }
+      if ( latice_[i + latice_.GetIndiceInicial()][latice_[0].GetIndiceInicial() + latice_[0].size() -1] -> GetEstado().GetEstado() == 1 ) {
+        return true;      }
     }
   }
   return false;

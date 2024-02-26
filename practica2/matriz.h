@@ -3,7 +3,6 @@
 #include <iostream>
 #include "myvector.h"
 
-
 class Myvector;
 
 class Matriz {
@@ -18,7 +17,6 @@ class Matriz {
     void resize(int);
     int GetIndiceInicial();
     int GetSize();
-    friend std::ostream& operator<<(std::ostream&, Matriz&);
  private:
    std::vector<Myvector> matriz_;
    int size_;

@@ -54,3 +54,8 @@ void Matriz::Push_front(Myvector myvector) {
 int Matriz::GetIndiceInicial() {
   return indice_inicial_;
 }
+
+
+
+
+
