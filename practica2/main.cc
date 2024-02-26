@@ -6,7 +6,16 @@
 
 /*
 Formas de ejecutar el programa:
-./Celula -size 5 5 -border open 0
+./Celula -size 3 3 -border open 0
+./Celula -size 5 5 -border open 1
+./Celula -size 5 5 -border periodic
+./Celula -size 5 5 -border reflective
+./Celula -size 5 5 -border noborder
+./Celula -size 5 5 -border open 0 -init matriz.txt
+./Celula -size 5 5 -border open 1 -init matriz.txt
+./Celula -size 5 5 -border periodic -init matriz.txt
+./Celula -size 5 5 -border reflective -init matriz.txt
+./Celula -size 5 5 -border noborder -init matriz.txt
 */
 
 void Help() {
@@ -34,27 +43,27 @@ int main(int argc, char* argv[]) {
   } else if (std::string(argv[5]) == "noborder") {
     flag = 4;
   }
-  //std::cout << "flag: " << flag << std::endl;
-  //std::cout << "filas: " << filas << std::endl;
-  //std::cout << "columnas: " << columnas << std::endl;
-  //std::cout << "fichero: " << fichero << std::endl;
-  Latice latice("matriz1.txt", flag);
-  //Latice latice(filas, columnas, flag);
-  latice.PrintInstrucciones();
-  std::cout << "G ( " << 0 << " )" << std::endl;
-  latice.PrintLatice();
-  //latice.Comprobar();
-  //std::cout << "Comprobada" << std::endl;
-  //latice.PrintLatice();
-  //latice.Comprobar();
-  //latice.PrintLatice();
-  latice.NextGeneration();
-  
-  std::cout << "Population: " << latice.Population() << std::endl;
-  //std::cout << "Alrededor 1 " << latice.Alrededor(1) << std::endl;
-  //std::cout << "Alrededor 2 " << latice.Alrededor(2) << std::endl;
-  //std::cout << "Alrededor 3 " << latice.Alrededor(3) << std::endl;
-  //std::cout << "Alrededor 4 " << latice.Alrededor(4) << std::endl;
+  if(argc == 8 ) {
+    std::string file = argv[7];
+    Latice latice(file, flag);
+    latice.PrintInstrucciones();
+    std::cout << "G ( " << 0 << " )" << std::endl;
+    latice.PrintLatice();
+    latice.NextGeneration();
+  } else if ( argc == 9 ) {
+    std::string file = argv[8];
+    Latice latice(file, flag);
+    latice.PrintInstrucciones();
+    std::cout << "G ( " << 0 << " )" << std::endl;
+    latice.PrintLatice();
+    latice.NextGeneration();
+  } else {
+    Latice latice(filas, columnas, flag);
+    latice.PrintInstrucciones();
+    std::cout << "G ( " << 0 << " )" << std::endl;
+    latice.PrintLatice();
+    latice.NextGeneration();
+  }
 
   return 0;
 }

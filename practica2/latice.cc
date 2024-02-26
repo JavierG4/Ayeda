@@ -98,7 +98,7 @@ void Latice::NextGeneration() {
         int numero = 0;
         int col = latice_.GetColumnas() - 1;
         int fil = latice_.GetFilas() - 1;
-        std::cout << "col: " << col << " fil: " << fil << std::endl;
+        //std::cout << "col: " << col << " fil: " << fil << std::endl;
         for (int i = 1; i < fil; i++ ) {
           for (int j = 1; j < col; j++) {
             //std::cout << i << " _ " << j << std::endl;
@@ -196,7 +196,7 @@ void Latice::NextGeneration() {
       for (int o = 0; o < veces ; o++) { 
         for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) {
           for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].GetIndiceInicial() + latice_[0].size() ; j++) { 
-            std::cout << "i" << i <<"j" << j << std::endl;
+            //std::cout << "i" << i <<"j" << j << std::endl;
             latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
           }
         }
@@ -297,9 +297,10 @@ void Latice::PrintLatice() {
   //std::cout << latice_[0].GetIndiceInicial() << std::endl;
   for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas() + latice_.GetIndiceInicial(); i++) {
     for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].size() + latice_[0].GetIndiceInicial(); j++) {
-      std::cout << latice_[i][j] -> GetEstado().GetEstado() <<" ";
-      if( i == 0 && j == 0) {
+      if (latice_[i][j] -> GetEstado().GetEstado() == 1) {
         std::cout << "X";
+      } else {
+        std::cout << "-";
       }
     }
     std::cout << std::endl;
@@ -411,45 +412,6 @@ Celula& Latice::GetCell(int i, int j) {
   }    
 }
 
-/*
-bool Latice::Alrededor(int numero) {
-  if (numero == 1) {
-    for ( int i = latice_[0].GetIndiceInicial(); i < latice_[0].GetIndiceInicial() + latice_[0].size(); i++) { // Borde de arriba osea la fila 0
-      if ( latice_[0][i] -> GetEstado().GetEstado() == 1 ) {
-        return true;
-      }
-    }
-  } else if (numero == 2) {
-    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas();i++) { // columna 0
-      if ( latice_[i][0] -> GetEstado().GetEstado() == 1 ) {
-        return true;
-      }
-    }
-  } else if (numero == 3) {
-    for (int i = latice_[0].GetIndiceInicial(); i < latice_[0].GetIndiceInicial() + latice_[0].size() ; i++) { // Fila n
-      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
-        return true;
-      }
-    }
-  } else if (numero == 4) {
-    for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++) { // columna n
-      if ( latice_[i][latice_[i].GetIndiceInicial() + latice_[i].size() - 1] -> GetEstado().GetEstado() == 1 ) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-
-else if (numero == 3) {
-    for (int i = latice_[0].GetIndiceInicial(); i < latice_[latice_.GetIndiceInicial()].GetIndiceInicial() + latice_[latice_.GetIndiceInicial()].size() ; i++) { // Fila n
-      if ( latice_[latice_.GetIndiceInicial() + latice_.GetFilas() - 1][i] -> GetEstado().GetEstado() == 1 ) {
-        return true;
-      }
-    }
-*/
-
 bool Latice::Alrededor(int numero) {
   int diferencia = latice_[0].size();
   if (numero == 1) {
@@ -522,7 +484,7 @@ Latice::Latice(std::string nombre,int frontera) {
     latice_ = Matriz(filas, columnas, numero_celulas_);
     for (int i = 1; i < filas - 1; i++) {
       std::string cadena;
-      file >> cadena;
+      getline(file,cadena);
       for (int j = 1; j < columnas - 1; j++) {
         int estado = 0;
         if (cadena[j] == 'X') {
