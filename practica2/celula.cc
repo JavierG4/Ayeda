@@ -52,7 +52,7 @@ int Celula::NextState(Latice& reticula) {
   contador += reticula[Posicion(posx + 1, posy - 1)].GetEstado().GetEstado(); // Abajo izquierda
   contador += reticula[Posicion(posx + 1, posy)].GetEstado().GetEstado(); // Abajo
   contador += reticula[Posicion(posx + 1, posy + 1)].GetEstado().GetEstado(); // Abajo derecha
-  //std::cout << posx << " " << posy << " " << contador << std::endl;
+  std::cout << posx << " " << posy << " " << contador << std::endl;
   if (GetEstado().GetEstado() == 0) {
     if (contador == 3) {
       return 1;

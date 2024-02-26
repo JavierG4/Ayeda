@@ -196,17 +196,17 @@ void Latice::NextGeneration() {
       for (int o = 0; o < veces ; o++) { 
         for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) {
           for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].GetIndiceInicial() + latice_[0].size() ; j++) { 
-            //std::cout << "i" << i <<"j" << j << std::endl;
+            std::cout << "i" << i <<"j" << j << std::endl;
             latice_[i][j] -> SetEstadoSiguiente(latice_[i][j] -> NextState(*this)); 
           }
         }
         for (int i = latice_.GetIndiceInicial(); i < latice_.GetIndiceInicial() + latice_.GetFilas(); i++ ) {
-          for (int j = latice_[i].GetIndiceInicial(); j < latice_[i].GetIndiceInicial() + latice_[i].size() ; j++) { 
+          for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].GetIndiceInicial() + latice_[i].size() ; j++) { 
             latice_[i][j] -> UpdateState();
           }
         }
-        //std::cout << "Antes de comprobar" << std::endl;
-        //PrintLatice();
+        std::cout << "Antes de comprobar" << std::endl;
+        PrintLatice();
         //std::cout << "-" << std::endl;
         Comprobar();
         if (flagc == 0) { 
@@ -248,10 +248,10 @@ void Latice::Comprobar() {
   if (flag4) { //Columna derecha
     //std::cout << "Alrededor 4" << std::endl;
     //std::cout << "itam1" << latice_[latice_.GetIndiceInicial()].size() << std::endl;
-    int size = latice_[0].size();
+    int diferencia = latice_[0].GetIndiceInicial() + latice_[0].size();
     for (int i = 0; i < latice_.GetFilas(); i++) {
       //std::cout << "i1: " << i << " ";
-      Celula* cell = new Celula(Posicion(i + latice_.GetIndiceInicial(),size),Estado(0)); // cambio size/ i por i/size
+      Celula* cell = new Celula(Posicion(i + latice_.GetIndiceInicial(),diferencia),Estado(0)); // cambio size/ i por i/size
       latice_[i + latice_.GetIndiceInicial()].push_back(cell);
     }
     //PrintLatice();
@@ -271,10 +271,11 @@ void Latice::Comprobar() {
   }
   if (flag3) { //FILA DE ABAJO
     //std::cout << "Alrededor 2" << std::endl;
+    int diferencia = latice_.GetFilas() + latice_.GetIndiceInicial();
     Myvector vector_aux(latice_[0].size());
     for (int i = 0; i < latice_[0].size(); i++) {
       //std::cout << "i3: " << i << " ";
-      vector_aux[i] = new Celula(Posicion(latice_.GetFilas(),i + latice_[i].GetIndiceInicial()),Estado(0)); //latice_[0].size()
+      vector_aux[i] = new Celula(Posicion(diferencia ,i + latice_[0].GetIndiceInicial()),Estado(0)); //latice_[0].size()
     }
     vector_aux.SetIndiceInicial(latice_[0].GetIndiceInicial());
     latice_.Push_back(vector_aux);
@@ -296,7 +297,7 @@ void Latice::PrintLatice() {
   //std::cout << latice_[0].GetIndiceInicial() << std::endl;
   for (int i = latice_.GetIndiceInicial(); i < latice_.GetFilas() + latice_.GetIndiceInicial(); i++) {
     for (int j = latice_[0].GetIndiceInicial(); j < latice_[0].size() + latice_[0].GetIndiceInicial(); j++) {
-      std::cout << latice_[i][j] -> GetEstado().GetEstado() << " ";
+      std::cout << latice_[i][j] -> GetEstado().GetEstado() <<" ";
       if( i == 0 && j == 0) {
         std::cout << "X";
       }
