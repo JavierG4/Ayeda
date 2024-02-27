@@ -1,0 +1,42 @@
+#ifndef celulaLife_h
+#define celulaLife_h
+
+
+#include <celula.h>
+#include <position.h>
+#include <Estado.h>
+#include <iostream>
+#include "latice.h"
+
+
+class Latice;
+
+class CelulaLife : public Celula {
+ public:
+  CelulaLife(const Position& pos, const Estado& estado) : Celula(pos, estado) {}
+};
+
+class CelulaLife23_3 : public CelulaLife {
+ public:
+  CelulaLife23_3(const Position& pos, const Estado& estado) : CelulaLife(pos, estado) {}
+  int NextState(Latice& latice);
+  void UpdateState();
+};
+
+class CelulaLife51_346 : public CelulaLife {
+ public:
+  CelulaLife51_346(const Position& pos, const Estado& estado) : CelulaLife(pos, estado) {}
+  int NextState(Latice& latice);
+  void UpdateState();
+};
+
+
+
+
+
+
+
+
+
+
+#endif
