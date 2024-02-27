@@ -1,31 +1,34 @@
 #ifndef celulace_h
 #define celulace_h
 
-#include <celula.h>
-#include <position.h>
-#include <Estado.h>
+#include "celula.h"
+#include "position.h"
+#include "estado.h"
 #include <iostream>
 #include "latice.h"
 
 class Latice;
-
+class Celula;
 
 class CelulaAce : public Celula {
  public:
-  CelulaCe(const Position& pos, const Estado& estado) : Celula(pos, estado) {}
+  //CelulaAce(const Position& pos, const Estado& estado) : Celula(pos, estado) {}
+  using Celula::Celula;
 };
 
 
 class CelulaAce110 : public CelulaAce {
  public:
-  CelulaAce110(const Position& pos, const Estado& estado) : CelulAce(pos, estado) {}
+  //CelulaAce110(const Position& pos, const Estado& estado) : CelulaAce(pos, estado) {}
+  using CelulaAce::CelulaAce;
   int NextState(Latice& latice);
   void UpdateState();
 };
 
 class CelulaAce30 : public CelulaAce {
  public:
-  CelulaAce30(const Position& pos, const Estado& estado) : CelulAce(pos, estado) {}
+  //CelulaAce30(const Position& pos, const Estado& estado) : CelulaAce(pos, estado) {}
+  using CelulaAce::CelulaAce;
   int NextState(Latice& latice);
   void UpdateState();
 };

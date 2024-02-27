@@ -2,7 +2,7 @@
 #include "latice.h"
 
 Celula::Celula(const Position& pos, const Estado& estado = Estado()) {
-  pos_ = &pos;
+  pos_ = pos;
   estado_ = estado;
   estado_siguiente_ = estado;
 }
@@ -23,8 +23,8 @@ void Celula::UpdateState() {
   estado_ = estado_siguiente_;
 }
 
-Posicion* Celula::GetPosicion() const {
-  return pos_;
+Position& Celula::GetPosicion() const {
+  return &pos_;
 }
 
 

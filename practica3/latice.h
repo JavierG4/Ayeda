@@ -2,6 +2,7 @@
 #define latice_h
 
 #include <iostream>
+/*
 #include <stdlib.h>
 #include <fstream>
 #include <utility>
@@ -14,18 +15,20 @@
 #include "position.h"
 #include "estado.h"
 
-class Celula;
 
+
+class Celula;
+/*
 /**
  * @brief Clase que representa una red de células.
  */
 class Latice {
  public:
-  Latice::Latice(std::string, const FactoryCell&);
+  //Latice(std::string, const FactoryCelula&);
   virtual void Latice::nextGeneration() = 0;
   virtual std::size_t Latice::Population() const = 0;
   virtual ostream& Latice::display(ostream&) = 0;
-  friend ostream& operator<<(ostream&, const Latice&);
+  friend std::ostream& operator<<(std::ostream&, const Latice&);
 };
 
 #endif 

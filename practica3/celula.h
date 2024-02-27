@@ -67,7 +67,7 @@ class Celula {
    * @brief Obtiene la posición de la célula en el sistema.
    * @return La posición de la célula.
    */
-  Position* GetPosition() const;
+  Position& GetPosition() const;
 
   /**
    * @brief Obtiene el estado siguiente de la célula.
@@ -77,7 +77,7 @@ class Celula {
 
  protected:
    Estado estado_; /**< El estado actual de la célula. */
-   Position* pos_; /**< La posición de la célula en el sistema. */
+   Position& pos_; /**< La posición de la célula en el sistema. */
    Estado estado_siguiente_; /**< El estado siguiente de la célula. */
 };
 

@@ -4,9 +4,10 @@
 #include <cstdarg>
 #include "celula.h"
 #include "position.h"
-#include "Estado.h"
+#include "estado.h"
 #include "celulace.h"
 #include "celulalife.h"
+#include "factorycell.h"
 
 /*
 Formas de ejecutar
@@ -65,15 +66,17 @@ int main(int argc, char* argv[]){
   } else if (std::string(argv[8 + flag_fichero + tam_dim]) == "noborder") {
     flag = 4;
   }
+  FactoryCelula* factorys;
   if (celula == "Ace110") {
-    FactoryCelulaAce110 factory;
+    factorys = new CelulaAce110();
   } else if (celula == "Life23_3") {
-    FactoryCelulaLife23_3 factory;
+    factorys = new CelulaLife23_3();
   } else if (celula == "Life51_346") {
-    FactoryCelulaLife51_346 factory;
+    factorys = new CelulaLife51_346();
   } else if (celula == "Ace30") {
-    FactoryCelulaAce30 factory;
+    factorys = new CelulaAce30();
   }
+  
 
   return 0;
 }

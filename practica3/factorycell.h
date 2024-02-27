@@ -1,6 +1,9 @@
+#ifndef factorycell_h
+#define factorycell_h
+
 #include "celula.h"
 #include "position.h"
-#include "Estado.h"
+#include "estado.h"
 #include <iostream>
 #include "celulace.h"
 #include "celulalife.h"
@@ -22,20 +25,23 @@ class FactoryCelulaAce110: public FactoryCelula {
 class FactoryCelulaAce30: public FactoryCelula {
  public:
   Celula* createCelula(const Position& p, const Estado& s) const {
-    return new CelulaAce110(p, s);
+    return new CelulaAce30(p, s);
   }
 };
 
-class FactoryCelulaAce23_3: public FactoryCelula {
+class FactoryCelulaLife23_3: public FactoryCelula {
  public:
   Celula* createCelula(const Position& p, const Estado& s) const {
     return new CelulaLife23_3(p, s);
   }
 };
 
-class FactoryCelulaAce51_346: public FactoryCelula {
+class FactoryCelulaLife51_346: public FactoryCelula {
  public:
   Celula* createCelula(const Position& p, const Estado& s) const {
     return new CelulaLife51_346(p, s);
   }
 };
+
+
+#endif
