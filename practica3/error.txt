@@ -1,0 +1,1074 @@
+g++ -g -o Celula main.cc position.cc estado.cc celula.cc latice.cc latice2d.cc latice1d.cc  myvector.cc matriz.cc celulalife.cc celulace.cc
+In file included from main.cc:10:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaAce110::createCelula(const Position&, const Estado&) const’:
+factorycell.h:21:33: error: no matching function for call to ‘CelulaAce110::CelulaAce110(const Position&, const Estado&)’
+   21 |     return new CelulaAce110(p, s);
+      |                                 ^
+In file included from main.cc:5:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from main.cc:8:
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:5:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from main.cc:8:
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+In file included from main.cc:5:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from main.cc:8:
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(const CelulaAce&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(CelulaAce&&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:20:7: note: candidate: ‘constexpr CelulaAce110::CelulaAce110(const CelulaAce110&)’
+   20 | class CelulaAce110 : public CelulaAce {
+      |       ^~~~~~~~~~~~
+celulace.h:20:7: note:   candidate expects 1 argument, 2 provided
+celulace.h:20:7: note: candidate: ‘constexpr CelulaAce110::CelulaAce110(CelulaAce110&&)’
+celulace.h:20:7: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:10:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaAce30::createCelula(const Position&, const Estado&) const’:
+factorycell.h:28:32: error: no matching function for call to ‘CelulaAce30::CelulaAce30(const Position&, const Estado&)’
+   28 |     return new CelulaAce30(p, s);
+      |                                ^
+In file included from main.cc:5:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from main.cc:8:
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:5:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from main.cc:8:
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+In file included from main.cc:5:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from main.cc:8:
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(const CelulaAce&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(CelulaAce&&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:28:7: note: candidate: ‘constexpr CelulaAce30::CelulaAce30(const CelulaAce30&)’
+   28 | class CelulaAce30 : public CelulaAce {
+      |       ^~~~~~~~~~~
+celulace.h:28:7: note:   candidate expects 1 argument, 2 provided
+celulace.h:28:7: note: candidate: ‘constexpr CelulaAce30::CelulaAce30(CelulaAce30&&)’
+celulace.h:28:7: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:10:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaLife23_3::createCelula(const Position&, const Estado&) const’:
+factorycell.h:35:35: error: no matching function for call to ‘CelulaLife23_3::CelulaLife23_3(const Position&, const Estado&)’
+   35 |     return new CelulaLife23_3(p, s);
+      |                                   ^
+In file included from main.cc:5:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from main.cc:9:
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:5:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from main.cc:9:
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+In file included from main.cc:5:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from main.cc:9:
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(const CelulaLife&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(CelulaLife&&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:21:7: note: candidate: ‘constexpr CelulaLife23_3::CelulaLife23_3(const CelulaLife23_3&)’
+   21 | class CelulaLife23_3 : public CelulaLife {
+      |       ^~~~~~~~~~~~~~
+celulalife.h:21:7: note:   candidate expects 1 argument, 2 provided
+celulalife.h:21:7: note: candidate: ‘constexpr CelulaLife23_3::CelulaLife23_3(CelulaLife23_3&&)’
+celulalife.h:21:7: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:10:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaLife51_346::createCelula(const Position&, const Estado&) const’:
+factorycell.h:42:37: error: no matching function for call to ‘CelulaLife51_346::CelulaLife51_346(const Position&, const Estado&)’
+   42 |     return new CelulaLife51_346(p, s);
+      |                                     ^
+In file included from main.cc:5:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from main.cc:9:
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+In file included from main.cc:5:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from main.cc:9:
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+In file included from main.cc:5:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from main.cc:9:
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(const CelulaLife&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(CelulaLife&&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:29:7: note: candidate: ‘constexpr CelulaLife51_346::CelulaLife51_346(const CelulaLife51_346&)’
+   29 | class CelulaLife51_346 : public CelulaLife {
+      |       ^~~~~~~~~~~~~~~~
+celulalife.h:29:7: note:   candidate expects 1 argument, 2 provided
+celulalife.h:29:7: note: candidate: ‘constexpr CelulaLife51_346::CelulaLife51_346(CelulaLife51_346&&)’
+celulalife.h:29:7: note:   candidate expects 1 argument, 2 provided
+celula.cc: In constructor ‘Celula::Celula(const Position*&, const Estado&)’:
+celula.cc:5:26: error: invalid new-expression of abstract class type ‘Position’
+    5 |   pos_ = new Position(pos);
+      |                          ^
+In file included from celula.h:12,
+                 from celula.cc:1:
+position.h:10:7: note:   because the following virtual functions are pure within ‘Position’:
+   10 | class Position {
+      |       ^~~~~~~~
+position.h:14:18: note:     ‘virtual Coor_t Position::operator[](unsigned int) const’
+   14 |   virtual Coor_t operator[](unsigned int) const = 0;
+      |                  ^~~~~~~~
+celula.cc: At global scope:
+celula.cc:30:11: error: no declaration matches ‘Position* Celula::GetPosicion() const’
+   30 | Position* Celula::GetPosicion() const {
+      |           ^~~~~~
+celula.cc:30:11: note: no functions named ‘Position* Celula::GetPosicion() const’
+In file included from celula.cc:1:
+celula.h:27:7: note: ‘class Celula’ defined here
+   27 | class Celula {
+      |       ^~~~~~
+In file included from latice2d.h:5,
+                 from latice2d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaAce110::createCelula(const Position&, const Estado&) const’:
+factorycell.h:21:33: error: no matching function for call to ‘CelulaAce110::CelulaAce110(const Position&, const Estado&)’
+   21 |     return new CelulaAce110(p, s);
+      |                                 ^
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:8,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:8,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:8,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(const CelulaAce&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(CelulaAce&&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:20:7: note: candidate: ‘constexpr CelulaAce110::CelulaAce110(const CelulaAce110&)’
+   20 | class CelulaAce110 : public CelulaAce {
+      |       ^~~~~~~~~~~~
+celulace.h:20:7: note:   candidate expects 1 argument, 2 provided
+celulace.h:20:7: note: candidate: ‘constexpr CelulaAce110::CelulaAce110(CelulaAce110&&)’
+celulace.h:20:7: note:   candidate expects 1 argument, 2 provided
+In file included from latice2d.h:5,
+                 from latice2d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaAce30::createCelula(const Position&, const Estado&) const’:
+factorycell.h:28:32: error: no matching function for call to ‘CelulaAce30::CelulaAce30(const Position&, const Estado&)’
+   28 |     return new CelulaAce30(p, s);
+      |                                ^
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:8,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:8,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:8,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(const CelulaAce&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(CelulaAce&&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:28:7: note: candidate: ‘constexpr CelulaAce30::CelulaAce30(const CelulaAce30&)’
+   28 | class CelulaAce30 : public CelulaAce {
+      |       ^~~~~~~~~~~
+celulace.h:28:7: note:   candidate expects 1 argument, 2 provided
+celulace.h:28:7: note: candidate: ‘constexpr CelulaAce30::CelulaAce30(CelulaAce30&&)’
+celulace.h:28:7: note:   candidate expects 1 argument, 2 provided
+In file included from latice2d.h:5,
+                 from latice2d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaLife23_3::createCelula(const Position&, const Estado&) const’:
+factorycell.h:35:35: error: no matching function for call to ‘CelulaLife23_3::CelulaLife23_3(const Position&, const Estado&)’
+   35 |     return new CelulaLife23_3(p, s);
+      |                                   ^
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:9,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:9,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:9,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(const CelulaLife&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(CelulaLife&&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:21:7: note: candidate: ‘constexpr CelulaLife23_3::CelulaLife23_3(const CelulaLife23_3&)’
+   21 | class CelulaLife23_3 : public CelulaLife {
+      |       ^~~~~~~~~~~~~~
+celulalife.h:21:7: note:   candidate expects 1 argument, 2 provided
+celulalife.h:21:7: note: candidate: ‘constexpr CelulaLife23_3::CelulaLife23_3(CelulaLife23_3&&)’
+celulalife.h:21:7: note:   candidate expects 1 argument, 2 provided
+In file included from latice2d.h:5,
+                 from latice2d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaLife51_346::createCelula(const Position&, const Estado&) const’:
+factorycell.h:42:37: error: no matching function for call to ‘CelulaLife51_346::CelulaLife51_346(const Position&, const Estado&)’
+   42 |     return new CelulaLife51_346(p, s);
+      |                                     ^
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:9,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:9,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+In file included from factorycell.h:4,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:9,
+                 from latice2d.h:5,
+                 from latice2d.cc:1:
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(const CelulaLife&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(CelulaLife&&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:29:7: note: candidate: ‘constexpr CelulaLife51_346::CelulaLife51_346(const CelulaLife51_346&)’
+   29 | class CelulaLife51_346 : public CelulaLife {
+      |       ^~~~~~~~~~~~~~~~
+celulalife.h:29:7: note:   candidate expects 1 argument, 2 provided
+celulalife.h:29:7: note: candidate: ‘constexpr CelulaLife51_346::CelulaLife51_346(CelulaLife51_346&&)’
+celulalife.h:29:7: note:   candidate expects 1 argument, 2 provided
+latice2d.cc: In member function ‘virtual void latice2d_reflective::nextGeneration()’:
+latice2d.cc:6:23: error: ‘Matriz Latice2d::latice_’ is private within this context
+    6 |   for (int i = 0; i < latice_.size(); i++) {
+      |                       ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:6:31: error: ‘class Matriz’ has no member named ‘size’; did you mean ‘int Matriz::size_’? (not accessible from this context)
+    6 |   for (int i = 0; i < latice_.size(); i++) {
+      |                               ^~~~
+In file included from latice2d.h:11,
+                 from latice2d.cc:1:
+matriz.h:83:8: note: declared private here
+   83 |    int size_; ///< Tamaño total de la matriz.
+      |        ^~~~~
+latice2d.cc:7:25: error: ‘Matriz Latice2d::latice_’ is private within this context
+    7 |     for (int j = 0; j < latice_[i].size(); j++) {
+      |                         ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:8:7: error: ‘Matriz Latice2d::latice_’ is private within this context
+    8 |       latice_[i][j]->SetEstado(latice_[i][j]->NextState(*this));
+      |       ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:8:32: error: ‘Matriz Latice2d::latice_’ is private within this context
+    8 |       latice_[i][j]->SetEstado(latice_[i][j]->NextState(*this));
+      |                                ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:11:23: error: ‘Matriz Latice2d::latice_’ is private within this context
+   11 |   for (int i = 0; i < latice_.size(); i++) {
+      |                       ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:11:31: error: ‘class Matriz’ has no member named ‘size’; did you mean ‘int Matriz::size_’? (not accessible from this context)
+   11 |   for (int i = 0; i < latice_.size(); i++) {
+      |                               ^~~~
+In file included from latice2d.h:11,
+                 from latice2d.cc:1:
+matriz.h:83:8: note: declared private here
+   83 |    int size_; ///< Tamaño total de la matriz.
+      |        ^~~~~
+latice2d.cc:12:25: error: ‘Matriz Latice2d::latice_’ is private within this context
+   12 |     for (int j = 0; j < latice_[i].size(); j++) {
+      |                         ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:13:7: error: ‘Matriz Latice2d::latice_’ is private within this context
+   13 |       latice_[i][j]->UpdateState();
+      |       ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc: In member function ‘virtual std::size_t latice2d_reflective::Population() const’:
+latice2d.cc:20:23: error: ‘Matriz Latice2d::latice_’ is private within this context
+   20 |   for (int i = 0; i < latice_.size(); i++) {
+      |                       ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:20:31: error: ‘const class Matriz’ has no member named ‘size’; did you mean ‘int Matriz::size_’? (not accessible from this context)
+   20 |   for (int i = 0; i < latice_.size(); i++) {
+      |                               ^~~~
+In file included from latice2d.h:11,
+                 from latice2d.cc:1:
+matriz.h:83:8: note: declared private here
+   83 |    int size_; ///< Tamaño total de la matriz.
+      |        ^~~~~
+latice2d.cc:21:25: error: ‘Matriz Latice2d::latice_’ is private within this context
+   21 |     for (int j = 0; j < latice_[i].size(); j++) {
+      |                         ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:21:34: error: passing ‘const Matriz’ as ‘this’ argument discards qualifiers [-fpermissive]
+   21 |     for (int j = 0; j < latice_[i].size(); j++) {
+      |                                  ^
+In file included from latice2d.h:11,
+                 from latice2d.cc:1:
+matriz.h:37:15: note:   in call to ‘Myvector& Matriz::operator[](int)’
+   37 |     Myvector& operator[](int index);
+      |               ^~~~~~~~
+latice2d.cc:22:21: error: ‘Matriz Latice2d::latice_’ is private within this context
+   22 |       population += latice_[i][j]->GetEstado().GetEstado();
+      |                     ^~~~~~~
+In file included from latice2d.cc:1:
+latice2d.h:21:10: note: declared private here
+   21 |   Matriz latice_;
+      |          ^~~~~~~
+latice2d.cc:22:30: error: passing ‘const Matriz’ as ‘this’ argument discards qualifiers [-fpermissive]
+   22 |       population += latice_[i][j]->GetEstado().GetEstado();
+      |                              ^
+In file included from latice2d.h:11,
+                 from latice2d.cc:1:
+matriz.h:37:15: note:   in call to ‘Myvector& Matriz::operator[](int)’
+   37 |     Myvector& operator[](int index);
+      |               ^~~~~~~~
+latice2d.cc: At global scope:
+latice2d.cc:28:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+   28 | latice2d_reflective::operator[](const Position& pos) {
+      | ^~~~~~~~~~~~~~~~~~~
+latice2d.cc:28:1: error: no declaration matches ‘int latice2d_reflective::operator[](const Position&)’
+In file included from latice2d.cc:1:
+latice2d.h:29:11: note: candidate is: ‘Celula& latice2d_reflective::operator[](const Position&)’
+   29 |   Celula& operator[](const Position&);
+      |           ^~~~~~~~
+latice2d.h:24:7: note: ‘class latice2d_reflective’ defined here
+   24 | class latice2d_reflective : public Latice2d {
+      |       ^~~~~~~~~~~~~~~~~~~
+latice2d.cc:64:1: error: ISO C++ forbids declaration of ‘nextGeneration’ with no type [-fpermissive]
+   64 | latice2d_periodic::nextGeneration() {
+      | ^~~~~~~~~~~~~~~~~
+latice2d.cc:64:1: error: no declaration matches ‘int latice2d_periodic::nextGeneration()’
+In file included from latice2d.cc:1:
+latice2d.h:35:8: note: candidate is: ‘virtual void latice2d_periodic::nextGeneration()’
+   35 |   void nextGeneration();
+      |        ^~~~~~~~~~~~~~
+latice2d.h:32:7: note: ‘class latice2d_periodic’ defined here
+   32 | class latice2d_periodic : public Latice2d {
+      |       ^~~~~~~~~~~~~~~~~
+latice2d.cc:77:1: error: ISO C++ forbids declaration of ‘Population’ with no type [-fpermissive]
+   77 | latice2d_periodic::Population() const {
+      | ^~~~~~~~~~~~~~~~~
+latice2d.cc:77:1: error: no declaration matches ‘int latice2d_periodic::Population() const’
+In file included from latice2d.cc:1:
+latice2d.h:36:15: note: candidate is: ‘virtual std::size_t latice2d_periodic::Population() const’
+   36 |   std::size_t Population() const;
+      |               ^~~~~~~~~~
+latice2d.h:32:7: note: ‘class latice2d_periodic’ defined here
+   32 | class latice2d_periodic : public Latice2d {
+      |       ^~~~~~~~~~~~~~~~~
+latice2d.cc:87:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+   87 | latice2d_periodic::operator[](const Position& pos) {
+      | ^~~~~~~~~~~~~~~~~
+latice2d.cc:87:1: error: no declaration matches ‘int latice2d_periodic::operator[](const Position&)’
+In file included from latice2d.cc:1:
+latice2d.h:37:11: note: candidate is: ‘Celula& latice2d_periodic::operator[](const Position&)’
+   37 |   Celula& operator[](const Position&);
+      |           ^~~~~~~~
+latice2d.h:32:7: note: ‘class latice2d_periodic’ defined here
+   32 | class latice2d_periodic : public Latice2d {
+      |       ^~~~~~~~~~~~~~~~~
+latice2d.cc:125:1: error: ISO C++ forbids declaration of ‘nextGeneration’ with no type [-fpermissive]
+  125 | latice2d_open0::nextGeneration() {
+      | ^~~~~~~~~~~~~~
+latice2d.cc:125:1: error: no declaration matches ‘int latice2d_open0::nextGeneration()’
+In file included from latice2d.cc:1:
+latice2d.h:43:8: note: candidate is: ‘virtual void latice2d_open0::nextGeneration()’
+   43 |   void nextGeneration();
+      |        ^~~~~~~~~~~~~~
+latice2d.h:40:7: note: ‘class latice2d_open0’ defined here
+   40 | class latice2d_open0 : public Latice2d {
+      |       ^~~~~~~~~~~~~~
+latice2d.cc:138:1: error: ISO C++ forbids declaration of ‘Population’ with no type [-fpermissive]
+  138 | latice2d_open0::Population() const {
+      | ^~~~~~~~~~~~~~
+latice2d.cc:138:1: error: no declaration matches ‘int latice2d_open0::Population() const’
+In file included from latice2d.cc:1:
+latice2d.h:44:15: note: candidate is: ‘virtual std::size_t latice2d_open0::Population() const’
+   44 |   std::size_t Population() const;
+      |               ^~~~~~~~~~
+latice2d.h:40:7: note: ‘class latice2d_open0’ defined here
+   40 | class latice2d_open0 : public Latice2d {
+      |       ^~~~~~~~~~~~~~
+latice2d.cc:148:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+  148 | latice2d_open0::operator[](const Position& pos) {
+      | ^~~~~~~~~~~~~~
+latice2d.cc:148:1: error: no declaration matches ‘int latice2d_open0::operator[](const Position&)’
+In file included from latice2d.cc:1:
+latice2d.h:45:11: note: candidate is: ‘Celula& latice2d_open0::operator[](const Position&)’
+   45 |   Celula& operator[](const Position&);
+      |           ^~~~~~~~
+latice2d.h:40:7: note: ‘class latice2d_open0’ defined here
+   40 | class latice2d_open0 : public Latice2d {
+      |       ^~~~~~~~~~~~~~
+latice2d.cc:152:1: error: ISO C++ forbids declaration of ‘nextGeneration’ with no type [-fpermissive]
+  152 | latice2d_open1::nextGeneration() {
+      | ^~~~~~~~~~~~~~
+latice2d.cc:152:1: error: no declaration matches ‘int latice2d_open1::nextGeneration()’
+In file included from latice2d.cc:1:
+latice2d.h:51:8: note: candidate is: ‘virtual void latice2d_open1::nextGeneration()’
+   51 |   void nextGeneration();
+      |        ^~~~~~~~~~~~~~
+latice2d.h:48:7: note: ‘class latice2d_open1’ defined here
+   48 | class latice2d_open1 : public Latice2d {
+      |       ^~~~~~~~~~~~~~
+latice2d.cc:165:1: error: ISO C++ forbids declaration of ‘Population’ with no type [-fpermissive]
+  165 | latice2d_open1::Population() const {
+      | ^~~~~~~~~~~~~~
+latice2d.cc:165:1: error: no declaration matches ‘int latice2d_open1::Population() const’
+In file included from latice2d.cc:1:
+latice2d.h:52:15: note: candidate is: ‘virtual std::size_t latice2d_open1::Population() const’
+   52 |   std::size_t Population() const;
+      |               ^~~~~~~~~~
+latice2d.h:48:7: note: ‘class latice2d_open1’ defined here
+   48 | class latice2d_open1 : public Latice2d {
+      |       ^~~~~~~~~~~~~~
+latice2d.cc:175:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+  175 | latice2d_open1::operator[](const Position& pos) {
+      | ^~~~~~~~~~~~~~
+latice2d.cc:175:1: error: no declaration matches ‘int latice2d_open1::operator[](const Position&)’
+In file included from latice2d.cc:1:
+latice2d.h:53:11: note: candidate is: ‘Celula& latice2d_open1::operator[](const Position&)’
+   53 |   Celula& operator[](const Position&);
+      |           ^~~~~~~~
+latice2d.h:48:7: note: ‘class latice2d_open1’ defined here
+   48 | class latice2d_open1 : public Latice2d {
+      |       ^~~~~~~~~~~~~~
+In file included from latice1d.h:6,
+                 from latice1d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaAce110::createCelula(const Position&, const Estado&) const’:
+factorycell.h:21:33: error: no matching function for call to ‘CelulaAce110::CelulaAce110(const Position&, const Estado&)’
+   21 |     return new CelulaAce110(p, s);
+      |                                 ^
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:8,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:8,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:8,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(const CelulaAce&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(CelulaAce&&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:23:20: note:   inherited here
+   23 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:23:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:20:7: note: candidate: ‘constexpr CelulaAce110::CelulaAce110(const CelulaAce110&)’
+   20 | class CelulaAce110 : public CelulaAce {
+      |       ^~~~~~~~~~~~
+celulace.h:20:7: note:   candidate expects 1 argument, 2 provided
+celulace.h:20:7: note: candidate: ‘constexpr CelulaAce110::CelulaAce110(CelulaAce110&&)’
+celulace.h:20:7: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:6,
+                 from latice1d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaAce30::createCelula(const Position&, const Estado&) const’:
+factorycell.h:28:32: error: no matching function for call to ‘CelulaAce30::CelulaAce30(const Position&, const Estado&)’
+   28 |     return new CelulaAce30(p, s);
+      |                                ^
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:8,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:8,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:8,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(const CelulaAce&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:13:7: note: candidate: ‘constexpr CelulaAce::CelulaAce(CelulaAce&&)’
+   13 | class CelulaAce : public Celula {
+      |       ^~~~~~~~~
+celulace.h:31:20: note:   inherited here
+   31 |   using CelulaAce::CelulaAce;
+      |                    ^~~~~~~~~
+celulace.h:31:20: note:   candidate expects 1 argument, 2 provided
+celulace.h:28:7: note: candidate: ‘constexpr CelulaAce30::CelulaAce30(const CelulaAce30&)’
+   28 | class CelulaAce30 : public CelulaAce {
+      |       ^~~~~~~~~~~
+celulace.h:28:7: note:   candidate expects 1 argument, 2 provided
+celulace.h:28:7: note: candidate: ‘constexpr CelulaAce30::CelulaAce30(CelulaAce30&&)’
+celulace.h:28:7: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:6,
+                 from latice1d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaLife23_3::createCelula(const Position&, const Estado&) const’:
+factorycell.h:35:35: error: no matching function for call to ‘CelulaLife23_3::CelulaLife23_3(const Position&, const Estado&)’
+   35 |     return new CelulaLife23_3(p, s);
+      |                                   ^
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:9,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:9,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:9,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(const CelulaLife&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(CelulaLife&&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:24:21: note:   inherited here
+   24 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:24:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:21:7: note: candidate: ‘constexpr CelulaLife23_3::CelulaLife23_3(const CelulaLife23_3&)’
+   21 | class CelulaLife23_3 : public CelulaLife {
+      |       ^~~~~~~~~~~~~~
+celulalife.h:21:7: note:   candidate expects 1 argument, 2 provided
+celulalife.h:21:7: note: candidate: ‘constexpr CelulaLife23_3::CelulaLife23_3(CelulaLife23_3&&)’
+celulalife.h:21:7: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:6,
+                 from latice1d.cc:1:
+factorycell.h: In member function ‘virtual Celula* FactoryCelulaLife51_346::createCelula(const Position&, const Estado&) const’:
+factorycell.h:42:37: error: no matching function for call to ‘CelulaLife51_346::CelulaLife51_346(const Position&, const Estado&)’
+   42 |     return new CelulaLife51_346(p, s);
+      |                                     ^
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:27:7: note: candidate: ‘constexpr Celula::Celula(const Celula&)’
+   27 | class Celula {
+      |       ^~~~~~
+In file included from factorycell.h:9,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:3: note: candidate: ‘Celula::Celula(const Position*&, const Estado&)’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |   ^~~~~~
+In file included from factorycell.h:9,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+In file included from latice1d.h:4,
+                 from latice1d.cc:1:
+celula.h:34:27: note:   no known conversion for argument 1 from ‘const Position’ to ‘const Position*&’
+   34 |   Celula(const Position*& pos, const Estado& estado);
+      |          ~~~~~~~~~~~~~~~~~^~~
+In file included from factorycell.h:9,
+                 from latice1d.h:6,
+                 from latice1d.cc:1:
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(const CelulaLife&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:15:7: note: candidate: ‘constexpr CelulaLife::CelulaLife(CelulaLife&&)’
+   15 | class CelulaLife : public Celula {
+      |       ^~~~~~~~~~
+celulalife.h:32:21: note:   inherited here
+   32 |   using CelulaLife::CelulaLife;
+      |                     ^~~~~~~~~~
+celulalife.h:32:21: note:   candidate expects 1 argument, 2 provided
+celulalife.h:29:7: note: candidate: ‘constexpr CelulaLife51_346::CelulaLife51_346(const CelulaLife51_346&)’
+   29 | class CelulaLife51_346 : public CelulaLife {
+      |       ^~~~~~~~~~~~~~~~
+celulalife.h:29:7: note:   candidate expects 1 argument, 2 provided
+celulalife.h:29:7: note: candidate: ‘constexpr CelulaLife51_346::CelulaLife51_346(CelulaLife51_346&&)’
+celulalife.h:29:7: note:   candidate expects 1 argument, 2 provided
+latice1d.cc: In constructor ‘Latice1d::Latice1d(std::string, const FactoryCelula&)’:
+latice1d.cc:3:90: error: no matching function for call to ‘Latice::Latice(std::string&, const FactoryCelula&)’
+    3 | Latice1d::Latice1d(std::string name, const FactoryCelula& factory) : Latice(name, factory) {}
+      |                                                                                          ^
+In file included from latice1d.h:3,
+                 from latice1d.cc:1:
+latice.h:25:7: note: candidate: ‘constexpr Latice::Latice()’
+   25 | class Latice {
+      |       ^~~~~~
+latice.h:25:7: note:   candidate expects 0 arguments, 2 provided
+latice.h:25:7: note: candidate: ‘constexpr Latice::Latice(const Latice&)’
+latice.h:25:7: note:   candidate expects 1 argument, 2 provided
+latice.h:25:7: note: candidate: ‘constexpr Latice::Latice(Latice&&)’
+latice.h:25:7: note:   candidate expects 1 argument, 2 provided
+latice1d.cc: At global scope:
+latice1d.cc:6:1: error: ISO C++ forbids declaration of ‘nextGeneration’ with no type [-fpermissive]
+    6 | latice1d_open0::nextGeneration() {
+      | ^~~~~~~~~~~~~~
+latice1d.cc:6:1: error: no declaration matches ‘int latice1d_open0::nextGeneration()’
+In file included from latice1d.cc:1:
+latice1d.h:23:8: note: candidate is: ‘virtual void latice1d_open0::nextGeneration()’
+   23 |   void nextGeneration();
+      |        ^~~~~~~~~~~~~~
+latice1d.h:20:7: note: ‘class latice1d_open0’ defined here
+   20 | class latice1d_open0 : public Latice1d {
+      |       ^~~~~~~~~~~~~~
+latice1d.cc:15:1: error: ISO C++ forbids declaration of ‘Population’ with no type [-fpermissive]
+   15 | latice1d_open0::Population() const {
+      | ^~~~~~~~~~~~~~
+latice1d.cc:15:1: error: no declaration matches ‘int latice1d_open0::Population() const’
+In file included from latice1d.cc:1:
+latice1d.h:24:15: note: candidate is: ‘virtual std::size_t latice1d_open0::Population() const’
+   24 |   std::size_t Population() const;
+      |               ^~~~~~~~~~
+latice1d.h:20:7: note: ‘class latice1d_open0’ defined here
+   20 | class latice1d_open0 : public Latice1d {
+      |       ^~~~~~~~~~~~~~
+latice1d.cc:23:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+   23 | latice1d_open0::operator[](int i) {
+      | ^~~~~~~~~~~~~~
+latice1d.cc:23:1: error: no declaration matches ‘int latice1d_open0::operator[](int)’
+In file included from latice1d.cc:1:
+latice1d.h:25:11: note: candidate is: ‘Celula& latice1d_open0::operator[](int)’
+   25 |   Celula& operator[](int );
+      |           ^~~~~~~~
+latice1d.h:20:7: note: ‘class latice1d_open0’ defined here
+   20 | class latice1d_open0 : public Latice1d {
+      |       ^~~~~~~~~~~~~~
+latice1d.cc:31:1: error: ISO C++ forbids declaration of ‘nextGeneration’ with no type [-fpermissive]
+   31 | latice1d_open1::nextGeneration() {
+      | ^~~~~~~~~~~~~~
+latice1d.cc:31:1: error: no declaration matches ‘int latice1d_open1::nextGeneration()’
+In file included from latice1d.cc:1:
+latice1d.h:31:8: note: candidate is: ‘virtual void latice1d_open1::nextGeneration()’
+   31 |   void nextGeneration();
+      |        ^~~~~~~~~~~~~~
+latice1d.h:28:7: note: ‘class latice1d_open1’ defined here
+   28 | class latice1d_open1 : public Latice1d {
+      |       ^~~~~~~~~~~~~~
+latice1d.cc:40:1: error: ISO C++ forbids declaration of ‘Population’ with no type [-fpermissive]
+   40 | latice1d_open1::Population() const {
+      | ^~~~~~~~~~~~~~
+latice1d.cc:40:1: error: no declaration matches ‘int latice1d_open1::Population() const’
+In file included from latice1d.cc:1:
+latice1d.h:32:15: note: candidate is: ‘virtual std::size_t latice1d_open1::Population() const’
+   32 |   std::size_t Population() const;
+      |               ^~~~~~~~~~
+latice1d.h:28:7: note: ‘class latice1d_open1’ defined here
+   28 | class latice1d_open1 : public Latice1d {
+      |       ^~~~~~~~~~~~~~
+latice1d.cc:48:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+   48 | latice1d_open1::operator[](int i) {
+      | ^~~~~~~~~~~~~~
+latice1d.cc:48:1: error: no declaration matches ‘int latice1d_open1::operator[](int)’
+In file included from latice1d.cc:1:
+latice1d.h:33:11: note: candidate is: ‘Celula& latice1d_open1::operator[](int)’
+   33 |   Celula& operator[](int );
+      |           ^~~~~~~~
+latice1d.h:28:7: note: ‘class latice1d_open1’ defined here
+   28 | class latice1d_open1 : public Latice1d {
+      |       ^~~~~~~~~~~~~~
+latice1d.cc:56:1: error: ISO C++ forbids declaration of ‘nextGeneration’ with no type [-fpermissive]
+   56 | latice1d_periodic::nextGeneration() {
+      | ^~~~~~~~~~~~~~~~~
+latice1d.cc:56:1: error: no declaration matches ‘int latice1d_periodic::nextGeneration()’
+In file included from latice1d.cc:1:
+latice1d.h:39:8: note: candidate is: ‘virtual void latice1d_periodic::nextGeneration()’
+   39 |   void nextGeneration();
+      |        ^~~~~~~~~~~~~~
+latice1d.h:36:7: note: ‘class latice1d_periodic’ defined here
+   36 | class latice1d_periodic : public Latice1d {
+      |       ^~~~~~~~~~~~~~~~~
+latice1d.cc:65:1: error: ISO C++ forbids declaration of ‘Population’ with no type [-fpermissive]
+   65 | latice1d_periodic::Population() const {
+      | ^~~~~~~~~~~~~~~~~
+latice1d.cc:65:1: error: no declaration matches ‘int latice1d_periodic::Population() const’
+In file included from latice1d.cc:1:
+latice1d.h:40:15: note: candidate is: ‘virtual std::size_t latice1d_periodic::Population() const’
+   40 |   std::size_t Population() const;
+      |               ^~~~~~~~~~
+latice1d.h:36:7: note: ‘class latice1d_periodic’ defined here
+   36 | class latice1d_periodic : public Latice1d {
+      |       ^~~~~~~~~~~~~~~~~
+latice1d.cc:73:1: error: ISO C++ forbids declaration of ‘operator[]’ with no type [-fpermissive]
+   73 | latice1d_periodic::operator[](int i) {
+      | ^~~~~~~~~~~~~~~~~
+latice1d.cc:73:1: error: no declaration matches ‘int latice1d_periodic::operator[](int)’
+In file included from latice1d.cc:1:
+latice1d.h:41:11: note: candidate is: ‘Celula& latice1d_periodic::operator[](int)’
+   41 |   Celula& operator[](int );
+      |           ^~~~~~~~
+latice1d.h:36:7: note: ‘class latice1d_periodic’ defined here
+   36 | class latice1d_periodic : public Latice1d {
+      |       ^~~~~~~~~~~~~~~~~
+celulalife.cc:1:10: fatal error: celulaLife.h: No such file or directory
+    1 | #include <celulaLife.h>
+      |          ^~~~~~~~~~~~~~
+compilation terminated.
+celulace.cc:3:1: error: ISO C++ forbids declaration of ‘NextState’ with no type [-fpermissive]
+    3 | CelulaAce110::NextState(Latice& latice) {
+      | ^~~~~~~~~~~~
+celulace.cc: In member function ‘virtual int CelulaAce110::NextState(Latice&)’:
+celulace.cc:5:29: error: cannot convert ‘Position’ to ‘int’ in initialization
+    5 |   int posx = GetPosition()[0];
+      |              ~~~~~~~~~~~~~~~^
+      |                             |
+      |                             Position
+celulace.cc:7:25: error: no match for ‘operator[]’ (operand types are ‘Latice’ and ‘int’)
+    7 |   int izquierda = latice[posx - 1].GetEstado().GetEstado();
+      |                         ^
+celulace.cc:8:23: error: no match for ‘operator[]’ (operand types are ‘Latice’ and ‘int’)
+    8 |   int derecha = latice[posx + 1].GetEstado().GetEstado();
+      |                       ^
+celulace.cc: At global scope:
+celulace.cc:13:1: error: ISO C++ forbids declaration of ‘UpdateState’ with no type [-fpermissive]
+   13 | CelulaAce110::UpdateState() {
+      | ^~~~~~~~~~~~
+celulace.cc:13:1: error: no declaration matches ‘int CelulaAce110::UpdateState()’
+In file included from celulace.cc:1:
+celulace.h:25:8: note: candidate is: ‘virtual void CelulaAce110::UpdateState()’
+   25 |   void UpdateState();
+      |        ^~~~~~~~~~~
+celulace.h:20:7: note: ‘class CelulaAce110’ defined here
+   20 | class CelulaAce110 : public CelulaAce {
+      |       ^~~~~~~~~~~~
+celulace.cc:17:1: error: ISO C++ forbids declaration of ‘NextState’ with no type [-fpermissive]
+   17 | CelulaAce30::NextState(Latice& latice) {
+      | ^~~~~~~~~~~
+celulace.cc: In member function ‘virtual int CelulaAce30::NextState(Latice&)’:
+celulace.cc:19:29: error: cannot convert ‘Position’ to ‘int’ in initialization
+   19 |   int posx = GetPosition()[0];
+      |              ~~~~~~~~~~~~~~~^
+      |                             |
+      |                             Position
+celulace.cc:21:25: error: no match for ‘operator[]’ (operand types are ‘Latice’ and ‘int’)
+   21 |   int izquierda = latice[posx - 1].GetEstado().GetEstado();
+      |                         ^
+celulace.cc:22:23: error: no match for ‘operator[]’ (operand types are ‘Latice’ and ‘int’)
+   22 |   int derecha = latice[posx + 1].GetEstado().GetEstado();
+      |                       ^
+celulace.cc: At global scope:
+celulace.cc:27:1: error: ISO C++ forbids declaration of ‘UpdateState’ with no type [-fpermissive]
+   27 | CelulaAce30::UpdateState() {
+      | ^~~~~~~~~~~
+celulace.cc:27:1: error: no declaration matches ‘int CelulaAce30::UpdateState()’
+In file included from celulace.cc:1:
+celulace.h:33:8: note: candidate is: ‘virtual void CelulaAce30::UpdateState()’
+   33 |   void UpdateState();
+      |        ^~~~~~~~~~~
+celulace.h:28:7: note: ‘class CelulaAce30’ defined here
+   28 | class CelulaAce30 : public CelulaAce {
+      |       ^~~~~~~~~~~
+make: *** [Makefile:48: program] Error 1

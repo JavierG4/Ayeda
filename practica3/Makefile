@@ -45,4 +45,4 @@ actu:
 	git commit -m actualización
 	git push
 program:
-	g++ -g -o Celula main.cc position.cc estado.cc celula.cc 
+	g++ -g -o Celula main.cc position.cc estado.cc celula.cc latice.cc latice2d.cc latice1d.cc  myvector.cc matriz.cc celulalife.cc celulace.cc

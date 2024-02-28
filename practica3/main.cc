@@ -68,13 +68,13 @@ int main(int argc, char* argv[]){
   }
   FactoryCelula* factorys;
   if (celula == "Ace110") {
-    factorys = new CelulaAce110();
+    factorys = new FactoryCelulaAce110();
   } else if (celula == "Life23_3") {
-    factorys = new CelulaLife23_3();
+    factorys = new FactoryCelulaLife23_3();
   } else if (celula == "Life51_346") {
-    factorys = new CelulaLife51_346();
+    factorys = new FactoryCelulaLife51_346();
   } else if (celula == "Ace30") {
-    factorys = new CelulaAce30();
+    factorys = new FactoryCelulaAce30();
   }
   
 

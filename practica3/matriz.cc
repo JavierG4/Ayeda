@@ -18,15 +18,15 @@ void Matriz::resize(int filas) {
   filas_ = filas;
 }
 
-Myvector& Matriz::operator[](int indice) {
+const Myvector& Matriz::operator[](int indice) const{
   return matriz_[indice - indice_inicial_];
 }
 
-int Matriz::GetFilas() {
+int Matriz::GetFilas() const{
   return filas_;
 }
 
-int Matriz::GetColumnas() {
+int Matriz::GetColumnas() const{
   return matriz_[0].size();
 }
 

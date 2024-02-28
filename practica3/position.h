@@ -9,6 +9,7 @@ typedef int Coor_t;
 
 class Position {
  public:
+  Position () = default;
 // Operador de acceso a la i-ésima coordenada
   virtual Coor_t operator[](unsigned int) const = 0;
 };

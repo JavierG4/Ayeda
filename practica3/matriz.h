@@ -34,7 +34,7 @@ class Matriz {
      * @param index El índice de la fila a acceder.
      * @return Una referencia al vector de la fila especificada.
      */
-    Myvector& operator[](int index);
+    const Myvector& operator[](int index) const;
 
     /**
      * @brief Agrega un vector al final de la matriz.
@@ -52,13 +52,13 @@ class Matriz {
      * @brief Obtiene el número de filas de la matriz.
      * @return El número de filas.
      */
-    int GetFilas();
+    int GetFilas() const;
 
     /**
      * @brief Obtiene el número de columnas de la matriz.
      * @return El número de columnas.
      */
-    int GetColumnas();
+    int GetColumnas() const;
 
     /**
      * @brief Redimensiona la matriz.

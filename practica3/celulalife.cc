@@ -1,8 +1,8 @@
 #include <celulaLife.h>
 
 int CelulaLife23_3::NextState(Latice& reticula) {
-  int posx = GetPosition()[0];
-  int posy = GetPosition()[1];
+  int posx = (*GetPosition())[0];
+  int posy = (*GetPosition())[1];
   int contador = 0;
   contador += reticula[PositionDim<2>(2,posx - 1, posy - 1)].GetEstado().GetEstado(); //Arriba izquierda
   contador += reticula[PositionDim<2>(2,posx - 1, posy)].GetEstado().GetEstado(); //Arriba
@@ -33,8 +33,8 @@ void CelulaLife23_3::UpdateState() {
 }
 
 int CelulaLife51_346::NextState(Latice& reticula) {
-  int posx = GetPosition()[0];
-  int posy = GetPosition()[1];
+  int posx = (*GetPosition())[0];
+  int posy = (*GetPosition())[1];
   int contador = 0;
   contador += reticula[PositionDim<2>(2,posx - 1, posy - 1)].GetEstado().GetEstado(); //Arriba izquierda
   contador += reticula[PositionDim<2>(2,posx - 1, posy)].GetEstado().GetEstado(); //Arriba

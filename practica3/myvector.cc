@@ -24,8 +24,8 @@ void Myvector::SetIndiceInicial(int indice_inicial) {
   indice_inicial_ = indice_inicial;
 }
 
-Celula*& Myvector::operator[](int indice) {
-  return myvector_[indice - indice_inicial_];
+const Celula& Myvector::operator[](int indice) const{
+  return *myvector_[indice - indice_inicial_];
 }
 
 Myvector::Myvector(int size) {
@@ -49,7 +49,7 @@ void Myvector::push_front(Celula* valor) {
 
 }
 
-int Myvector::size() {
+int Myvector::size() const{
   return size_;
 }
 

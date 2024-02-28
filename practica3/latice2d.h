@@ -2,7 +2,7 @@
 #define latice2d_h
 
 #include "latice.h"
-#include "factoryCelula.h"
+#include "factorycell.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -17,7 +17,7 @@ class Latice2d : public Latice {
  public:
   Latice2d(std::string, const FactoryCelula&);
 
- private:
+ protected:
   Matriz latice_;
 };
 

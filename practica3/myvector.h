@@ -78,13 +78,13 @@ class Myvector {
     * @param index Índice de la posición de la Celula a acceder.
     * @return Referencia a la Celula en la posición especificada.
     */
-   Celula*& operator[](int);
+   const Celula& operator[](int) const;
 
    /**
     * @brief Obtiene el tamaño del vector.
     * @return Tamaño del vector.
     */
-   int size();
+   int size() const;
 
  private:
    std::vector<Celula*> myvector_; ///< Vector de punteros a Celula.

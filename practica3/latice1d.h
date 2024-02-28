@@ -3,7 +3,7 @@
 #include "latice.h"
 #include "celula.h"
 #include <vector>
-#include <factorycell.h>
+#include "factorycell.h"
 
 class Latice;
 class Celula;
