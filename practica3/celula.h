@@ -31,7 +31,7 @@ class Celula {
    * @param pos La posición de la célula en el sistema.
    * @param estado El estado inicial de la célula.
    */
-  Celula(const Position& pos, const Estado& estado);
+  Celula(Position& pos, const Estado& estado);
 
   ~Celula();
 

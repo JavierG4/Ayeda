@@ -1,6 +1,17 @@
 #include "latice2d.h"
+int getch() {
+  struct termios oldattr, newattr;
+  int ch;
+  tcgetattr(STDIN_FILENO, &oldattr);
+  newattr = oldattr;
+  newattr.c_lflag &= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
+  ch = getchar();
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
+  return ch;
+}
 
-Latice2d::Latice2d(std::string tipo, const FactoryCelula& factory) {
+Latice2d::Latice2d(std::string tipo, FactoryCelula& factory) {
   std::ifstream file(tipo);
   if (!file) {
     std::cerr << "No se pudo abrir el archivo " << tipo << std::endl;
@@ -25,20 +36,57 @@ Latice2d::Latice2d(std::string tipo, const FactoryCelula& factory) {
           //std::cout << "si" << i << " " << j << std::endl;
         estado = 1;
       }
-      latice_[i][j] = factory.createCelula(PositionDim<2>(2,i,j),Estado(estado));
+      PositionDim<2> pos(2,i,j);
+      latice_[i][j] = factory.createCelula(pos,Estado(estado));
     }
   }
 }
 
 void latice2d_reflective::nextGeneration() {
-  for (int i = 0; i < latice_.GetFilas(); i++) {
-    for (int j = 0; j < latice_[i].size(); j++) {
-      latice_[i][j]->SetEstado(latice_[i][j]->NextState(*this));
+    std::cout << "Entro refle" << std::endl;
+  char input;
+  bool flagc = 0;
+  int contador = 0;
+  while (true) {
+    int veces = 0;
+    input = getch();
+    if (input == 'x') {
+      break;
+    } else if ( input == 'n') {
+      veces = 1;
+    } else if (input == 'L') {
+      veces = 5;
+    } else if ( input == 'c' ) {
+      flagc = 1;
+    } else if (input == 's') { // guardar en fichero
+      std::ofstream file("fichero.txt");
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[0].size(); j++) {
+          file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+        }
+        file << std::endl;
+      }
     }
-  }
-  for (int i = 0; i < latice_.GetFilas(); i++) {
-    for (int j = 0; j < latice_[i].size(); j++) {
-      latice_[i][j]->UpdateState();
+    for ( int i = 0; i < veces; i++) { 
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->SetEstadoSiguiente(latice_[i][j]->NextState(*this));
+        }
+      }
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->UpdateState();
+        }
+      }
+      if (flagc == 0) { 
+        std::cout << "G ( " << contador << " ) " << std::endl;
+        display(std::cout);
+        contador++;
+      } else if (flagc == 1) {
+        std::cout << "Population: " << Population() << " G( " << contador << " )" << std::endl;
+          //PrintLatice();
+        contador++;
+      }
     }
   }
 }
@@ -90,14 +138,50 @@ Celula& latice2d_reflective::operator[](const Position& pos) {
 }
 
 void latice2d_periodic::nextGeneration() {
-  for (int i = 0; i < latice_.GetFilas(); i++) {
-    for (int j = 0; j < latice_[i].size(); j++) {
-      latice_[i][j]->SetEstado(latice_[i][j]->NextState(*this));
+    std::cout << "Entro p" << std::endl;
+  char input;
+  bool flagc = 0;
+  int contador = 0;
+  while (true) {
+    int veces = 0;
+    input = getch();
+    if (input == 'x') {
+      break;
+    } else if ( input == 'n') {
+      veces = 1;
+    } else if (input == 'L') {
+      veces = 5;
+    } else if ( input == 'c' ) {
+      flagc = 1;
+    } else if (input == 's') { // guardar en fichero
+      std::ofstream file("fichero.txt");
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[0].size(); j++) {
+          file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+        }
+        file << std::endl;
+      }
     }
-  }
-  for (int i = 0; i < latice_.GetFilas(); i++) {
-    for (int j = 0; j < latice_[i].size(); j++) {
-      latice_[i][j]->UpdateState();
+    for ( int i = 0; i < veces; i++) { 
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->SetEstadoSiguiente(latice_[i][j]->NextState(*this));
+        }
+      }
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->UpdateState();
+        }
+      }
+      if (flagc == 0) { 
+        std::cout << "G ( " << contador << " ) " << std::endl;
+        display(std::cout);
+        contador++;
+      } else if (flagc == 1) {
+        std::cout << "Population: " << Population() << " G( " << contador << " )" << std::endl;
+          //PrintLatice();
+        contador++;
+      }
     }
   }
 }
@@ -151,14 +235,52 @@ Celula& latice2d_periodic::operator[](const Position& pos) {
 }
 
 void latice2d_open0::nextGeneration() {
-  for (int i = 1; i < latice_.GetFilas() - 1; i++) {
-    for (int j = 1; j < latice_[i].size() - 1; j++) {
-      latice_[i][j]->SetEstado(latice_[i][j]->NextState(*this));
+  std::cout << "Entro 0" << std::endl;
+  char input;
+  bool flagc = 0;
+  int contador = 0;
+  while (true) {
+    int veces = 0;
+    input = getch();
+    if (input == 'x') {
+      break;
+    } else if ( input == 'n') {
+      veces = 1;
+    } else if (input == 'L') {
+      veces = 5;
+    } else if ( input == 'c' ) {
+      flagc = 1;
+    } else if (input == 's') { // guardar en fichero
+      std::ofstream file("fichero.txt");
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[0].size(); j++) {
+          file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+        }
+        file << std::endl;
+      }
     }
-  }
-  for (int i = 1; i < latice_.GetFilas() - 1 ; i++) {
-    for (int j = 1; j < latice_[i].size() - 1; j++) {
-      latice_[i][j]->UpdateState();
+    for ( int i = 0; i < veces; i++) { 
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          int x = latice_[i][j]->NextState(*this);
+          //std::cout << x << " ";
+          latice_[i][j]->SetEstadoSiguiente(x);
+        }
+      }
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->UpdateState();
+        }
+      }
+      if (flagc == 0) { 
+        std::cout << "G ( " << contador << " ) " << std::endl;
+        display(std::cout);
+        contador++;
+      } else if (flagc == 1) {
+        std::cout << "Population: " << Population() << " G( " << contador << " )" << std::endl;
+          //PrintLatice();
+        contador++;
+      }
     }
   }
 }
@@ -174,18 +296,65 @@ std::size_t latice2d_open0::Population() {
 }
 
 Celula& latice2d_open0::operator[](const Position& pos) {
+  int x = pos[0];
+  int y = pos[1];
+  if(x < 0 || y < 0 || x >= latice_.GetFilas() || y >= latice_[0].size()) {
+    for ( int i = 0; i <latice_.GetFilas(); i++) {
+      for (int j = 0; j < latice_[0].size(); j++) {
+        if (latice_[i][j]->GetEstado().GetEstado() == 0) {
+          return *latice_[i][j];
+        }
+      }
+    }
+  }
   return *latice_[pos[0]][pos[1]];
 }
 
 void latice2d_open1::nextGeneration() {
-  for (int i = 1; i < latice_.GetFilas() - 1; i++) {
-    for (int j = 1; j < latice_[i].size() - 1; j++) {
-      latice_[i][j]->SetEstado(latice_[i][j]->NextState(*this));
+  std::cout << "Entro 1" << std::endl;
+  char input;
+  bool flagc = 0;
+  int contador = 0;
+  while (true) {
+    int veces = 0;
+    input = getch();
+    if (input == 'x') {
+      break;
+    } else if ( input == 'n') {
+      veces = 1;
+    } else if (input == 'L') {
+      veces = 5;
+    } else if ( input == 'c' ) {
+      flagc = 1;
+    } else if (input == 's') { // guardar en fichero
+      std::ofstream file("fichero.txt");
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[0].size(); j++) {
+          file << latice_[i][j] -> GetEstado().GetEstado() << " ";
+        }
+        file << std::endl;
+      }
     }
-  }
-  for (int i = 1; i < latice_.GetFilas()- 1 ; i++) {
-    for (int j = 1; j < latice_[i].size() - 1; j++) {
-      latice_[i][j]->UpdateState();
+    for ( int i = 0; i < veces; i++) { 
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->SetEstadoSiguiente(latice_[i][j]->NextState(*this));
+        }
+      }
+      for (int i = 0; i < latice_.GetFilas(); i++) {
+        for (int j = 0; j < latice_[i].size(); j++) {
+          latice_[i][j]->UpdateState();
+        }
+      }
+      if (flagc == 0) { 
+        std::cout << "G ( " << contador << " ) " << std::endl;
+        display(std::cout);
+        contador++;
+      } else if (flagc == 1) {
+        std::cout << "Population: " << Population() << " G( " << contador << " )" << std::endl;
+          //PrintLatice();
+        contador++;
+      }
     }
   }
 }
@@ -201,6 +370,55 @@ std::size_t latice2d_open1::Population() {
 }
 
 Celula& latice2d_open1::operator[](const Position& pos) {
+  if(pos[0] < 0 || pos[1] < 0 || pos[0] >= latice_.GetFilas() || pos[1] >= latice_[0].size()) {
+    for ( int i = 0; i <latice_.GetFilas(); i++) {
+      for (int j = 0; j < latice_[0].size(); j++) {
+        if (latice_[i][j]->GetEstado().GetEstado() == 1) {
+          return *latice_[i][j];
+        }
+      }
+    }
+  }
   return *latice_[pos[0]][pos[1]];
+}
+
+std::ostream& latice2d_open1::display(std::ostream& os) {
+  for (int i = 0; i < latice_.GetFilas(); i++) {
+    for (int j = 0; j < latice_[i].size(); j++) {
+      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
+std::ostream& latice2d_open0::display(std::ostream& os) {
+  for (int i = 0; i < latice_.GetFilas(); i++) {
+    for (int j = 0; j < latice_[i].size(); j++) {
+      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
+std::ostream& latice2d_periodic::display(std::ostream& os) {
+  for (int i = 0; i < latice_.GetFilas(); i++) {
+    for (int j = 0; j < latice_[i].size(); j++) {
+      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
+std::ostream& latice2d_reflective::display(std::ostream& os) {
+  for (int i = 0; i < latice_.GetFilas(); i++) {
+    for (int j = 0; j < latice_[i].size(); j++) {
+      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+    }
+    os << std::endl;
+  }
+  return os;
 }
 

@@ -1,6 +1,6 @@
 #include "latice1d.h"
 
-Latice1d::Latice1d(std::string name, const FactoryCelula& factory){
+Latice1d::Latice1d(std::string name, FactoryCelula& factory){
   std::ifstream file(name);
   if (file.is_open()) {
     int n;
@@ -14,13 +14,16 @@ Latice1d::Latice1d(std::string name, const FactoryCelula& factory){
       if (cadena[i] == 'X') {
         estado = 1;
       }
-      latice_[i] = factory.createCelula(PositionDim<1>(i, 0), Estado(estado));
+      PositionDim<1> pos(1, i);
+      latice_[i] = factory.createCelula(pos, Estado(estado));
+      //std::cout << "Created cell at position " << (*latice_[i]->GetPosition())[0] << std::endl;
     }
   }
 }
 
 
 void latice1d_open0::nextGeneration() {
+  std::cout << "i" << std::endl;
   for (int i = 0; i < latice_.size(); i++) {
     latice_[i]->SetEstado(latice_[i]->NextState(*this));
   }
@@ -37,9 +40,11 @@ std::size_t latice1d_open0::Population() {
   return population;
 }
 
-Celula& latice1d_open0::operator[](int i) {
+Celula& latice1d_open0::operator[](const Position& pos ) {
+  int i = pos[0];
   if( i < 0 || i >= latice_.size()) {
-    return *(new CelulaAce110(PositionDim<1>(1, 0), Estado(1)));
+    PositionDim<1> pos(1, 0);
+    return *(new CelulaAce110(pos, Estado(1)));
   } else {
     return *latice_[i];
   }
@@ -62,9 +67,11 @@ std::size_t latice1d_open1::Population() {
   return population;
 }
 
-Celula& latice1d_open1::operator[](int i) {
+Celula& latice1d_open1::operator[](const Position& pos ) {
+  int i = pos[0];
   if( i < 0 || i >= latice_.size()) {
-    return *(new CelulaAce110(PositionDim<1>(1, 0), Estado(1)));
+    PositionDim<1> pos(1, 0);
+    return *(new CelulaAce110(pos, Estado(1)));
   } else {
     return *latice_[i];
   }
@@ -87,7 +94,8 @@ std::size_t latice1d_periodic::Population() {
   return population;
 }
 
-Celula& latice1d_periodic::operator[](int i) {
+Celula& latice1d_periodic::operator[](const Position& pos) {
+  int i = pos[0];
   if(i < 0) {
     return *latice_[latice_.size()];
   } else if( i >= latice_.size()) {

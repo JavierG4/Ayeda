@@ -79,9 +79,9 @@ int main(int argc, char* argv[]){
   } else if (celula == "Ace30") {
     factorys = new FactoryCelulaAce30();
   }
-  Celula* cell = factorys->createCelula(PositionDim<2>(2,1,3), Estado(1));
-  Latice* latice;
-  if ( dim == 1 || flag_fichero == 2) {
+  //Celula* cell = factorys->createCelula(PositionDim<1>(1,1), Estado(1));
+  Latice* latice = nullptr;
+  if ( dim == 1 && flag_fichero == 2) {
     if (flag == 0) {
       latice = new latice1d_open0(file, *factorys);
     } else if (flag == 1) {
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]){
     } else if (flag == 2) {
       latice = new latice1d_periodic(file, *factorys);
     } 
-  } else if (dim == 2 || flag_fichero == 2) {
+  } else if (dim == 2 && flag_fichero == 2) {
     if (flag == 0) {
       latice = new latice2d_open0(file, *factorys);
     } else if (flag == 1) {
@@ -102,8 +102,10 @@ int main(int argc, char* argv[]){
       //latice = new latice2d_noborder(file, *factorys);
     }
   }
-  std::cout << (*cell->GetPosition())[0] << std::endl;
-  std::cout << (*cell->GetPosition())[1] << std::endl;
+  //std::cout << (*cell->GetPosition())[0] << std::endl;
+  //std::cout << (*cell->GetPosition())[1] << std::endl;
+  //latice->display(std::cout) << std::endl;
+  latice ->nextGeneration();
   std::cout << "Flag: " << flag << std::endl;
   std::cout << "Dim: " << dim << std::endl;
   std::cout << "Size: " << size << std::endl;
@@ -113,7 +115,9 @@ int main(int argc, char* argv[]){
   std::cout << "Celula: " << celula << std::endl;
   std::cout << "File: " << file << std::endl;
   delete factorys;
-  delete latice;
+  if (latice != nullptr) {
+    delete latice;
+  }
   return 0;
 }
 

@@ -1,8 +1,8 @@
 #include "celula.h"
 #include "latice.h"
 
-Celula::Celula(const Position& pos, const Estado& estado = Estado()) {
-  pos_ = const_cast<Position*>(&pos);
+Celula::Celula(Position& pos, const Estado& estado = Estado()) {
+  pos_ = pos.clone();
   estado_ = estado;
   estado_siguiente_ = estado;
 }

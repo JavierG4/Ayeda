@@ -10,7 +10,7 @@ class Celula;
 
 class Latice1d : public Latice {
  public:
-  Latice1d(std::string, const FactoryCelula&);
+  Latice1d(std::string, FactoryCelula&);
   //Celula& operator[](int );
 
  protected:
@@ -22,8 +22,8 @@ class latice1d_open0 : public Latice1d {
   using Latice1d::Latice1d;
   void nextGeneration();
   std::size_t Population();
-  Celula& operator[](int );
-  std::ostream& display(std::ostream& os) override {
+  Celula& operator[](const Position&);
+  std::ostream& display(std::ostream& os) {
     // Implement the function here.
     // This is just a placeholder implementation.
     os << "latice1d_open0";
@@ -37,8 +37,8 @@ class latice1d_open1 : public Latice1d {
   using Latice1d::Latice1d;
   void nextGeneration();
   std::size_t Population();
-  Celula& operator[](int );
-  std::ostream& display(std::ostream& os) override {
+  Celula& operator[](const Position& );
+  std::ostream& display(std::ostream& os) {
     // Implement the function here.
     // This is just a placeholder implementation.
     os << "latice1d_open0";
@@ -51,8 +51,8 @@ class latice1d_periodic : public Latice1d {
   using Latice1d::Latice1d;
   void nextGeneration();
   std::size_t Population();
-  Celula& operator[](int );
-  std::ostream& display(std::ostream& os) override {
+  Celula& operator[](const Position& );
+  std::ostream& display(std::ostream& os) {
     // Implement the function here.
     // This is just a placeholder implementation.
     os << "latice1d_open0";

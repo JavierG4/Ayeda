@@ -26,7 +26,7 @@ class Latice {
  public:
   //Latice(std::string, const FactoryCelula&);
   virtual void nextGeneration() = 0;
-  virtual std::size_t Population() const = 0;
+  virtual std::size_t Population() = 0;
   virtual std::ostream& display(std::ostream&) = 0;
   //friend std::ostream& operator<<(std::ostream&, const Latice&);
   virtual Celula& operator[](const Position&) = 0;
