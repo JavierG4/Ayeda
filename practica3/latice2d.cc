@@ -1,6 +1,34 @@
 #include "latice2d.h"
 
-Latice2d::Latice2d(std::string tipo, const FactoryCelula& factory) {}
+Latice2d::Latice2d(std::string tipo, const FactoryCelula& factory) {
+  std::ifstream file(tipo);
+  if (!file) {
+    std::cerr << "No se pudo abrir el archivo " << tipo << std::endl;
+    return;
+  }
+  int filas = 0;
+  int columnas = 0;
+  std::string cadena1;
+  file >> filas;
+  file >> columnas;
+  getline(file,cadena1);
+  latice_ = Matriz(filas, columnas, filas*columnas);
+  for ( int i = 0; i < filas; i++) {
+    std::string cadena;
+      //std::cout << i << "-" <<cadena.size() << std::endl;
+      //std::cout << i << "_" << cadena << std::endl;
+    getline(file,cadena);
+    //std::cout << i << "-" <<cadena.size() << std::endl;
+    for (int j = 0; j < columnas; j++) {
+      int estado = 0;
+      if (cadena[j] == 'X') {
+          //std::cout << "si" << i << " " << j << std::endl;
+        estado = 1;
+      }
+      latice_[i][j] = factory.createCelula(PositionDim<2>(2,i,j),Estado(estado));
+    }
+  }
+}
 
 void latice2d_reflective::nextGeneration() {
   for (int i = 0; i < latice_.GetFilas(); i++) {
@@ -15,7 +43,7 @@ void latice2d_reflective::nextGeneration() {
   }
 }
 
-std::size_t latice2d_reflective::Population() const {
+std::size_t latice2d_reflective::Population() {
   int population = 0;
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
@@ -74,7 +102,7 @@ void latice2d_periodic::nextGeneration() {
   }
 }
 
-std::size_t latice2d_periodic::Population() const {
+std::size_t latice2d_periodic::Population() {
   int population = 0;
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
@@ -135,7 +163,7 @@ void latice2d_open0::nextGeneration() {
   }
 }
 
-std::size_t latice2d_open0::Population() const {
+std::size_t latice2d_open0::Population() {
   int population = 0;
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
@@ -162,7 +190,7 @@ void latice2d_open1::nextGeneration() {
   }
 }
 
-std::size_t latice2d_open1::Population() const {
+std::size_t latice2d_open1::Population() {
   int population = 0;
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {

@@ -18,7 +18,7 @@ void Matriz::resize(int filas) {
   filas_ = filas;
 }
 
-const Myvector& Matriz::operator[](int indice) const{
+Myvector& Matriz::operator[](int indice){
   return matriz_[indice - indice_inicial_];
 }
 

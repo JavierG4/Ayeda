@@ -34,7 +34,7 @@ class Matriz {
      * @param index El índice de la fila a acceder.
      * @return Una referencia al vector de la fila especificada.
      */
-    const Myvector& operator[](int index) const;
+     Myvector& operator[](int index);
 
     /**
      * @brief Agrega un vector al final de la matriz.

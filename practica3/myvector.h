@@ -78,7 +78,7 @@ class Myvector {
     * @param index Índice de la posición de la Celula a acceder.
     * @return Referencia a la Celula en la posición especificada.
     */
-   const Celula& operator[](int) const;
+   Celula*& operator[](int);
 
    /**
     * @brief Obtiene el tamaño del vector.

@@ -1,4 +1,4 @@
-#include <celulaLife.h>
+#include "celulalife.h"
 
 int CelulaLife23_3::NextState(Latice& reticula) {
   int posx = (*GetPosition())[0];
@@ -58,4 +58,8 @@ int CelulaLife51_346::NextState(Latice& reticula) {
       return 0;
     }
   }
+}
+
+void CelulaLife51_346::UpdateState() {
+  estado_ = estado_siguiente_;
 }
