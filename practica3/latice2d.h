@@ -63,15 +63,20 @@ class latice2d_open1 : public Latice2d {
   Celula& operator[](const Position&);
   std::ostream& display(std::ostream& os);
 };
-/*
+
 class latice2d_noborder : public Latice2d {
  public:
-  using Latice2d::Latice2d;
+  latice2d_noborder(std::string s, FactoryCelula& f) : Latice2d(s, f), factory(f) {}
   void nextGeneration();
   std::size_t Population();
   Celula& operator[](const Position&);
+  void Comprobar();
+  bool Alrededor(int);
+  std::ostream& display(std::ostream& os);
+ private:
+   FactoryCelula& factory;
 };
 
-*/
+
 
 #endif

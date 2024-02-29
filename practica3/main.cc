@@ -59,7 +59,7 @@ int main(int argc, char* argv[]){
   if ( std::string(argv[8 + flag_fichero + tam_dim]) == "open" ) {
     if ( std::string(argv[9 + flag_fichero + tam_dim]) == "0" ) {
       flag = 0;
-    } else if ( std::string(argv[8 + flag_fichero + tam_dim]) == "1" ) {
+    } else if ( std::string(argv[9 + flag_fichero + tam_dim]) == "1" ) {
       flag = 1;
     }
   } else if ( std::string(argv[8 + flag_fichero + tam_dim]) == "periodic" ) {
@@ -99,12 +99,12 @@ int main(int argc, char* argv[]){
     } else if (flag == 3) {
       latice = new latice2d_reflective(file, *factorys);
     } else if (flag == 4) {
-      //latice = new latice2d_noborder(file, *factorys);
+      latice = new latice2d_noborder(file, *factorys);
     }
   }
   //std::cout << (*cell->GetPosition())[0] << std::endl;
   //std::cout << (*cell->GetPosition())[1] << std::endl;
-  //latice->display(std::cout) << std::endl;
+  latice->display(std::cout) << std::endl;
   latice ->nextGeneration();
   std::cout << "Flag: " << flag << std::endl;
   std::cout << "Dim: " << dim << std::endl;
