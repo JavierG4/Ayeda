@@ -30,6 +30,8 @@ class Latice {
   virtual std::ostream& display(std::ostream&) = 0;
   //friend std::ostream& operator<<(std::ostream&, const Latice&);
   virtual Celula& operator[](const Position&) = 0;
+  virtual void PrintInstrucciones() = 0;
 };
+
 
 #endif 

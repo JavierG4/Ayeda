@@ -16,7 +16,7 @@
 Formas de ejecutar
 
 ./a.out -dim 1 -size 10 -init Ace110 -border reflective
-
+./Celula -dim 1 -size 10 -init matriz1d.txt -border
 
 
 */
@@ -101,10 +101,31 @@ int main(int argc, char* argv[]){
     } else if (flag == 4) {
       latice = new latice2d_noborder(file, *factorys);
     }
+  } else if (dim == 1 && flag_fichero == 0) {
+    if (flag == 0) {
+      latice = new latice1d_open0(size, *factorys);
+    } else if (flag == 1) {
+      latice = new latice1d_open1(size, *factorys);
+    } else if (flag == 2) {
+      latice = new latice1d_periodic(size, *factorys);
+    } 
+  } else if (dim == 2 && flag_fichero == 0) {
+    if (flag == 0) {
+      latice = new latice2d_open0(filas, columnas, *factorys);
+    } else if (flag == 1) {
+      latice = new latice2d_open1(filas, columnas, *factorys);
+    } else if (flag == 2) {
+      latice = new latice2d_periodic(filas, columnas, *factorys);
+    } else if (flag == 3) {
+      latice = new latice2d_reflective(filas, columnas, *factorys);
+    } else if (flag == 4) {
+      latice = new latice2d_noborder(filas, columnas, *factorys);
+    }
   }
   //std::cout << (*cell->GetPosition())[0] << std::endl;
   //std::cout << (*cell->GetPosition())[1] << std::endl;
   latice->display(std::cout) << std::endl;
+  latice->PrintInstrucciones();
   latice ->nextGeneration();
   std::cout << "Flag: " << flag << std::endl;
   std::cout << "Dim: " << dim << std::endl;
@@ -123,13 +144,3 @@ int main(int argc, char* argv[]){
 
 
 
-/*
- std::cout << "Flag: " << flag << std::endl;
-  std::cout << "Dim: " << dim << std::endl;
-  std::cout << "Size: " << size << std::endl;
-  std::cout << "Filas: " << filas << std::endl;
-  std::cout << "Columnas: " << columnas << std::endl;
-  std::cout << "Flag_fichero: " << flag_fichero << std::endl;
-  std::cout << "Celula: " << celula << std::endl;
-  std::cout << "File: " << file << std::endl;
-*/

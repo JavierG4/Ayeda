@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <limits>
 #include <fstream>
-
+#include "tools.h"
 
 class Latice;
 class Celula;
@@ -21,7 +21,8 @@ class Celula;
 class Latice2d : public Latice {
  public:
   Latice2d(std::string, FactoryCelula&);
-
+  Latice2d(int,int, FactoryCelula&);
+  void PrintInstrucciones();
  protected:
   Matriz latice_;
 };
@@ -67,6 +68,7 @@ class latice2d_open1 : public Latice2d {
 class latice2d_noborder : public Latice2d {
  public:
   latice2d_noborder(std::string s, FactoryCelula& f) : Latice2d(s, f), factory(f) {}
+  latice2d_noborder(int filas, int columnas, FactoryCelula& f) : Latice2d(filas, columnas, f), factory(f) {}
   void nextGeneration();
   std::size_t Population();
   Celula& operator[](const Position&);

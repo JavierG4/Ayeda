@@ -1,15 +1,5 @@
 #include "latice2d.h"
-int getch() {
-  struct termios oldattr, newattr;
-  int ch;
-  tcgetattr(STDIN_FILENO, &oldattr);
-  newattr = oldattr;
-  newattr.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
-  ch = getchar();
-  tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-  return ch;
-}
+
 
 Latice2d::Latice2d(std::string tipo, FactoryCelula& factory) {
   std::ifstream file(tipo);
@@ -38,6 +28,33 @@ Latice2d::Latice2d(std::string tipo, FactoryCelula& factory) {
       }
       PositionDim<2> pos(2,i,j);
       latice_[i][j] = factory.createCelula(pos,Estado(estado));
+    }
+  }
+}
+
+Latice2d::Latice2d(int filas, int columnas, FactoryCelula& factory) {
+  latice_ = Matriz(filas, columnas, filas*columnas);
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      PositionDim<2> pos(2,i,j);
+      latice_[i][j] = factory.createCelula(pos, Estado(0));
+    }
+  }
+  while(true) {
+    std::cout << "Introduce la posicion de la celula viva (X para terminar)" << std::endl;
+    std::string inputStr;
+    std::cin >> inputStr;
+    if(inputStr == "X") {
+      break;
+    }
+    try {
+      int input = std::stoi(inputStr);
+      int input2 = 0;
+      std::cin >> input2;
+      PositionDim<2> pos(2, input, input2);
+      latice_[input][input2] = factory.createCelula(pos, Estado(1));
+    } catch(const std::invalid_argument&) {
+      std::cout << "Por favor, introduce un número o 'X' para salir.\n";
     }
   }
 }
@@ -298,7 +315,7 @@ Celula& latice2d_open0::operator[](const Position& pos) {
   int y = pos[1];
   if(x < 0 || y < 0 || x >= latice_.GetFilas() || y >= latice_[0].size()) {
     PositionDim<2> pos(2,0,0);
-    Celula* celulaEstadoUno = new CelulaLife23_3(pos, Estado(1));
+    Celula* celulaEstadoUno = new CelulaLife23_3(pos, Estado(0));
     return *celulaEstadoUno;
   }
   return *latice_[pos[0]][pos[1]];
@@ -596,4 +613,14 @@ std::ostream& latice2d_noborder::display(std::ostream& os) {
     os << std::endl;
   }
   return os;
+}
+
+
+void Latice2d::PrintInstrucciones() {
+  std::cout << "‘x' : Finaliza la ejecución del programa" << std::endl;
+  std::cout << "‘n’ : Calcula y muestra la siguiente generación" << std::endl;
+  std::cout << "‘L’ : Calcula y muestra las siguientes cinco generaciones" << std::endl;
+  std::cout << "‘c’ : Los comandos ‘n’ y ‘L’ dejan de mostrar el estado del tablero y sólo se muestra" << std::endl;
+  std::cout << "la población, esto es, el número de células en estado «viva»" << std::endl;
+  std::cout << "‘s’ : Salva el tablero a un fichero" << std::endl;
 }
