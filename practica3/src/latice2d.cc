@@ -172,12 +172,7 @@ void latice2d_periodic::nextGeneration() {
       flagc = 1;
     } else if (input == 's') { // guardar en fichero
       std::ofstream file("fichero.txt");
-      for (int i = 0; i < latice_.GetFilas(); i++) {
-        for (int j = 0; j < latice_[0].size(); j++) {
-          file << latice_[i][j] -> GetEstado().GetEstado() << " ";
-        }
-        file << std::endl;
-      }
+      display(file);
     }
     for ( int i = 0; i < veces; i++) { 
       for (int i = 0; i < latice_.GetFilas(); i++) {
@@ -392,7 +387,11 @@ Celula& latice2d_open1::operator[](const Position& pos) {
 std::ostream& latice2d_open1::display(std::ostream& os) {
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
-      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+      if (latice_[i][j] -> GetEstado().GetEstado() == 1) {
+        os << "X";
+      } else {
+        os << "-";
+      }
     }
     os << std::endl;
   }
@@ -402,7 +401,11 @@ std::ostream& latice2d_open1::display(std::ostream& os) {
 std::ostream& latice2d_open0::display(std::ostream& os) {
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
-      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+      if (latice_[i][j] -> GetEstado().GetEstado() == 1) {
+        os << "X";
+      } else {
+        os << "-";
+      }
     }
     os << std::endl;
   }
@@ -412,7 +415,11 @@ std::ostream& latice2d_open0::display(std::ostream& os) {
 std::ostream& latice2d_periodic::display(std::ostream& os) {
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
-      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+      if (latice_[i][j] -> GetEstado().GetEstado() == 1) {
+        os << "X";
+      } else {
+        os << "-";
+      }
     }
     os << std::endl;
   }
@@ -422,7 +429,11 @@ std::ostream& latice2d_periodic::display(std::ostream& os) {
 std::ostream& latice2d_reflective::display(std::ostream& os) {
   for (int i = 0; i < latice_.GetFilas(); i++) {
     for (int j = 0; j < latice_[i].size(); j++) {
-      os << latice_[i][j]->GetEstado().GetEstado() << " ";
+      if (latice_[i][j] -> GetEstado().GetEstado() == 1) {
+        os << "X";
+      } else {
+        os << "-";
+      }
     }
     os << std::endl;
   }
