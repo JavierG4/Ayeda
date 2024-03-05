@@ -1,0 +1,16 @@
+En el latitice2D/1D estaría el contuctor ya hecho
+En el latice2D no se pondria lo de añadir columnas y filas
+
+
+Cell::Cell(Postion,state);
+  Se asigna
+
+  PRegunta como se crean las celulas en el latice2D/1D no habrá problema a la hora de pasar la posicon ya que tu pasas una posicion
+  y ya luego más tarde en los metoods
+
+
+El factory cell te crea un tipo de celulas 
+En el reticulo vas leyendo y creando las celulas con el factory
+
+
+Si estas en un latice1D y pasas celulas de 23/3 deberia dar un error y en el caso inverso funcionar

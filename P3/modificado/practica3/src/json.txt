@@ -1,0 +1,27 @@
+      "args": [
+        "-dim",
+        "1",
+        "-size",
+        "10",
+        "-init",
+        "matriz1d.txt",
+        "-cell",
+        "Ace110",
+        "-border",
+        "periodic"
+      ],
+
+
+      "args": [
+        "-dim",
+        "2",
+        "-size",
+        "10",
+        "10",
+        "-init",
+        "matriz8.txt",
+        "-cell",
+        "Life23_3",
+        "-border",
+        "noborder"
+      ],
