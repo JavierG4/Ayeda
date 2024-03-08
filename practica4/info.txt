@@ -1,0 +1,24 @@
+Key -Clave del hash
+
+tablesize -tamaño de la tabla
+
+La función de dispersión mapea el valor de la clave k de tipo Key a una posición de la
+tabla en el rango [0..tableSize-1]
+
+Se pide hacer :
+Módulo, h(k) = k % tableSize
+Basada en la suma, h(k) = sum(ki) % tableSize
+Pseudoaleatoria, h(k) = {srand(k); rand()}.
+
+Dispersión abierta, cada posición de la tabla hash contiene una estructura de datos
+dinámica, tipo lista, donde se insertan todos los sinónimos, generados por la
+función de dispersión.
+Dispersión cerrada, cada posición de la tabla hash contiene una estructura de datos
+estática, tipo array, donde se establece el número máximo de registros que pueden
+almacenarse en dicha posición.
+
+El tamaño del bloque, que denotamos blockSize, indica el máximo número de 
+registros que se pueden almacenar en la misma posición de la tabla
+
+
+
