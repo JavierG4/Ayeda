@@ -6,7 +6,7 @@
 #include "sequence.h"
 #include "function.h"
 
-class HashTable<class Key, class Container=staticSequence<Key>> {
+template<class Key, class Container=staticSequence<Key>> class HashTable{
  public:
    HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&,unsigned);
  
@@ -14,6 +14,17 @@ class HashTable<class Key, class Container=staticSequence<Key>> {
   unsigned tablesize_;
   DispersionFunction<Key>& dispersion_;
   ExplorationFunction<Key>& exploration_;
-}
+  unsigned blockSize_;
+};
+
+template<class Key> class HashTable<Key, dynamicSequence<Key> > {
+ public:
+   HashTable(unsigned, DispersionFunction<Key>&, ExplorationFunction<Key>&);
+  
+ private:
+   unsigned tablesize_;
+   DispersionFunction<Key>& dispersion_;
+   ExplorationFunction<Key>& exploration_;
+};
 
 #endif
