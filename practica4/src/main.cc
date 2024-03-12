@@ -3,6 +3,7 @@
 #include "function.h"
 #include "sequence.h"
 #include "nif.h"
+#include <string>
 
 
 /*
@@ -15,7 +16,7 @@ e. -fe <f>, f es el código que identifica a una función de exploración. Sólo
 dispersión cerrada.
 
 */
-int main() {
+int main(int argc, char* argv[]) {
   int table_size = std::stoi(argv[2]);
   int fd_dispersion = std::stoi(argv[4]);
   std::string hash = argv[6];

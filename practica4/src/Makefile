@@ -45,4 +45,4 @@ actu:
 	git commit -m actualización
 	git push
 program:
-	g++ -g -I../library -o Hash main.cc nif.cc hash.cc
+	g++ -g -I../library -o Hash main.cc nif.cc

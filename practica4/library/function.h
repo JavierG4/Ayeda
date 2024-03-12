@@ -33,6 +33,22 @@ class PseudoRandom : public DispersionFunction<Key> {
 };
 
 template<class Key>
+class Sum : public DispersionFunction<Key> {
+ public:
+   Sum(unsigned n) : n_(n) {}
+   unsigned operator()(const Key& k) const {
+     unsigned sum = 0;
+     for (unsigned i = 0; i < sizeof(k); i++) {
+       sum += k % 10;
+       k /= 10;
+     }
+     return sum % n_;
+   }
+ private:
+   unsigned n_;
+};
+
+template<class Key>
 class ExplorationFunction {
  public:
    virtual unsigned operator()(const Key&, unsigned) const=0;
