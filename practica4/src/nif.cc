@@ -1,38 +1,42 @@
 #include "nif.h"
 
 
-nif::nif() {
+Nif::Nif() {
   // Generate a random 8-digit value
   srand(time(0));
   value = rand() % 100000000;
 }
 
-nif::nif(long num) : value(num) {}
+Nif::Nif(long num) : value(num) {}
 
-bool nif::operator==(const nif& other) const {
+bool Nif::operator==(const Nif& other) const {
   return value == other.value;
 }
 
-bool nif::operator!=(const nif& other) const {
+bool Nif::operator!=(const Nif& other) const {
   return value != other.value;
 }
 
-bool nif::operator<(const nif& other) const {
+bool Nif::operator<(const Nif& other) const {
   return value < other.value;
 }
 
-bool nif::operator>(const nif& other) const {
+bool Nif::operator>(const Nif& other) const {
   return value > other.value;
 }
 
-bool nif::operator<=(const nif& other) const {
+bool Nif::operator<=(const Nif& other) const {
   return value <= other.value;
 }
 
-bool nif::operator>=(const nif& other) const {
+bool Nif::operator>=(const Nif& other) const {
   return value >= other.value;
 }
 
-nif::operator long() const {
+Nif::operator long() const {
   return value;
+}
+
+bool Nif::operator==(int num) const {
+  return value == num;
 }

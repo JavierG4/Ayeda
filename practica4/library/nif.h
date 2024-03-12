@@ -1,27 +1,28 @@
 
-#ifndef NIF_H
-#define NIF_H
+#ifndef Nif_H
+#define Nif_H
 
 #include <iostream>
 #include <random>
 #include <cstdlib>
 #include <ctime>
 
-class nif {
+class Nif {
 private:
   int value;
 
 public:
-  nif();
-  nif(long num);
-  bool operator==(const nif& other) const;
-  bool operator!=(const nif& other) const;
-  bool operator<(const nif& other) const;
-  bool operator>(const nif& other) const;
-  bool operator<=(const nif& other) const;
-  bool operator>=(const nif& other) const;
+  Nif();
+  Nif(long num);
+  bool operator==(const Nif& other) const;
+  bool operator==(int) const;
+  bool operator!=(const Nif& other) const;
+  bool operator<(const Nif& other) const;
+  bool operator>(const Nif& other) const;
+  bool operator<=(const Nif& other) const;
+  bool operator>=(const Nif& other) const;
   operator long() const;
 };
 
 
-#endif // NIF_H
+#endif // Nif_H

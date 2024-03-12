@@ -50,8 +50,54 @@ class Sum : public DispersionFunction<Key> {
 
 template<class Key>
 class ExplorationFunction {
- public:
-   virtual unsigned operator()(const Key&, unsigned) const=0;
+ public: 
+   ExplorationFunction(unsigned n) : modulo_(n) {}
+   virtual unsigned operator()(const Key&, unsigned) const=0; 
+ protected:
+  unsigned modulo_;
 };
+
+template<class Key>
+class LinearExploration : public ExplorationFunction<Key> {
+ public:
+   using ExplorationFunction<Key>::modulo_;
+   LinearExploration(unsigned n) : ExplorationFunction<Key>(n) {}
+   unsigned operator()(const Key&, unsigned i) const {
+     return i;
+   }
+};
+
+template<class Key>
+class QuadraticExploration : public ExplorationFunction<Key> {
+ public:
+   using ExplorationFunction<Key>::modulo_;
+   QuadraticExploration(unsigned n) : ExplorationFunction<Key>(n) {}
+   unsigned operator()(const Key&, unsigned i) const {
+     return i * i;
+   }
+};
+
+template<class Key>
+class DoubleDispersion : public ExplorationFunction<Key> {
+ public:
+   DoubleDispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
+   unsigned operator()(const Key& k, unsigned i) const {
+     return dispersion_(k) * i;
+   }
+ private:
+   DispersionFunction<Key>& dispersion_;
+};
+
+template<class Key>
+class Redispersion : public ExplorationFunction<Key> {
+ public:
+   Redispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
+   unsigned operator()(const Key& k, unsigned i) const {
+     return dispersion_(i);
+   }
+ private:
+   DispersionFunction<Key>& dispersion_;
+};
+
 
 #endif
