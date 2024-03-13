@@ -38,9 +38,10 @@ class Sum : public DispersionFunction<Key> {
    Sum(unsigned n) : n_(n) {}
    unsigned operator()(const Key& k) const {
      unsigned sum = 0;
-     for (unsigned i = 0; i < sizeof(k); i++) {
-       sum += k % 10;
-       k /= 10;
+     unsigned key = k.get();
+     for (unsigned i = 0; i < sizeof(key); i++) {
+       sum += key % 10;
+       key /= 10;
      }
      return sum % n_;
    }

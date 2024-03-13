@@ -8,20 +8,20 @@
 #include <ctime>
 
 class Nif {
-private:
-  int value;
-
-public:
+ public:
   Nif();
   Nif(long num);
   bool operator==(const Nif& other) const;
-  bool operator==(int) const;
+  bool operator==(unsigned) const;
   bool operator!=(const Nif& other) const;
   bool operator<(const Nif& other) const;
   bool operator>(const Nif& other) const;
   bool operator<=(const Nif& other) const;
   bool operator>=(const Nif& other) const;
+  int get() const {return value;}
   operator long() const;
+ private:
+  unsigned value;
 };
 
 

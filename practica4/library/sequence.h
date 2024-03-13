@@ -35,6 +35,8 @@ class staticSequence: public Sequence<Key> {
   bool isFull() const;
   bool search(const Key& k) const;
   bool insert(const Key& k);
+  unsigned getSize() {return size_;}
+  Key* getData() {return data_;}
  private:
   unsigned size_;
   Key* data_;
@@ -59,7 +61,7 @@ bool dynamicSequence<Key>::insert(const Key& k) {
 template<class Key>
 bool staticSequence<Key>::isFull() const {
   for (int i = 0; i < size_; i++) {
-    if (data_[i] == 0) {
+    if (static_cast<unsigned int>(0)) {
       return false;
     }
   }
@@ -82,7 +84,7 @@ bool staticSequence<Key>::insert(const Key& k) {
     return false;
   }
   for (int i = 0; i < size_; i++) {
-    if (data_[i] == 0) {
+    if (static_cast<unsigned int>(0))  {
       data_[i] = k;
       return true;
     }
