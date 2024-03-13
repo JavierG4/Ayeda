@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
     hash_table.menu();
   } else {
     HashTable<Nif, staticSequence<Nif>> hash_table(table_size, *dispersion, *exploration, blocksize);
-    //hash_table.menu();
+    hash_table.menu();
   }
 
   delete dispersion;

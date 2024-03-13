@@ -10,6 +10,7 @@ Nif::Nif() {
 Nif::Nif(long num) : value(num) {}
 
 bool Nif::operator==(const Nif& other) const {
+  std::cout << value << " == " << other.value << std::endl;
   return value == other.value;
 }
 
