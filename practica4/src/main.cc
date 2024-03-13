@@ -15,8 +15,19 @@ d. -bs <s>, s es el tamaño del bloque. Sólo para dispersión cerrada.
 e. -fe <f>, f es el código que identifica a una función de exploración. Sólo para
 dispersión cerrada.
 
-Ejemplos de uso:
+Codigos de la función de dispersión:
+0. Modulo
+1. PseudoRandom
+2. Sum
 
+Codigos de la función de exploración:
+0. Lineal
+1. Cuadrática
+2. Doble dispersión
+3. PseudoRandom
+
+
+Ejemplos de uso:
 
 ./Hash -ts 5 -fd 1 -hash open -bs 5 -fe 1
 
@@ -29,16 +40,23 @@ int main(int argc, char* argv[]) {
   int fd_exploration = std::stoi(argv[10]);
   DispersionFunction<Nif>* dispersion;
   ExplorationFunction<Nif>* exploration;
-  if (fd_dispersion == 1) {
+  if (fd_dispersion == 0) {
     dispersion = new Modulo<Nif>(table_size);
-  } else {
+  } else if (fd_dispersion == 1) {
     dispersion = new PseudoRandom<Nif>(table_size);
+  } else if (fd_dispersion == 2) {
+    dispersion = new Sum<Nif>(table_size);
   }
-  if (fd_exploration == 1) {
+  if (fd_exploration == 0) {
     exploration = new LinearExploration<Nif>(table_size);
-  } else {
+  } else if (fd_exploration == 1){
     exploration = new QuadraticExploration<Nif>(table_size);
+  } else if (fd_exploration == 2) {
+    exploration = new DoubleDispersion<Nif>(table_size, *dispersion);
+  } else if (fd_exploration == 3) {
+    exploration = new Redispersion<Nif>(table_size, *dispersion);
   }
+
   if (hash == "open") {
     HashTable<Nif, dynamicSequence<Nif>> hash_table(table_size, *dispersion, *exploration);
     hash_table.menu();
@@ -46,4 +64,8 @@ int main(int argc, char* argv[]) {
     HashTable<Nif, staticSequence<Nif>> hash_table(table_size, *dispersion, *exploration, blocksize);
     //hash_table.menu();
   }
+
+  delete dispersion;
+  delete exploration;
+  return 0;
 }

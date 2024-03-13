@@ -37,6 +37,6 @@ Nif::operator long() const {
   return value;
 }
 
-bool Nif::operator==(int num) const {
+bool Nif::operator==(unsigned num) const {
   return value == num;
 }
