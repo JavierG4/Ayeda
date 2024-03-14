@@ -14,54 +14,61 @@ class Sequence {
 template<class Key> 
 class dynamicSequence: public Sequence<Key> {
  public:
-  dynamicSequence() {}
+  dynamicSequence() : data_(std::vector<Key*>()) {} // Inicializa data_ como un vector vacío
   bool search(const Key& k) const;
   bool insert(const Key& k);
-  std::vector<Key> getData() const {return data_;}
+  std::vector<Key*> getData() const {return data_;}
  private:
-   std::vector<Key> data_;
-};
-
-template<class Key> 
-class staticSequence: public Sequence<Key> {
- public:
-  staticSequence(unsigned size) {
-    size_ = size;
-    data_ = new Key[size];
-  }
-  ~staticSequence() {
-    delete[] data_;
-  }
-  bool isFull() const;
-  bool search(const Key& k) const;
-  bool insert(const Key& k);
-  unsigned getSize() {return size_;}
-  Key* getData() {return data_;}
- private:
-  unsigned size_;
-  Key* data_;
+   std::vector<Key*> data_;
 };
 
 template<class Key>
+bool dynamicSequence<Key>::insert(const Key& k) {
+  if (search(k)) {
+    return false;
+  }
+  Key* newKey = new Key(k); // Crea un nuevo Key en el heap
+  data_.push_back(newKey); // Añade el puntero al vector
+  return true;
+}
+template<class Key>
 bool dynamicSequence<Key>::search(const Key& k) const {
   for (int i = 0; i < data_.size(); i++) {
-    if (data_[i] == k) {
+    if (*data_[i] == k) {
       return true;
     }
   }
   return false;
 }
 
-template<class Key>
-bool dynamicSequence<Key>::insert(const Key& k) {
-  data_.push_back(k);
-  return true;
-}
+
+template<class Key> 
+class staticSequence: public Sequence<Key> {
+ public:
+  staticSequence(unsigned size) {
+    inicio = 0;
+    size_ = size;
+    data_ = new Key*[size];
+    for (int i = 0; i < size; i++) {
+      data_[i] = nullptr;
+    }
+  }
+  bool isFull() const;
+  bool search(const Key& k) const;
+  bool insert(const Key& k);
+  unsigned getSize() {return size_;}
+  Key** getData() {return data_;}
+  int getInicio() {return inicio;}
+ private:
+  int inicio;
+  unsigned size_;
+  Key** data_;
+};
 
 template<class Key>
 bool staticSequence<Key>::isFull() const {
   for (int i = 0; i < size_; i++) {
-    if (static_cast<unsigned int>(0)) {
+    if (data_[i] == nullptr) {
       return false;
     }
   }
@@ -70,8 +77,8 @@ bool staticSequence<Key>::isFull() const {
 
 template<class Key>
 bool staticSequence<Key>::search(const Key& k) const {
-  for ( int i = 0; i < size_; i++ ) {
-    if (data_[i] == k) {
+  for ( int i = 0; i < inicio; i++ ) {
+    if (data_[i] != nullptr && *data_[i] == k) {
       return true;
     }
   }
@@ -84,12 +91,12 @@ bool staticSequence<Key>::insert(const Key& k) {
     return false;
   }
   for (int i = 0; i < size_; i++) {
-    if (static_cast<unsigned int>(0))  {
-      data_[i] = k;
+    if (data_[i] == nullptr)  {
+      data_[i] = new Key(k);
+      inicio++;
       return true;
     }
   }
   return false;
 }
-
 #endif

@@ -16,9 +16,7 @@
 template<class Key, class Container=staticSequence<Key>> class HashTable{
  public:
   HashTable(unsigned table_size, DispersionFunction<Key>& dispersion, ExplorationFunction<Key>& exploration,unsigned blocksize);
-   ~HashTable() {
-     delete container_;
-  }
+  ~HashTable();
   std::ostream& display(std::ostream& os) const;
   void menu();
   bool search(const Key& K) const;
@@ -28,7 +26,7 @@ template<class Key, class Container=staticSequence<Key>> class HashTable{
   DispersionFunction<Key>& dispersion_;
   ExplorationFunction<Key>& exploration_;
   unsigned blockSize_;
-  Container* container_;
+  Container** container_;
 };
 
 template<class Key> class HashTable<Key, dynamicSequence<Key> > {
@@ -59,7 +57,7 @@ template<class Key>
 bool HashTable<Key, dynamicSequence<Key>>::search(const Key& k) const {
   unsigned index = dispersion_(k);
   for (int i = 0; i < container_[index].size(); i++) {
-    if (container_[index].getData()[i] == k) {
+    if (container_[index].search(k) == true){
       return true;
     }
   }
@@ -70,7 +68,7 @@ std::ostream& HashTable<Key, dynamicSequence<Key>>::display(std::ostream& os) co
   for (int i = 0; i < tablesize_; i++) {
     os << "Poscion " << i << ": " << std::endl;  
     for (int j = 0; j < container_[i].getData().size(); j++) {
-      os << container_[i].getData()[j] << " ";
+      os << *container_[i].getData()[j] << " ";
     }
     os << std::endl;
   }
@@ -136,7 +134,12 @@ void HashTable<Key, dynamicSequence<Key>>::menu() {
       std::cout << "Introduce el nif" << std::endl;
       std::cin >> nif1;
       unsigned index = dispersion_(Nif(nif1));
-      container_[index].insert(Nif(nif1));
+      bool x = container_[index].insert(Nif(nif1));
+      if (x) {
+        std::cout << "Se ha insertado el nif " << nif1 << std::endl;
+      } else {
+        std::cout << "No se ha insertado el nif " << nif1 << std::endl;
+      }
     } else if (opcion == 2) {
       std::cout << "Que nif quieres buscar" << std::endl;
       int nif1 = 0;
@@ -157,10 +160,9 @@ void HashTable<Key, dynamicSequence<Key>>::menu() {
 template<class Key, class Container>
 HashTable<Key, Container>::HashTable(unsigned table_size, DispersionFunction<Key>& dispersion, ExplorationFunction<Key>& exploration, unsigned blocksize)
 : tablesize_(table_size), dispersion_(dispersion), exploration_(exploration), blockSize_(blocksize) {
-  container_ = new Container(table_size);
-  staticSequence<Nif> Sequence(blockSize_);
+  container_ = new Container*[table_size];
   for (int i = 0; i < table_size; i++) {
-    container_[i] = Sequence;
+    container_[i] = new staticSequence<Nif>(blockSize_);
   }
 }
 
@@ -169,29 +171,29 @@ bool HashTable<Key,Container>::search(const Key& k) const {
   unsigned index = dispersion_(k);
   bool full = false;
   bool encontrado = false;
-  if (container_[index].isFull()) {
+  if (container_[index]->isFull()) {
     full = true;
-    for (int i = 0; i < container_[index].getSize(); i++) {
-      if (container_[index].getData()[i] == k) {
+    for (int i = 0; i < container_[index]->getSize(); i++) {
+      if (container_[index]->search(k)) {
         return true;
       }
     }
     int i = 0;
     while (encontrado == false && full == true) {
       unsigned index = exploration_(k,i);
-      if (container_[index].isFull() == false) {
+      if (container_[index]->isFull() == false) {
         full = false;
       }
       for ( int j = 0; j < blockSize_; j++) {
-        if (container_[index].getData()[j] == k) {
+        if (container_[index]->search(k)) {
           return true;
         }
       }
       i++;
     }
   } else {
-    for (int i = 0; i < container_[index].getSize(); i++) {
-      if (container_[index].getData()[i] == k) {
+    for (int i = 0; i < container_[index]->getSize(); i++) {
+      if (container_[index]->search(k)) {
         return true;
       }
     }
@@ -204,8 +206,8 @@ template<class Key, class Container>
 std::ostream& HashTable<Key,Container>::display(std::ostream& os) const {
   for (int i = 0; i < tablesize_; i++) {
     os << "Poscion " << i << ": " << std::endl;  
-    for (int j = 0; j < container_[i].getSize(); j++) {
-      os << container_[i].getData()[j] << " ";
+    for (int j = 0; j < container_[i]->getInicio(); j++) {
+      os << *container_[i]->getData()[j] << " ";
     }
     os << std::endl;
   }
@@ -215,23 +217,23 @@ std::ostream& HashTable<Key,Container>::display(std::ostream& os) const {
 
 template<class Key, class Container>
 bool HashTable<Key,Container>::insert(const Key& k) {
-  if (search(k) == true) {
+  unsigned index = dispersion_(k);
+  if (container_[index]->search(k) == true) {
     return false;
   }
-  unsigned index = dispersion_(k);
-  if (container_[index].isFull()) {
+  if (container_[index]->isFull()) {
     int i = 0;
     bool full = true;
     while (full == true) {
       unsigned index = exploration_(k,i);
-      if (container_[index].isFull() == false) {
+      if (container_[index]->isFull() == false) {
         full = false;
       }
       i++;
     }
-    container_[index].insert(k);
+    container_[index]->insert(k);
   } else {
-    container_[index].insert(k);
+    container_[index]->insert(k);
   }
   return true;
 }
@@ -258,6 +260,7 @@ void HashTable<Key,Container>::menu() {
     }
     // Insert NIFs into hash table
     for (const auto& nif : lista_Nif) {
+      std::cout << "Inserting " << nif.get() << std::endl;
       insert(nif);
     }
   } 
@@ -272,20 +275,20 @@ void HashTable<Key,Container>::menu() {
     if (option == 0) {
       break;
     } else if (option == 1) {
-      Key k;
+      int k;
       std::cout << "Escribe el nif a añadir: ";
       std::cin >> k;
-      bool inserted = insert(k);
+      bool inserted = insert(Nif(k));
       if (inserted) {
         std::cout << "Key " << k << " Se añadi correctamente\n";
       } else {
         std::cout << "Key " << k << " No se puede añadir\n";
       }
     } else if (option == 2) {
-      Key k;
-      std::cout << "Escribe el nif a buscar: ";
+      int k;
+      std::cout << "Escribe el nif a buscar: " << std::endl;;
       std::cin >> k;
-      bool found = search(k);
+      bool found = search(Nif(k));
       if (found) {
         std::cout << "Key " << k << " found.\n";
       } else {
@@ -299,4 +302,11 @@ void HashTable<Key,Container>::menu() {
   }
 }
 
+template<class Key, class Container>
+HashTable<Key,Container>::~HashTable() {
+  for (int i = 0; i < tablesize_; i++) {
+    delete container_[i];
+  }
+  delete[] container_;
+}
 #endif
