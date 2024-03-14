@@ -222,18 +222,27 @@ bool HashTable<Key,Container>::insert(const Key& k) {
     return false;
   }
   if (container_[index]->isFull()) {
-    int i = 0;
+    int i = 1;
     bool full = true;
     while (full == true) {
-      unsigned index = exploration_(k,i);
-      if (container_[index]->isFull() == false) {
-        full = false;
+      unsigned exploration = exploration_(k,i);
+      unsigned aux = index + exploration;
+      aux = aux % tablesize_;
+      std::cout << "i = "<< index << "  " << exploration << std::endl;
+      if (container_[aux]->insert(k) == true) {
+        return true;
       }
       i++;
+      if (i == tablesize_ * 2) {
+        return false;
+      }
     }
-    container_[index]->insert(k);
   } else {
-    container_[index]->insert(k);
+    if ( container_[index]->search(k) == true) {
+      return false;
+    } else {
+      container_[index]->insert(k);
+    }
   }
   return true;
 }

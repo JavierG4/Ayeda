@@ -67,7 +67,7 @@ class staticSequence: public Sequence<Key> {
 
 template<class Key>
 bool staticSequence<Key>::isFull() const {
-  for (int i = 0; i < size_; i++) {
+  for (int i = 0; i < size_ ; i++) {
     if (data_[i] == nullptr) {
       return false;
     }

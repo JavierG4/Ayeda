@@ -64,7 +64,7 @@ class LinearExploration : public ExplorationFunction<Key> {
    using ExplorationFunction<Key>::modulo_;
    LinearExploration(unsigned n) : ExplorationFunction<Key>(n) {}
    unsigned operator()(const Key&, unsigned i) const {
-     return i;
+      return i + 1;
    }
 };
 
@@ -74,16 +74,20 @@ class QuadraticExploration : public ExplorationFunction<Key> {
    using ExplorationFunction<Key>::modulo_;
    QuadraticExploration(unsigned n) : ExplorationFunction<Key>(n) {}
    unsigned operator()(const Key&, unsigned i) const {
-     return i * i;
+    if (i == 0 || i == 1) {
+      return  i + 1;
+    }
+    return  i * i;
    }
 };
 
 template<class Key>
 class DoubleDispersion : public ExplorationFunction<Key> {
  public:
-   DoubleDispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
+  DoubleDispersion(unsigned n, DispersionFunction<Key>& dispersion) 
+  : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
    unsigned operator()(const Key& k, unsigned i) const {
-     return dispersion_(k) * i;
+     return 1 + ((dispersion_(k) * i) % (this ->modulo_ - 1));
    }
  private:
    DispersionFunction<Key>& dispersion_;
@@ -94,7 +98,7 @@ class Redispersion : public ExplorationFunction<Key> {
  public:
    Redispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
    unsigned operator()(const Key& k, unsigned i) const {
-     return dispersion_(i);
+     return 1 + ((dispersion_(k)) % (this ->modulo_ - 1));
    }
  private:
    DispersionFunction<Key>& dispersion_;
