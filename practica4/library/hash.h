@@ -173,29 +173,28 @@ bool HashTable<Key,Container>::search(const Key& k) const {
   bool encontrado = false;
   if (container_[index]->isFull()) {
     full = true;
-    for (int i = 0; i < container_[index]->getSize(); i++) {
-      if (container_[index]->search(k)) {
-        return true;
-      }
+    if (container_[index]->search(k)) {
+      return true;
     }
-    int i = 0;
+    int i = 1;
     while (encontrado == false && full == true) {
-      unsigned index = exploration_(k,i);
-      if (container_[index]->isFull() == false) {
+      unsigned aux = exploration_(k,i);
+      aux = index + aux;
+      aux = aux % tablesize_;
+      if (container_[aux]->isFull() == false) {
         full = false;
       }
-      for ( int j = 0; j < blockSize_; j++) {
-        if (container_[index]->search(k)) {
-          return true;
-        }
-      }
-      i++;
-    }
-  } else {
-    for (int i = 0; i < container_[index]->getSize(); i++) {
-      if (container_[index]->search(k)) {
+      if (container_[aux]->search(k)) {
         return true;
       }
+      i++;
+      if (i == tablesize_) {
+        return false;
+      }
+    }
+  } else {
+    if (container_[index]->search(k)) {
+      return true;
     }
     encontrado = false;
   }
@@ -228,12 +227,12 @@ bool HashTable<Key,Container>::insert(const Key& k) {
       unsigned exploration = exploration_(k,i);
       unsigned aux = index + exploration;
       aux = aux % tablesize_;
-      std::cout << "i = "<< index << "  " << exploration << std::endl;
+      std::cout << "i = "<< index << " ex =" << exploration << "final = " << aux <<std::endl;
       if (container_[aux]->insert(k) == true) {
         return true;
       }
       i++;
-      if (i == tablesize_ * 2) {
+      if (i == tablesize_) {
         return false;
       }
     }
@@ -289,7 +288,7 @@ void HashTable<Key,Container>::menu() {
       std::cin >> k;
       bool inserted = insert(Nif(k));
       if (inserted) {
-        std::cout << "Key " << k << " Se añadi correctamente\n";
+        std::cout << "Key " << k << " Se añadi correctamente o ya estaba añadida\n";
       } else {
         std::cout << "Key " << k << " No se puede añadir\n";
       }

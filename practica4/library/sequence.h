@@ -53,6 +53,12 @@ class staticSequence: public Sequence<Key> {
       data_[i] = nullptr;
     }
   }
+  ~staticSequence() {
+    for (int i = 0; i < size_; i++) {
+      delete data_[i];
+    }
+    delete[] data_;
+  }
   bool isFull() const;
   bool search(const Key& k) const;
   bool insert(const Key& k);
@@ -87,7 +93,10 @@ bool staticSequence<Key>::search(const Key& k) const {
 
 template<class Key>
 bool staticSequence<Key>::insert(const Key& k) {
-  if(isFull()) {
+  if (search(k)) {
+    return true;
+  }
+  if (isFull()) {
     return false;
   }
   for (int i = 0; i < size_; i++) {

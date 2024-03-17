@@ -2,6 +2,7 @@
 #define FUNCTION_H
 
 #include <iostream>
+#include <cmath>
 
 template<class Key>
 class DispersionFunction {
@@ -39,7 +40,7 @@ class Sum : public DispersionFunction<Key> {
    unsigned operator()(const Key& k) const {
      unsigned sum = 0;
      unsigned key = k.get();
-     for (unsigned i = 0; i < sizeof(key); i++) {
+     while (key > 0) {
        sum += key % 10;
        key /= 10;
      }
@@ -64,7 +65,7 @@ class LinearExploration : public ExplorationFunction<Key> {
    using ExplorationFunction<Key>::modulo_;
    LinearExploration(unsigned n) : ExplorationFunction<Key>(n) {}
    unsigned operator()(const Key&, unsigned i) const {
-      return i + 1;
+      return i;
    }
 };
 
@@ -74,9 +75,6 @@ class QuadraticExploration : public ExplorationFunction<Key> {
    using ExplorationFunction<Key>::modulo_;
    QuadraticExploration(unsigned n) : ExplorationFunction<Key>(n) {}
    unsigned operator()(const Key&, unsigned i) const {
-    if (i == 0 || i == 1) {
-      return  i + 1;
-    }
     return  i * i;
    }
 };
@@ -87,7 +85,7 @@ class DoubleDispersion : public ExplorationFunction<Key> {
   DoubleDispersion(unsigned n, DispersionFunction<Key>& dispersion) 
   : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
    unsigned operator()(const Key& k, unsigned i) const {
-     return 1 + ((dispersion_(k) * i) % (this ->modulo_ - 1));
+     return dispersion_(k) * i;
    }
  private:
    DispersionFunction<Key>& dispersion_;
@@ -98,11 +96,15 @@ class Redispersion : public ExplorationFunction<Key> {
  public:
    Redispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
    unsigned operator()(const Key& k, unsigned i) const {
-     return 1 + ((dispersion_(k)) % (this ->modulo_ - 1));
+     srand(long(k));
+     unsigned displacement = 0;
+     for (unsigned j = 0; j < i; j++) {
+       displacement = rand();
+     }
+     return dispersion_(displacement);
    }
  private:
    DispersionFunction<Key>& dispersion_;
 };
-
 
 #endif
