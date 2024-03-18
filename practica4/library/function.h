@@ -94,17 +94,15 @@ class DoubleDispersion : public ExplorationFunction<Key> {
 template<class Key>
 class Redispersion : public ExplorationFunction<Key> {
  public:
-   Redispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n), dispersion_(dispersion) {}
+   Redispersion(unsigned n, DispersionFunction<Key>& dispersion) : ExplorationFunction<Key>(n) {}
    unsigned operator()(const Key& k, unsigned i) const {
      srand(long(k));
      unsigned displacement = 0;
      for (unsigned j = 0; j < i; j++) {
        displacement = rand();
      }
-     return dispersion_(displacement);
+     return displacement;
    }
- private:
-   DispersionFunction<Key>& dispersion_;
 };
 
 #endif
