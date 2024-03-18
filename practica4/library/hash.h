@@ -13,34 +13,110 @@
 
 
 
-template<class Key, class Container=staticSequence<Key>> class HashTable{
+/**
+ * @class HashTable
+ * @brief Clase que representa una tabla hash.
+ * @tparam Key Tipo de la clave que se manejará en la tabla hash.
+ * @tparam Container Tipo del contenedor que se usará en la tabla hash. Por defecto, se usa una secuencia estática.
+ */
+template<class Key, class Container=staticSequence<Key>> 
+class HashTable{
  public:
+  /**
+   * @brief Constructor que inicializa la tabla hash.
+   * @param table_size Tamaño de la tabla hash.
+   * @param dispersion Función de dispersión que se usará en la tabla hash.
+   * @param exploration Función de exploración que se usará en la tabla hash.
+   * @param blocksize Tamaño del bloque que se usará en la tabla hash.
+   */
   HashTable(unsigned table_size, DispersionFunction<Key>& dispersion, ExplorationFunction<Key>& exploration,unsigned blocksize);
+
+  /**
+   * @brief Destructor que libera la memoria ocupada por la tabla hash.
+   */
   ~HashTable();
+
+  /**
+   * @brief Muestra la tabla hash en un flujo de salida.
+   * @param os Flujo de salida donde se mostrará la tabla hash.
+   * @return Flujo de salida modificado.
+   */
   std::ostream& display(std::ostream& os) const;
+
+  /**
+   * @brief Muestra un menú de opciones para la tabla hash.
+   */
   void menu();
+
+  /**
+   * @brief Busca una clave en la tabla hash.
+   * @param K Clave a buscar.
+   * @return Verdadero si la clave se encuentra en la tabla hash, falso en caso contrario.
+   */
   bool search(const Key& K) const;
+
+  /**
+   * @brief Inserta una clave en la tabla hash.
+   * @param k Clave a insertar.
+   * @return Verdadero si la inserción fue exitosa, falso en caso contrario.
+   */
   bool insert(const Key& k);
+
  private:
-  unsigned tablesize_;
-  DispersionFunction<Key>& dispersion_;
-  ExplorationFunction<Key>& exploration_;
-  unsigned blockSize_;
-  Container** container_;
+  unsigned tablesize_; ///< Tamaño de la tabla hash.
+  DispersionFunction<Key>& dispersion_; ///< Función de dispersión que se usa en la tabla hash.
+  ExplorationFunction<Key>& exploration_; ///< Función de exploración que se usa en la tabla hash.
+  unsigned blockSize_; ///< Tamaño del bloque que se usa en la tabla hash.
+  Container** container_; ///< Contenedor que se usa en la tabla hash.
 };
 
-template<class Key> class HashTable<Key, dynamicSequence<Key> > {
+/**
+ * @class HashTable
+ * @brief Clase que representa una tabla hash con una secuencia dinámica.
+ * @tparam Key Tipo de la clave que se manejará en la tabla hash.
+ */
+template<class Key> 
+class HashTable<Key, dynamicSequence<Key> > {
  public:
+   /**
+    * @brief Constructor que inicializa la tabla hash.
+    * @param table_size Tamaño de la tabla hash.
+    * @param dispersion Función de dispersión que se usará en la tabla hash.
+    * @param exploration Función de exploración que se usará en la tabla hash.
+    */
    HashTable(unsigned table_size, DispersionFunction<Key>& dispersion, ExplorationFunction<Key>& exploration);
+
+   /**
+    * @brief Muestra la tabla hash en un flujo de salida.
+    * @param os Flujo de salida donde se mostrará la tabla hash.
+    * @return Flujo de salida modificado.
+    */
    std::ostream& display(std::ostream& os) const;
+
+   /**
+    * @brief Busca una clave en la tabla hash.
+    * @param K Clave a buscar.
+    * @return Verdadero si la clave se encuentra en la tabla hash, falso en caso contrario.
+    */
    bool search(const Key& K) const;
+
+   /**
+    * @brief Inserta una clave en la tabla hash.
+    * @param k Clave a insertar.
+    * @return Verdadero si la inserción fue exitosa, falso en caso contrario.
+    */
    bool insert(const Key& k);
+
+   /**
+    * @brief Muestra un menú de opciones para la tabla hash.
+    */
    void menu();
+
  private:
-   unsigned tablesize_;
-   DispersionFunction<Key>& dispersion_;
-   ExplorationFunction<Key>& exploration_;
-   std::vector<dynamicSequence<Key>> container_;
+   unsigned tablesize_; ///< Tamaño de la tabla hash.
+   DispersionFunction<Key>& dispersion_; ///< Función de dispersión que se usa en la tabla hash.
+   ExplorationFunction<Key>& exploration_; ///< Función de exploración que se usa en la tabla hash.
+   std::vector<dynamicSequence<Key>> container_; ///< Contenedor que se usa en la tabla hash.
 };
 
 
@@ -204,7 +280,7 @@ bool HashTable<Key,Container>::search(const Key& k) const {
 template<class Key, class Container>
 std::ostream& HashTable<Key,Container>::display(std::ostream& os) const {
   for (int i = 0; i < tablesize_; i++) {
-    os << "Poscion " << i << ": " << std::endl;  
+    os << "Posicion " << i << ": " << std::endl;  
     for (int j = 0; j < container_[i]->getInicio(); j++) {
       os << *container_[i]->getData()[j] << " ";
     }
@@ -227,7 +303,7 @@ bool HashTable<Key,Container>::insert(const Key& k) {
       unsigned exploration = exploration_(k,i);
       unsigned aux = index + exploration;
       aux = aux % tablesize_;
-      std::cout << "i = "<< index << " ex =" << exploration << "final = " << aux <<std::endl;
+      //std::cout << "i = "<< index << " ex =" << exploration << "final = " << aux <<std::endl;
       if (container_[aux]->insert(k) == true) {
         return true;
       }
