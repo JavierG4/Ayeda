@@ -10,29 +10,10 @@ Nif::Nif() {
 Nif::Nif(long num) : value(num) {}
 
 bool Nif::operator==(const Nif& other) const {
-  std::cout << value << " == " << other.value << std::endl;
+  //std::cout << value << " == " << other.value << std::endl;
   return value == other.value;
 }
 
-bool Nif::operator!=(const Nif& other) const {
-  return value != other.value;
-}
-
-bool Nif::operator<(const Nif& other) const {
-  return value < other.value;
-}
-
-bool Nif::operator>(const Nif& other) const {
-  return value > other.value;
-}
-
-bool Nif::operator<=(const Nif& other) const {
-  return value <= other.value;
-}
-
-bool Nif::operator>=(const Nif& other) const {
-  return value >= other.value;
-}
 
 Nif::operator long() const {
   return value;
