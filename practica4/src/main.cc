@@ -30,6 +30,7 @@ Codigos de la función de exploración:
 Ejemplos de uso:
 
 ./Hash -ts 5 -fd 1 -hash open -bs 5 -fe 1
+./Hash -ts 1024 -fd 0 -hash close -bs 10 -fe 0
 
 */
 int main(int argc, char* argv[]) {

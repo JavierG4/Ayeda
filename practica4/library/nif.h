@@ -52,6 +52,10 @@ class Nif {
 
  private:
   unsigned value; ///< Valor del NIF.
+  static bool init() {
+    srand(time(0));
+    return true;
+  }
 };
 
 

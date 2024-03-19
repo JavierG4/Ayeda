@@ -12,6 +12,8 @@
 #include <fstream>
 
 
+int exploration = 0;
+int full_num = 0;
 
 /**
  * @class HashTable
@@ -257,7 +259,10 @@ bool HashTable<Key,Container>::search(const Key& k) const {
       unsigned aux = exploration_(k,i);
       aux = index + aux;
       aux = aux % tablesize_;
+      //std::cout << "i = "<< index << " ex =" << aux <<std::endl;
+      exploration++;
       if (container_[aux]->isFull() == false) {
+        full_num++;
         full = false;
       }
       if (container_[aux]->search(k)) {
@@ -329,22 +334,30 @@ void HashTable<Key,Container>::menu() {
   std::cout << "Quieres pasar los Nif via terminal o txt/ 0 = terminar / 1 = txt" << std::endl;
   std::cin >> flag;
   std::vector<Nif> lista_Nif;
+  std::vector<Nif> lista_Nif2;
   if (flag == 1) {
-    std::ifstream file("nif.txt");
+    std::ifstream file("nif2.txt");
     if (!file) {
       std::cerr << "No se pudo abrir el archivo " << std::endl;
       return;
     }
     int size = 0;
     file >> size;
-    for ( int i = 0; i < size; i++) {
+    for ( int i = 0; i < size ; i++) {
       int numero = 0;
+      if ( size / 2 < i) {
+        file >> numero;
+        lista_Nif2.push_back(Nif(numero));
+      } else {
+        file >> numero;
+        lista_Nif.push_back(Nif(numero));
+      }
       file >> numero;
       lista_Nif.push_back(Nif(numero));
     }
     // Insert NIFs into hash table
     for (const auto& nif : lista_Nif) {
-      std::cout << "Inserting " << nif.get() << std::endl;
+      //std::cout << "Inserting " << nif.get() << std::endl;
       insert(nif);
     }
   } 
@@ -354,7 +367,8 @@ void HashTable<Key,Container>::menu() {
               << "0 = Exit \n"
               << "1 = Insertar nif \n"
               << "2 = Buscar nif \n"
-              << "3 = Mostrar tabla \n";
+              << "3 = Mostrar tabla \n"
+              << "4 = Contar exploracion \n";
     std::cin >> option;
     if (option == 0) {
       break;
@@ -380,8 +394,20 @@ void HashTable<Key,Container>::menu() {
       }
     } else if (option == 3) {
       display(std::cout);
+    } else if (option == 4) {
+      int exploracion = 0;
+      int size_half = tablesize_ / 2;
+      exploration = 0;
+      full_num = 0;
+      std::cout << exploration << std::endl;
+      std::cout << lista_Nif2.size() << std::endl;
+      for (int i = 0 ;i < lista_Nif2.size(); i++) {
+        search(lista_Nif2[i]);
+      }
+      std::cout << "Exploration" << exploration << std::endl;
+      std::cout << "Full num" << full_num << std::endl;
     } else {
-      std::cout << "Invalid option. Please try again.\n";
+      std::cout << "Invalid option\n";
     }
   }
 }

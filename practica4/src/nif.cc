@@ -2,8 +2,8 @@
 
 
 Nif::Nif() {
+  static bool initialized = init();
   // Generate a random 8-digit value
-  srand(time(0));
   value = rand() % 100000000;
 }
 
