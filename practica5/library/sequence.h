@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 /**
  * @class Sequence
@@ -25,7 +26,8 @@ class Sequence {
      * @return Verdadero si la inserción fue exitosa, falso en caso contrario.
      */
     virtual bool insert(const Key& k) = 0;
-    virtual Key operator[](const int&) const = 0;
+    virtual const Key& operator[](const int& p) const = 0;
+    virtual Key& operator[](const int& p) = 0;
 };
 
 /**
@@ -74,6 +76,7 @@ bool dynamicSequence<Key>::insert(const Key& k) {
   data_.push_back(newKey); // Añade el puntero al vector
   return true;
 }
+
 template<class Key>
 bool dynamicSequence<Key>::search(const Key& k) const {
   for (int i = 0; i < data_.size(); i++) {
@@ -135,8 +138,26 @@ class staticSequence: public Sequence<Key> {
 
   int getInicio() {return inicio;}
 
-  Key operator[](const int& p) const {
+  const Key& operator[](const int& p) const {
     return *data_[p];
+  }
+
+  Key& operator[](const int& p) {
+    return *data_[p];
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, staticSequence<Key>& seq) {
+    std::vector<Key*> data = seq.getData();
+    for (int i = 0; i < seq.getSize(); i++) {
+        os << *data[i] << " ";
+    }
+    return os;
+  }
+
+  void swap(int i, int f) {
+    Key* temp = data_[i];
+    data_[i] = data_[f];
+    data_[f] = temp;
   }
 
  private:
