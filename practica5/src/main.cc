@@ -26,6 +26,8 @@ de reducción alfa, siendo 0 < alfa < 1
 
 Ejemplos de uso:
 
+./Sort -size 5 -ord 2 -init 0 -trace 0
+./Sort -size 5 -ord 1 -init 0 -trace 1
 
 */
 int main(int argc, char* argv[]) {
