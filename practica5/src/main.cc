@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     i++;
     file = std::stoi(argv[7]);
   }
-  int trace = std::stoi(argv[i + 8]); // 0 = no, 1 = yes
+  bool trace = std::stoi(argv[i + 8]); // 0 = no, 1 = yes
   SortMethod<Nif>* algoritmo;
   staticSequence<Nif> data(size);
   switch (ord) {
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
       algoritmo = new RadixSort<Nif>(data, size, init);
       break;
   }
-  algoritmo->Sort(); // Hay que indicar la traza tambien
+  algoritmo->Sort(trace); // Hay que indicar la traza tambien
   delete algoritmo;
   return 0;
 }
