@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
   std::cout << "Init: " << init << std::endl;
   int i = 0;
   std::string file;
-  if (init == 2 ) {
+  if (init == 3 ) {
     i++;
     file = std::stoi(argv[7]);
   }
