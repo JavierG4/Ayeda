@@ -10,7 +10,7 @@ template<class Key>
 class SortMethod {
  public:
    SortMethod(const staticSequence<Key>& data, int size, int flag);
-   virtual void Sort() = 0;
+   virtual void Sort(bool) = 0;
 
  protected:
    staticSequence<Key> data_;
@@ -21,8 +21,8 @@ template <class Key>
 class QuickSort : public SortMethod<Key> {
  public:
    QuickSort(const staticSequence<Key>& data, int size, int flag) : SortMethod<Key>(data, size, flag) {}
-   void Sort() {
-     quickSort(this->data_, this->size_);
+   void Sort(bool trace) {
+     quickSort(this->data_, this->size_, trace);
    }
 };
 
@@ -30,8 +30,8 @@ template <class Key>
 class HeapSort : public SortMethod<Key> {
  public:
    HeapSort(const staticSequence<Key>& data, int size, int flag) : SortMethod<Key>(data, size, flag) {}
-   void Sort() {
-     heapSort(this->data_, this->size_);
+   void Sort(bool trace) {
+     heapSort(this->data_, this->size_, trace);
    }
 };
 
@@ -39,17 +39,17 @@ template <class Key>
 class Seleccion : public SortMethod<Key> {
  public:
    Seleccion(const staticSequence<Key>& data, int size, int flag) : SortMethod<Key>(data, size, flag) {}
-   void Sort() {
-     seleccionSort(this->data_, this->size_);
+   void Sort(bool trace) {
+     seleccionSort(this->data_, this->size_, trace);
    }
 };
 
 template <class Key>
 class RadixSort : public SortMethod<Key> {
  public:
-    RadixSort(const staticSequence<Key>& data, int size, int flag) : SortMethod<Key>(data, size, flag) {}
-   void Sort() {
-     radixSort(this->data_, this->size_);
+   RadixSort(const staticSequence<Key>& data, int size, int flag) : SortMethod<Key>(data, size, flag) {}
+   void Sort(bool trace) {
+     radixSort(this->data_, this->size_, trace);
    }
 };
 
@@ -57,8 +57,8 @@ template <class Key>
 class ShellSort : public SortMethod<Key> {
  public:
     ShellSort(const staticSequence<Key>& data, int size, int flag) : SortMethod<Key>(data, size, flag) {}
-   void Sort() {
-     shellSort(this->data_, this->size_);
+   void Sort(bool trace) {
+     shellSort(this->data_, this->size_, trace);
    }
 };
 

@@ -155,6 +155,7 @@ class staticSequence: public Sequence<Key> {
   }
 
   void swap(int i, int f) {
+    std::cout << "Se hace swap de " << *data_[i] << " y " << *data_[f] << std::endl;
     Key* temp = data_[i];
     data_[i] = data_[f];
     data_[f] = temp;

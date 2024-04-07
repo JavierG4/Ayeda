@@ -4,14 +4,13 @@
 #include <algorithm>
 
 template <class Key>
-void quickSort(staticSequence<Key>& data, int size) {
-  Qsort(data, 0, data.getSize() - 1);
+void quickSort(staticSequence<Key>& data, int size, bool trace) {
+  Qsort(data, 0, data.getSize() - 1, trace);
 }
 
 template <class Key>
-void Qsort(staticSequence<Key>& data, int inicio, int fin) {
+void Qsort(staticSequence<Key>& data, int inicio, int fin, bool trace) {
   int i = inicio;
-  bool trace = true;
   //std::cout << inicio << std::endl;
   int f = fin;
   //std::cout << "e" << std::endl;
@@ -19,6 +18,7 @@ void Qsort(staticSequence<Key>& data, int inicio, int fin) {
   //std::cout << medio << std::endl;
   Key p = data[medio];
   //std::cout << "t" << std::endl;
+
   while (i <= f) {
     while (data[i] < p) {
       i++;
@@ -36,24 +36,30 @@ void Qsort(staticSequence<Key>& data, int inicio, int fin) {
   }
   if (inicio < f) {
     //std::cout << data << std::endl;
-    Qsort(data, inicio, f);
+    Qsort(data, inicio, f, trace);
   }
   if (i < fin) {
     //std::cout << data << std::endl;
-    Qsort(data, i, fin);
+    Qsort(data, i, fin, trace);
   }
 }
 
 template <class Key>
-void heapSort(staticSequence<Key>& data, int n) {
+void heapSort(staticSequence<Key>& data, int n, bool trace) {
   for (int i = n/2 - 1; i >= 0; i--) { 
     baja(i, data, n);
-    std::cout << data << std::endl;
+    if ( trace ) {
+      std::cout << "Iteración " << i << ": ";
+      std::cout << data << std::endl;
+    }
   }
   for (int i = n - 1; i > 0; i--) {
     data.swap(0,i);
     baja(0,data,i);
-    std::cout << data << std::endl;
+    if ( trace ) {
+      std::cout << "Iteración " << i << ": ";
+      std::cout << data << std::endl;
+    }
   }
 }
 
@@ -81,8 +87,7 @@ void baja(int i,staticSequence<Key>& data, int n) {
 }
 
 template <class Key>
-void seleccionSort(staticSequence<Key>& sec, int n) {
-  bool trace = true;
+void seleccionSort(staticSequence<Key>& sec, int n, bool trace) {
   for (int i = 0; i < n-1; i++) {
     int min = i;
     for (int j = i+1; j < n; j++) {
@@ -101,7 +106,7 @@ void seleccionSort(staticSequence<Key>& sec, int n) {
 }
 
 template <class Key>
-void radixSort(staticSequence<Key>& data, int size) {
+void radixSort(staticSequence<Key>& data, int size, bool trace) {
   // Encuentra el número máximo para conocer el número de dígitos
   Key maxVal = data[0];
   for (int i = 1; i < size; i++) {
@@ -134,21 +139,24 @@ void radixSort(staticSequence<Key>& data, int size) {
     for (i = 0; i < size; i++) { 
       data[i] = output[i];
     }
-    std::cout << data << std::endl;
+    if ( trace ) {
+      std::cout << "Iteración " << exp << ": ";
+      std::cout << data << std::endl;
+    }
   }
 }
 
 template <class Key>
-void shellSort(staticSequence<Key>& data, int n) {
+void shellSort(staticSequence<Key>& data, int n, bool trace) {
   int delta = n ;
   while (delta > 1) {
     delta = delta / 2;
-    deltasort(delta,data, n);
+    deltasort(delta,data, n, trace);
   }
 } 
 
 template <class Key>
-void deltasort(int delta, staticSequence<Key>& sec, int n) {
+void deltasort(int delta, staticSequence<Key>& sec, int n, bool trace) {
   for (int i = delta; i < n; i++) {
     Key x = sec[i];
     int j = i;
@@ -157,6 +165,9 @@ void deltasort(int delta, staticSequence<Key>& sec, int n) {
       j = j - delta;
     }
     sec[j] = x;
-    std::cout << sec << std::endl;
+    if (trace) {
+      std::cout << "Iteración " << i << ": ";
+      std::cout << sec << std::endl;
+    }
   }
 }
