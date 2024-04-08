@@ -67,7 +67,7 @@ SortMethod<Key>::SortMethod(const staticSequence<Key>& data, int size, int flag,
   if ( flag == 0 ) { // Ramdom
     for ( int i = 0; i < size_; i++ ) {
       Key llave = Key();
-      std::cout << llave << std::endl;
+      //std::cout << llave << std::endl;
       data_.insert(llave);
     }
   } else if ( flag == 1 ) { //manual

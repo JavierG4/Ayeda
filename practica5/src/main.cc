@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
   std::string file;
   if (init == 2 ) {
     i++;
-    file = std::stoi(argv[7]);
+    file = argv[7];
   }
   bool trace = std::stoi(argv[i + 8]); // 0 = no, 1 = yes
   SortMethod<Nif>* algoritmo;
