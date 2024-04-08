@@ -114,7 +114,7 @@ void radixSort(staticSequence<Key>& data, int size, bool trace) {
       maxVal = data[i];
     }
   }
-
+  int s = 0;
   // Realiza una iteración para cada dígito. En lugar de usar el número de dígitos de maxVal,
   // se usa log(maxVal) para obtener el número de dígitos
   for (int exp = 1; maxVal/exp > 0; exp *= 10) {
@@ -140,9 +140,10 @@ void radixSort(staticSequence<Key>& data, int size, bool trace) {
       data[i] = output[i];
     }
     if ( trace ) {
-      std::cout << "Iteración " << exp << ": ";
+      std::cout << "Iteración " << s << ": ";
       std::cout << data << std::endl;
     }
+    s++;
   }
 }
 

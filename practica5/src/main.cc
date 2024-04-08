@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
   std::cout << "Init: " << init << std::endl;
   int i = 0;
   std::string file;
-  if (init == 3 ) {
+  if (init == 2 ) {
     i++;
     file = std::stoi(argv[7]);
   }
@@ -48,19 +48,19 @@ int main(int argc, char* argv[]) {
   staticSequence<Nif> data(size);
   switch (ord) {
     case 0:
-      algoritmo = new Seleccion<Nif>(data, size, init);
+      algoritmo = new Seleccion<Nif>(data, size, init, file);
       break;
     case 1:
-      algoritmo = new QuickSort<Nif>(data, size, init);
+      algoritmo = new QuickSort<Nif>(data, size, init, file);
       break;
     case 2:
-      algoritmo = new HeapSort<Nif>(data, size, init);
+      algoritmo = new HeapSort<Nif>(data, size, init, file);
       break;
     case 3:
-      algoritmo = new ShellSort<Nif>(data, size, init);
+      algoritmo = new ShellSort<Nif>(data, size, init, file);
       break;
     case 4:
-      algoritmo = new RadixSort<Nif>(data, size, init);
+      algoritmo = new RadixSort<Nif>(data, size, init, file);
       break;
   }
   algoritmo->Sort(trace); // Hay que indicar la traza tambien
