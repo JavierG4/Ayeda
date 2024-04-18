@@ -74,7 +74,9 @@ int main(int argc, char* argv[]) {
       Nif llave(numero);
       bool respuesta = arbol->Buscar(llave);
       if (respuesta) {
-        std::cout << "Se encontro al número" << numero << std::endl;
+        std::cout << "Se encontro al número " << numero << std::endl;
+      } else {
+        std::cout << "No se encontro al número " << numero << std::endl;
       }
     } else if (opcion_menu == 3) {
       arbol->Inorden();

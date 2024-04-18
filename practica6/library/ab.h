@@ -48,7 +48,7 @@ class ABB : public AB<Key>{
    void DeleteNode(NodoB<Key>* node);
    bool Buscar(const Key&);
    bool Insertar(const Key&);
-   bool InsertarRama(NodoB<Key>*, const Key&);
+   bool InsertarRama(NodoB<Key>*&, const Key&);
    void Inorden() const;
    std::ofstream& operator<<(std::ofstream&);
    const int TamRama(NodoB<Key>*);
@@ -212,6 +212,7 @@ ABB<Key>::ABB(int num) {
   raiz_ = nullptr;
   for (int i = 0; i < num; i++) {
     Key dato;
+    //std::cout << "Insertando " << dato << std::endl;
     Insertar(dato);
   }
 }
@@ -236,8 +237,8 @@ bool ABB<Key>::Insertar(const Key& clave) {
 }
 
 template<class Key>
-bool ABB<Key>::InsertarRama(NodoB<Key>* nodo, const Key& clave) {
-  if (nodo == NULL) { 
+bool ABB<Key>::InsertarRama(NodoB<Key>*& nodo, const Key& clave) {
+  if (nodo == nullptr) { 
     nodo = new NodoB<Key>(clave);
     return true;
   }
