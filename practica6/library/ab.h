@@ -1,3 +1,6 @@
+#pragma once
+
+#include <queue>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -11,7 +14,7 @@ class AB {
  public:
    virtual bool Buscar(const Key&) = 0;
    virtual bool Insertar(const Key&) = 0;
-   void Inorden() const;
+   virtual void Inorden() const = 0;
    std::ofstream& operator<<(std::ofstream&);
 
 };
@@ -22,12 +25,14 @@ class ABE : public AB<Key> {
    ABE();
    ABE(int);
    ABE(int, std::string);
+   ~ABE();
+   void DeleteNode(NodoB<Key>* node);
    bool Buscar(const Key&);
    bool Insertar(const Key&);
    void Inorden() const;
    std::ofstream& operator<<(std::ofstream&);
    const int TamRama(NodoB<Key>*);
-   bool InsertaEquilRama(const int dato, NodoB<Key>* nodo);
+   bool InsertaEquilRama(const Key& dato, NodoB<Key>* nodo);
 
  private:
    NodoB<Key>* raiz_;
@@ -39,8 +44,11 @@ class ABB : public AB<Key>{
    ABB();
    ABB(int);
    ABB(int, std::string);
+   ~ABB();
+   void DeleteNode(NodoB<Key>* node);
    bool Buscar(const Key&);
    bool Insertar(const Key&);
+   bool InsertarRama(NodoB<Key>*, const Key&);
    void Inorden() const;
    std::ofstream& operator<<(std::ofstream&);
    const int TamRama(NodoB<Key>*);
@@ -50,11 +58,25 @@ class ABB : public AB<Key>{
 };
 
 template <class Key>
+void ABE<Key>::DeleteNode(NodoB<Key>* node) {
+  if (node != nullptr) {
+    DeleteNode(node->GetIzquierda());
+    DeleteNode(node->GetDerecha());
+    delete node;
+  }
+}
+
+template <class Key>
+ABE<Key>::~ABE() {
+  DeleteNode(raiz_);
+}
+
+template <class Key>
 const int ABE<Key>::TamRama(NodoB<Key>* nodo) {
   if ( nodo == NULL ) {
     return 0;
   }
-  return (1 + TamRama(nodo->GetIzquierdo()) + TamRama(nodo->GetDerecho()) );
+  return (1 + TamRama(nodo->GetIzquierda()) + TamRama(nodo->GetDerecha()) );
 }
 
 
@@ -68,8 +90,7 @@ ABE<Key>::ABE(int num) {
   raiz_ = nullptr;
   for (int i = 0; i < num; i++) {
     Key dato;
-    NodoB<Key>* nodo = new NodoB<Key>(dato, raiz_);
-    Insertar(nodo);
+    Insertar(dato);
   }
 }
 
@@ -78,10 +99,10 @@ ABE<Key>::ABE(int num, std::string file) {
   raiz_ = nullptr;
   std::ifstream f(file);
   if (f.is_open()) {
-    Key dato;
+    int dato;
     while (f >> dato) {
-      NodoB<Key>* nodo = new NodoB<Key>(dato, raiz_);
-      Insertar(nodo);
+      Key llave(dato);
+      Insertar(dato);
     }
     f.close();
   }
@@ -89,7 +110,7 @@ ABE<Key>::ABE(int num, std::string file) {
 
 template <class Key>
 bool ABE<Key>::Buscar(const Key& dato) {
-
+  return raiz_->Buscar(dato);
 }
 
 
@@ -105,22 +126,52 @@ bool ABE<Key>::Insertar(const Key& dato) {
 }
 
 template <class Key>
-bool ABE<Key>::InsertaEquilRama(const int dato, NodoB<Key>* nodo) {
+bool ABE<Key>::InsertaEquilRama(const Key& dato, NodoB<Key>* nodo) {
   if (TamRama(nodo->GetIzquierda()) <= TamRama(nodo->GetDerecha())) {
-    if (nodo->GetIzquierda() != NULL)
+    if (nodo->GetIzquierda() != NULL) {
       InsertaEquilRama(dato, nodo->GetIzquierda());
-    else
-      nodo->GetIzquierda() = new NodoB(dato);
+    } else { 
+      nodo->GetIzquierda() = new NodoB<Key>(dato);
+    }
   }
   else {
-    if (nodo->GetDerecha() != NULL) 
+    if (nodo->GetDerecha() != NULL) {
       InsertaEquilRama(dato, nodo->GetDerecha());
-    else
-      nodo->GetDerecha() = new NodoB(dato);
+    } else {
+      nodo->GetDerecha() = new NodoB<Key>(dato);
+    }
   }
 }
 
+template <class Key>
+void ABE<Key>::Inorden() const {
+  if (raiz_ == nullptr) {
+    return;
+  }
+  std::queue<NodoB<Key> *> nodes;
+  nodes.push(raiz_);
+  int level = 1;
+  while (!nodes.empty()) {
+    int nodeCount = nodes.size();
+    std::cout << "nivel " << level << " ";
+    while (nodeCount > 0) {
+      NodoB<Key> *current = nodes.front();
+      nodes.pop();
 
+      if (current == nullptr) {
+        std::cout << "[.] ";
+      }
+      else {
+        std::cout << "[" << current->GetDato() << "] ";
+        nodes.push(current->GetIzquierda());
+        nodes.push(current->GetDerecha());
+      }
+      nodeCount--;
+    }
+    std::cout << std::endl;
+    level++;
+  }
+}
 
 //ABB
 
@@ -132,3 +183,96 @@ const int ABB<Key>::TamRama(NodoB<Key>* nodo) {
   return (1 + TamRama(nodo->GetIzquierda()) + TamRama(nodo->GetDerecha()) );
 }
 
+template <class Key>
+void ABB<Key>::DeleteNode(NodoB<Key>* node) {
+  if (node != nullptr) {
+    DeleteNode(node->GetIzquierda());
+    DeleteNode(node->GetDerecha());
+    delete node;
+  }
+}
+
+template <class Key>
+ABB<Key>::~ABB() {
+  DeleteNode(raiz_);
+}
+
+template <class Key>
+bool ABB<Key>::Buscar(const Key& dato) {
+  return raiz_->Buscar(dato);
+}
+
+template <class Key>
+ABB<Key>::ABB() {
+  raiz_ = nullptr;
+}
+
+template <class Key>
+ABB<Key>::ABB(int num) {
+  raiz_ = nullptr;
+  for (int i = 0; i < num; i++) {
+    Key dato;
+    Insertar(dato);
+  }
+}
+
+template <class Key>
+ABB<Key>::ABB(int num, std::string file) {
+  raiz_ = nullptr;
+  std::ifstream f(file);
+  if (f.is_open()) {
+      int dato;
+    while (f >> dato) {
+      Key llave(dato);
+      Insertar(llave);
+    }
+    f.close();
+  }
+}
+
+template <class Key>
+bool ABB<Key>::Insertar(const Key& clave) {
+  return InsertarRama(raiz_, clave); 
+}
+
+template<class Key>
+bool ABB<Key>::InsertarRama(NodoB<Key>* nodo, const Key& clave) {
+  if (nodo == NULL) { 
+    nodo = new NodoB<Key>(clave);
+    return true;
+  }
+  else if (clave < nodo->GetDato()) { 
+    return InsertarRama(nodo->GetIzquierda(), clave);
+  }
+  else {
+    return InsertarRama(nodo->GetDerecha(), clave); 
+  }
+} 
+
+template <class Key>
+void ABB<Key>::Inorden() const {
+  if (raiz_ == nullptr) {
+    return;
+  }
+  std::queue<NodoB<Key> *> nodes;
+  nodes.push(raiz_);
+  int level = 1;
+  while (!nodes.empty()) {
+    int nodeCount = nodes.size();
+    std::cout << "nivel " << level << " ";
+    while (nodeCount > 0) {
+      NodoB<Key> *current = nodes.front();
+      nodes.pop();
+      if (current == nullptr) {
+        std::cout << "[.] ";
+      } else {
+        std::cout << "[" << current->GetDato() << "] ";
+        nodes.push(current->GetIzquierda());
+        nodes.push(current->GetDerecha());
+      }
+      nodeCount--;
+    }
+    std::cout << std::endl;
+    level++;
+  }
+}

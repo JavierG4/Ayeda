@@ -16,6 +16,10 @@ i=random [s], s es el número de elementos a generar
 i=file [s][f], s es el número de elementos a generar
 f es nombre del fichero de entrada
 
+
+Formas de ejecutralo
+./Arbol -ab abe -init ramdom 5
+
 */
 
 int main(int argc, char* argv[]) {
@@ -31,16 +35,18 @@ int main(int argc, char* argv[]) {
     } else {
       int num = std::stoi(argv[5]);
       std::string file = argv[6];
+      arbol = new ABE<Nif>(num,file);
     }
   } else {
     if (init == "manual" ) {
-
+      arbol = new ABB<Nif>();
     } else if (init == "ramdom" ) {
       int num = std::stoi(argv[5]);
-
+      arbol = new ABB<Nif>(num);
     } else {
       int num = std::stoi(argv[5]);
       std::string file = argv[6];
+      arbol = new ABB<Nif>(num,file);
     }
   }
   //Menú
@@ -51,14 +57,25 @@ int main(int argc, char* argv[]) {
     std::cout << "[1] Insertar \n";
     std::cout << "[2] Buscar \n";
     std::cout << "[3] Mostrar árbol inorden\n";
-    std::cin << opcion_menu;
+    std::cin >> opcion_menu;
     if (opcion_menu == 0) {
       salir = true;
     } else if ( opcion_menu == 1) {
-      arbol->Insertar();
+      int numero;
+      std::cout << "Valor a insertar" << std::endl;
+      std::cin >> numero;
+      Nif llave(numero);
+      arbol->Insertar(llave);
       arbol->Inorden();
     } else if ( opcion_menu == 2) {
-      arbol->Buscar();
+      int numero;
+      std::cout << "Valor a Buscar" << std::endl;
+      std::cin >> numero;
+      Nif llave(numero);
+      bool respuesta = arbol->Buscar(llave);
+      if (respuesta) {
+        std::cout << "Se encontro al número" << numero << std::endl;
+      }
     } else if (opcion_menu == 3) {
       arbol->Inorden();
     } else {
