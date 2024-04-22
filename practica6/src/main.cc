@@ -51,6 +51,7 @@ int main(int argc, char* argv[]) {
   }
   //Menú
   bool salir = false;
+  (*arbol).operator<<(std::cout);
   while ( salir == false ) {
     int opcion_menu;
     std::cout << "[0] Salir \n";
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]) {
       std::cin >> numero;
       Nif llave(numero);
       arbol->Insertar(llave);
-      arbol->Inorden();
+      (*arbol).operator<<(std::cout);
     } else if ( opcion_menu == 2) {
       int numero;
       std::cout << "Valor a Buscar" << std::endl;

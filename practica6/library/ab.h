@@ -15,7 +15,8 @@ class AB {
    virtual bool Buscar(const Key&) = 0;
    virtual bool Insertar(const Key&) = 0;
    virtual void Inorden() const = 0;
-   std::ofstream& operator<<(std::ofstream&);
+   virtual void Print() const = 0;
+   virtual std::ostream& operator<<(std::ostream&)  = 0;
 
 };
 
@@ -26,12 +27,14 @@ class ABE : public AB<Key> {
    ABE(int);
    ABE(int, std::string);
    ~ABE();
+   void Print() const;
    void DeleteNode(NodoB<Key>* node);
    bool Buscar(const Key&);
    bool Insertar(const Key&);
    void Inorden() const;
-   std::ofstream& operator<<(std::ofstream&);
+   std::ostream& operator<<(std::ostream&) ;
    const int TamRama(NodoB<Key>*);
+   void InordenRama(NodoB<Key>* nodo) const;
    bool InsertaEquilRama(const Key& dato, NodoB<Key>* nodo);
 
  private:
@@ -45,17 +48,31 @@ class ABB : public AB<Key>{
    ABB(int);
    ABB(int, std::string);
    ~ABB();
+   void Print() const;
    void DeleteNode(NodoB<Key>* node);
    bool Buscar(const Key&);
    bool Insertar(const Key&);
    bool InsertarRama(NodoB<Key>*&, const Key&);
    void Inorden() const;
-   std::ofstream& operator<<(std::ofstream&);
+   std::ostream& operator<<(std::ostream&) ;
+   void InordenRama(NodoB<Key>* ) const;
    const int TamRama(NodoB<Key>*);
 
  private:
    NodoB<Key>* raiz_;
 };
+
+template <class Key>
+void ABE<Key>::Print() const {
+  //operator<<(std::cout);
+}
+
+template <class Key>
+void ABB<Key>::Print() const {
+  //operator<<(std::cout);
+}
+
+
 
 template <class Key>
 void ABE<Key>::DeleteNode(NodoB<Key>* node) {
@@ -113,14 +130,28 @@ bool ABE<Key>::Buscar(const Key& dato) {
   return raiz_->Buscar(dato);
 }
 
+template <class Key>
+void ABE<Key>::Inorden() const {
+  InordenRama(raiz_);
+}
+
+template <class Key>
+void ABE<Key>::InordenRama(NodoB<Key>* nodo) const {
+  if (nodo != nullptr) {
+    InordenRama(nodo->GetIzquierda());
+    std::cout << nodo->GetDato() << " " << std::endl;
+    InordenRama(nodo->GetDerecha());
+  }
+}
 
 template <class Key>
 bool ABE<Key>::Insertar(const Key& dato) {
   if (raiz_ == NULL) { 
     raiz_ = new NodoB(dato);
     return true;
-  }
-  else {
+  } else if (Buscar(dato)) {
+    return false;
+  } else {
     return InsertaEquilRama(dato, raiz_); 
   }
 }
@@ -132,6 +163,7 @@ bool ABE<Key>::InsertaEquilRama(const Key& dato, NodoB<Key>* nodo) {
       InsertaEquilRama(dato, nodo->GetIzquierda());
     } else { 
       nodo->GetIzquierda() = new NodoB<Key>(dato);
+      return true;
     }
   }
   else {
@@ -139,38 +171,39 @@ bool ABE<Key>::InsertaEquilRama(const Key& dato, NodoB<Key>* nodo) {
       InsertaEquilRama(dato, nodo->GetDerecha());
     } else {
       nodo->GetDerecha() = new NodoB<Key>(dato);
+      return true;
     }
   }
+  return false;
 }
 
 template <class Key>
-void ABE<Key>::Inorden() const {
+std::ostream& ABB<Key>::operator<<(std::ostream& out) {
   if (raiz_ == nullptr) {
-    return;
+    return out;
   }
   std::queue<NodoB<Key> *> nodes;
   nodes.push(raiz_);
   int level = 1;
   while (!nodes.empty()) {
     int nodeCount = nodes.size();
-    std::cout << "nivel " << level << " ";
+    out << "nivel " << level << " ";
     while (nodeCount > 0) {
       NodoB<Key> *current = nodes.front();
       nodes.pop();
-
       if (current == nullptr) {
-        std::cout << "[.] ";
-      }
-      else {
-        std::cout << "[" << current->GetDato() << "] ";
+        out << "[.] ";
+      } else {
+        out << "[" << current->GetDato() << "] ";
         nodes.push(current->GetIzquierda());
         nodes.push(current->GetDerecha());
       }
       nodeCount--;
     }
-    std::cout << std::endl;
+    out << std::endl;
     level++;
   }
+  return out;
 }
 
 //ABB
@@ -233,7 +266,11 @@ ABB<Key>::ABB(int num, std::string file) {
 
 template <class Key>
 bool ABB<Key>::Insertar(const Key& clave) {
-  return InsertarRama(raiz_, clave); 
+  if ( Buscar(clave) ) {
+    return false;
+  }
+  bool opcion = InsertarRama(raiz_, clave); 
+  return opcion;
 }
 
 template<class Key>
@@ -252,28 +289,43 @@ bool ABB<Key>::InsertarRama(NodoB<Key>*& nodo, const Key& clave) {
 
 template <class Key>
 void ABB<Key>::Inorden() const {
+  InordenRama(raiz_);
+}
+
+template <class Key>
+void ABB<Key>::InordenRama(NodoB<Key>* nodo) const {
+  if (nodo != nullptr) {
+    InordenRama(nodo->GetIzquierda());
+    std::cout << nodo->GetDato() << " " << std::endl;
+    InordenRama(nodo->GetDerecha());
+  }
+}
+
+template <class Key>
+std::ostream& ABE<Key>::operator<<(std::ostream& out) {
   if (raiz_ == nullptr) {
-    return;
+    return out;
   }
   std::queue<NodoB<Key> *> nodes;
   nodes.push(raiz_);
   int level = 1;
   while (!nodes.empty()) {
     int nodeCount = nodes.size();
-    std::cout << "nivel " << level << " ";
+    out << "nivel " << level << " ";
     while (nodeCount > 0) {
       NodoB<Key> *current = nodes.front();
       nodes.pop();
       if (current == nullptr) {
-        std::cout << "[.] ";
+        out << "[.] ";
       } else {
-        std::cout << "[" << current->GetDato() << "] ";
+        out << "[" << current->GetDato() << "] ";
         nodes.push(current->GetIzquierda());
         nodes.push(current->GetDerecha());
       }
       nodeCount--;
     }
-    std::cout << std::endl;
+    out << std::endl;
     level++;
   }
+  return out;
 }
