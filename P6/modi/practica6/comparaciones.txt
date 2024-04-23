@@ -1,0 +1,8 @@
+Numero de claves generadas  Numero de comparaciones                             
+50                             29
+100                            35
+250                            44
+500                            62
+1000                           71
+2000                           71
+5000                           80
